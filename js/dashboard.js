@@ -80,15 +80,19 @@ document.addEventListener('DOMContentLoaded', () => {
   initLeafletMaps();
   initCBT();
   startLiveClock();
+  if (window.lucide) {
+    lucide.createIcons();
+  }
 });
 
 // Setup user data from session or demo
 function setupUserSession() {
   const user = (typeof getCurrentUser === 'function') ? getCurrentUser() : {
-    name: 'Bpk. Hendro, S.Kom',
-    role: 'guru',
-    roleLabel: 'Guru Produktif RPL',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150'
+    name: 'Bagus Permadi',
+    role: 'siswa',
+    roleLabel: 'Siswa • XII RPL 1',
+    nisn: '0058291042',
+    avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=150'
   };
 
   const nameEl = document.getElementById('user-display-name');
@@ -98,6 +102,13 @@ function setupUserSession() {
   if (nameEl) nameEl.innerText = user.name;
   if (roleEl) roleEl.innerText = user.roleLabel;
   if (avatarEl) avatarEl.src = user.avatar;
+
+  const dropName = document.getElementById('dropdown-user-name');
+  const dropRole = document.getElementById('dropdown-user-role');
+  const dropSub = document.getElementById('dropdown-user-sub');
+  if (dropName) dropName.innerText = user.name;
+  if (dropRole) dropRole.innerText = user.roleLabel;
+  if (dropSub) dropSub.innerText = user.nisn ? `NISN: ${user.nisn}` : (user.role === 'guru' ? 'NIP: 198402122008011004' : 'Akun Resmi eDupu');
 
   // Set default view based on user role
   if (user.defaultView) {
@@ -121,8 +132,8 @@ function switchView(viewName) {
     target.classList.add('animate-fade-in');
   }
 
-  // Update Sidebar Nav active state
-  document.querySelectorAll('.sidebar-nav-btn').forEach(btn => {
+  // Update Sidebar Nav active state (supports both sidebar-nav-btn and instructor-nav-link)
+  document.querySelectorAll('.sidebar-nav-btn, .instructor-nav-link').forEach(btn => {
     btn.classList.remove('active');
   });
   const activeBtn = document.getElementById(`side-${viewName}`);
@@ -158,11 +169,46 @@ function switchView(viewName) {
   if (hTitle) hTitle.innerText = headerInfo.title;
   if (hSub) hSub.innerText = headerInfo.sub;
 
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+
   // Invalidate Leaflet maps to adjust canvas size
   setTimeout(() => {
     if (mapSafetac) mapSafetac.invalidateSize();
     if (mapStudent) mapStudent.invalidateSize();
   }, 200);
+}
+
+// Profile Dropdown Controls
+function toggleProfileDropdown(e) {
+  if (e) e.stopPropagation();
+  const dropdown = document.getElementById('profile-dropdown-menu');
+  if (dropdown) {
+    dropdown.classList.toggle('hidden');
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  }
+}
+
+function closeProfileDropdown() {
+  const dropdown = document.getElementById('profile-dropdown-menu');
+  if (dropdown) {
+    dropdown.classList.add('hidden');
+  }
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  const dropdown = document.getElementById('profile-dropdown-menu');
+  const btn = document.getElementById('btn-profile-dropdown');
+  if (dropdown && !dropdown.classList.contains('hidden')) {
+    if (btn && !btn.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.classList.add('hidden');
+    }
+  }
+});
 }
 
 // Chart.js: Attendance Statistics
@@ -180,14 +226,14 @@ function initAttendanceChart() {
         {
           label: 'Hadir Tepat Waktu',
           data: [26, 28, 24, 29, 27, 25, 29],
-          backgroundColor: '#7c3aed',
+          backgroundColor: '#2563eb',
           borderRadius: 6,
           barThickness: 10,
         },
         {
           label: 'Terlambat / Izin',
           data: [3, 2, 4, 1, 3, 2, 1],
-          backgroundColor: '#ddd6fe',
+          backgroundColor: '#bfdbfe',
           borderRadius: 6,
           barThickness: 10,
         }

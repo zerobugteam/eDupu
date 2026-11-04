@@ -59,6 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (loginForm) {
     selectRole('siswa');
   }
+  if (window.lucide) {
+    lucide.createIcons();
+  }
 });
 
 // Select Role Tabs on Login Form
@@ -68,9 +71,9 @@ function selectRole(role) {
   // Update Tab Button Styles
   document.querySelectorAll('.role-pill-btn').forEach(btn => {
     if (btn.getAttribute('data-role') === role) {
-      btn.className = 'role-pill-btn active py-2.5 px-4 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2';
+      btn.classList.add('active');
     } else {
-      btn.className = 'role-pill-btn py-2.5 px-4 rounded-xl text-xs font-medium transition flex items-center justify-center gap-2';
+      btn.classList.remove('active');
     }
   });
 
@@ -133,7 +136,8 @@ function performLogin(account) {
   const submitBtn = document.getElementById('btn-submit-login');
   if (submitBtn) {
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Mengautentikasi...';
+    submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Mengautentikasi...</span>';
+    if (window.lucide) lucide.createIcons();
   }
 
   // Save to localStorage
@@ -174,11 +178,12 @@ function togglePasswordVisibility() {
 
   if (input.type === 'password') {
     input.type = 'text';
-    icon.className = 'fa-regular fa-eye-slash';
+    icon.innerHTML = '<i data-lucide="eye-off" class="w-4 h-4"></i>';
   } else {
     input.type = 'password';
-    icon.className = 'fa-regular fa-eye';
+    icon.innerHTML = '<i data-lucide="eye" class="w-4 h-4"></i>';
   }
+  if (window.lucide) lucide.createIcons();
 }
 
 // Logout

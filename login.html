@@ -5,16 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Masuk ke Sistem • eDupu SMK Puger (APK Learning)</title>
   
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%237c3aed'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+  <!-- Favicon / Icon URL (eDupu SMK Puger) -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/edupulogo.png">
+  <link rel="shortcut icon" href="favicon.ico">
 
   <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   
-  <!-- FontAwesome Icons 6 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Lucide Icons (Official Icon Set for Shadcn UI) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -27,17 +30,17 @@
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            primary: {
-              50: '#f5f3ff',
-              100: '#ede9fe',
-              200: '#ddd6fe',
-              300: '#c4b5fd',
-              400: '#a78bfa',
-              500: '#8b5cf6',
-              600: '#7c3aed',
-              700: '#6d28d9',
-              800: '#5b21b6',
-              900: '#4c1d95',
+            lms: {
+              primary: '#2563eb',
+              'primary-hover': '#1d4ed8',
+              'primary-light': '#eff6ff',
+              secondary: '#0f172a',
+              blue: '#2563eb',
+              'blue-light': '#eff6ff',
+              green: '#059669',
+              'green-light': '#ecfdf5',
+              yellow: '#f59e0b',
+              purple: '#6366f1',
             }
           }
         }
@@ -49,190 +52,204 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/login.css">
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex items-center justify-center p-3 sm:p-6">
+<body class="min-h-screen w-screen flex flex-col lg:flex-row bg-white antialiased font-sans overflow-x-hidden selection:bg-blue-600 selection:text-white">
 
-  <!-- Back to Home Floating Button -->
-  <a href="index.html" class="fixed top-5 left-5 z-50 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200 text-xs font-bold text-slate-700 hover:text-primary-600 shadow-sm transition">
-    <i class="fa-solid fa-arrow-left"></i>
-    <span class="hidden sm:inline">Kembali ke Beranda</span>
-  </a>
-
-  <!-- ============================================================== -->
-  <!-- LOGIN CONTAINER -->
-  <!-- ============================================================== -->
-  <div class="auth-card flex flex-col lg:flex-row w-full max-w-[1050px]">
+  <!-- ============================================================ -->
+  <!-- LEFT PANEL: FULL-HEIGHT BRANDING & SYSTEM OVERVIEW           -->
+  <!-- ============================================================ -->
+  <aside class="lg:w-5/12 xl:w-5/12 bg-slate-50 border-r border-slate-200/80 p-6 sm:p-10 lg:p-12 flex flex-col justify-between shrink-0">
     
-    <!-- ============================================================ -->
-    <!-- LEFT PANEL: BRANDING & VISUAL -->
-    <!-- ============================================================ -->
-    <div class="auth-brand-side lg:w-5/12 p-8 sm:p-12 text-white flex flex-col justify-between relative">
-      
-      <!-- Top Branding -->
-      <div>
-        <div class="flex items-center gap-3 mb-6">
-          <div class="w-11 h-11 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-inner">
-            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
-          </div>
-          <div>
-            <h2 class="text-xl font-extrabold tracking-tight">eDupu • SMK Puger</h2>
-            <p class="text-xs text-purple-200">Sistem Pembelajaran Terintegrasi</p>
-          </div>
-        </div>
+    <!-- Top: Back Button + Official Logo -->
+    <div>
+      <a href="index.html" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-blue-600 transition group" title="Kembali ke Beranda">
+        <i data-lucide="arrow-left" class="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition"></i>
+        <span>Kembali ke Beranda</span>
+      </a>
 
-        <div class="space-y-4 my-8">
-          <h1 class="text-2xl sm:text-3xl font-extrabold leading-snug">
-            Portal Pembelajaran Digital & Presensi Cerdas
-          </h1>
-          <p class="text-xs sm:text-sm text-purple-200 leading-relaxed">
-            Akses absensi GPS geofence, modul ujian digital CBT autosave, dan lembar capaian nilai dalam satu pintu terpadu.
-          </p>
-        </div>
+      <div class="mt-8">
+        <img src="assets/edupufull.png" alt="eDupu SMK Puger" class="h-11 sm:h-12 w-auto object-contain">
       </div>
-
-      <!-- Feature Pills on Left -->
-      <div class="space-y-3 pt-6 border-t border-white/10 text-xs">
-        <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-emerald-300 shrink-0">
-            <i class="fa-solid fa-location-dot"></i>
-          </span>
-          <span class="text-purple-100">Presensi Geofence Radius 80m</span>
-        </div>
-        <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-indigo-300 shrink-0">
-            <i class="fa-solid fa-laptop-code"></i>
-          </span>
-          <span class="text-purple-100">Ujian Online CBT & Anti-Cheat</span>
-        </div>
-        <div class="flex items-center gap-3">
-          <span class="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-amber-300 shrink-0">
-            <i class="fa-solid fa-file-invoice"></i>
-          </span>
-          <span class="text-purple-100">Leger Rapor Kurikulum Merdeka</span>
-        </div>
-      </div>
-
-      <!-- Footer Info on Left -->
-      <div class="mt-8 pt-4 text-[11px] text-purple-300">
-        &copy; 2026 SMK Puger • Jember, Jawa Timur
-      </div>
-
     </div>
 
-    <!-- ============================================================ -->
-    <!-- RIGHT PANEL: LOGIN FORM -->
-    <!-- ============================================================ -->
-    <div class="lg:w-7/12 p-8 sm:p-12 bg-white flex flex-col justify-center">
-      
-      <div class="max-w-md mx-auto w-full space-y-6">
+    <!-- Middle: System Description & Highlights -->
+    <div class="space-y-6 my-8 lg:my-0">
+      <div class="space-y-2">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug">
+          Portal Pembelajaran Digital & Presensi Cerdas
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
+          Sistem informasi pembelajaran terpadu SMK Puger Jember untuk absensi GPS geofence, modul ujian digital CBT autosave, dan administrasi akademik.
+        </p>
+      </div>
+
+      <!-- Feature Badges (Shadcn style with Lucide icons) -->
+      <div class="space-y-3 pt-2">
         
-        <div>
-          <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Selamat Datang!</h2>
-          <p class="text-xs text-slate-500 mt-1">Pilih role Anda dan masukkan kredensial untuk melanjutkan ke sistem.</p>
-        </div>
-
-        <!-- Role Selector Tabs -->
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-2">Pilih Role Akses:</label>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 bg-slate-100 rounded-2xl">
-            <button type="button" onclick="selectRole('siswa')" data-role="siswa" class="role-pill-btn active py-2.5 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-user-graduate text-xs"></i>
-              <span>Siswa</span>
-            </button>
-            <button type="button" onclick="selectRole('guru')" data-role="guru" class="role-pill-btn py-2.5 px-2 rounded-xl text-xs font-medium transition flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-chalkboard-user text-xs"></i>
-              <span>Guru</span>
-            </button>
-            <button type="button" onclick="selectRole('admin')" data-role="admin" class="role-pill-btn py-2.5 px-2 rounded-xl text-xs font-medium transition flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-user-gear text-xs"></i>
-              <span>Admin TU</span>
-            </button>
-            <button type="button" onclick="selectRole('kepsek')" data-role="kepsek" class="role-pill-btn py-2.5 px-2 rounded-xl text-xs font-medium transition flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-shield text-xs"></i>
-              <span>Kepsek</span>
-            </button>
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
+          <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100 mt-0.5">
+            <i data-lucide="map-pin" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-slate-800">Presensi Geofence Radius 80m</div>
+            <div class="text-[11px] text-slate-500 leading-normal">Validasi kehadiran otomatis di gerbang kampus sekolah</div>
           </div>
         </div>
 
-        <!-- Login Form -->
-        <form id="login-form" onsubmit="handleLoginSubmit(event)" class="space-y-4">
-          
-          <!-- Username / NISN Input -->
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
+          <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100 mt-0.5">
+            <i data-lucide="laptop" class="w-4 h-4"></i>
+          </div>
           <div>
-            <label id="login-id-label" class="block text-xs font-bold text-slate-700 mb-1.5">
-              Nomor Induk Siswa Nasional (NISN)
-            </label>
-            <div class="input-with-icon">
-              <input type="text" id="login-id" required class="w-full h-11 px-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition" placeholder="Contoh: 0058291042">
-              <i class="fa-solid fa-id-card text-xs"></i>
-            </div>
+            <div class="text-xs font-bold text-slate-800">Ujian Online CBT & Anti-Curang</div>
+            <div class="text-[11px] text-slate-500 leading-normal">Autosave jawaban real-time & deteksi navigasi ujian</div>
           </div>
+        </div>
 
-          <!-- Password Input -->
+        <div class="flex items-start gap-3 p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
+          <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 border border-indigo-100 mt-0.5">
+            <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+          </div>
           <div>
-            <div class="flex items-center justify-between mb-1.5">
-              <label class="text-xs font-bold text-slate-700">Kata Sandi</label>
-              <a href="javascript:void(0)" onclick="alert('Silakan hubungi administrator Tata Usaha SMK Puger di ruang TU untuk reset kata sandi akun Anda.')" class="text-[11px] font-semibold text-primary-600 hover:text-primary-700">
-                Lupa Sandi?
-              </a>
-            </div>
-            <div class="input-with-icon relative">
-              <input type="password" id="login-password" required class="w-full h-11 px-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition" placeholder="Masukkan kata sandi">
-              <i class="fa-solid fa-lock text-xs"></i>
-              <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3.5 text-slate-400 hover:text-slate-600 text-xs">
-                <i class="fa-regular fa-eye" id="toggle-eye-icon"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- Remember me checkbox -->
-          <div class="flex items-center">
-            <input type="checkbox" id="remember-me" checked class="w-4 h-4 text-primary-600 focus:ring-primary-500 rounded border-slate-300 cursor-pointer">
-            <label for="remember-me" class="ml-2 text-xs text-slate-600 cursor-pointer">Ingat sesi saya di perangkat ini</label>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="submit" id="btn-submit-login" class="w-full py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-extrabold text-xs shadow-md shadow-primary-600/25 transition flex items-center justify-center gap-2">
-            <span>Masuk ke Dashboard</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </form>
-
-        <!-- ======================================================== -->
-        <!-- 1-CLICK QUICK DEMO LOGIN BUTTONS -->
-        <!-- ======================================================== -->
-        <div class="pt-4 border-t border-slate-100 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Akses Cepat Pengujian (1-Click Demo):</span>
-            <span class="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">Siap Diuji</span>
-          </div>
-          
-          <div class="grid grid-cols-3 gap-2">
-            <button type="button" onclick="quickLogin('siswa')" class="demo-badge-btn p-2 rounded-xl text-center bg-slate-50 hover:bg-primary-50 transition">
-              <span class="block text-xs font-bold text-slate-800">Siswa Demo</span>
-              <span class="block text-[10px] text-slate-400">Bagus (XII RPL 1)</span>
-            </button>
-            <button type="button" onclick="quickLogin('guru')" class="demo-badge-btn p-2 rounded-xl text-center bg-orange-50/60 hover:bg-orange-100/80 border-orange-200 transition">
-              <span class="block text-xs font-bold text-orange-800">Guru Demo</span>
-              <span class="block text-[10px] text-orange-600 font-semibold">DreamsLMS Style</span>
-            </button>
-            <button type="button" onclick="quickLogin('admin')" class="demo-badge-btn p-2 rounded-xl text-center bg-slate-50 hover:bg-primary-50 transition">
-              <span class="block text-xs font-bold text-slate-800">Admin TU</span>
-              <span class="block text-[10px] text-slate-400">Ibu Siti Rahayu</span>
-            </button>
+            <div class="text-xs font-bold text-slate-800">Leger Nilai Kurikulum Merdeka</div>
+            <div class="text-[11px] text-slate-500 leading-normal">Kalkulasi capaian kompetensi siap sinkronisasi Dapodik</div>
           </div>
         </div>
 
       </div>
+    </div>
+
+    <!-- Bottom: Copyright & Status -->
+    <div class="pt-6 border-t border-slate-200/80 flex items-center justify-between text-[11px] text-slate-400">
+      <span>&copy; 2026 SMK Puger • Jember, Jatim</span>
+      <span class="inline-flex items-center gap-1.5 font-semibold text-emerald-600">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+        <span>Sistem Aktif</span>
+      </span>
+    </div>
+
+  </aside>
+
+  <!-- ============================================================ -->
+  <!-- RIGHT PANEL: FULL-HEIGHT AUTH FORM (CLEAN SHADCN UI STYLE)  -->
+  <!-- ============================================================ -->
+  <main class="flex-1 flex flex-col justify-center items-center p-6 sm:p-10 lg:p-14 bg-white overflow-y-auto">
+    
+    <div class="w-full max-w-md space-y-6 my-auto">
+      
+      <!-- Heading -->
+      <div class="space-y-1">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Selamat Datang!</h2>
+        <p class="text-xs text-slate-500">Pilih role Anda dan masukkan kredensial untuk melanjutkan ke sistem.</p>
+      </div>
+
+      <!-- Role Selector Tabs (Shadcn style toggle group) -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold text-slate-700">Pilih Role Akses:</label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 p-1 bg-slate-100 rounded-xl">
+          <button type="button" onclick="selectRole('siswa')" data-role="siswa" class="role-pill-btn active py-2 px-2.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5">
+            <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
+            <span>Siswa</span>
+          </button>
+          <button type="button" onclick="selectRole('guru')" data-role="guru" class="role-pill-btn py-2 px-2.5 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1.5">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+            <span>Guru</span>
+          </button>
+          <button type="button" onclick="selectRole('admin')" data-role="admin" class="role-pill-btn py-2 px-2.5 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1.5">
+            <i data-lucide="user-cog" class="w-3.5 h-3.5"></i>
+            <span>Admin TU</span>
+          </button>
+          <button type="button" onclick="selectRole('kepsek')" data-role="kepsek" class="role-pill-btn py-2 px-2.5 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1.5">
+            <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+            <span>Kepsek</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+        
+        <!-- Username / NISN Input -->
+        <div>
+          <label id="login-id-label" class="block text-xs font-bold text-slate-700 mb-1.5">
+            Nomor Induk Siswa Nasional (NISN)
+          </label>
+          <div class="input-with-icon">
+            <i data-lucide="user" class="w-4 h-4 input-icon-left"></i>
+            <input type="text" id="login-id" required class="w-full h-11 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:bg-white transition" placeholder="Contoh: 0058291042">
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="text-xs font-bold text-slate-700">Kata Sandi</label>
+            <a href="javascript:void(0)" onclick="alert('Silakan hubungi administrator Tata Usaha SMK Puger di ruang TU untuk reset kata sandi akun Anda.')" class="text-[11px] font-semibold text-blue-600 hover:text-blue-700 transition">
+              Lupa Sandi?
+            </a>
+          </div>
+          <div class="input-with-icon relative">
+            <i data-lucide="lock" class="w-4 h-4 input-icon-left"></i>
+            <input type="password" id="login-password" required class="w-full h-11 pr-10 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:bg-white transition" placeholder="Masukkan kata sandi">
+            <button type="button" onclick="togglePasswordVisibility()" id="toggle-eye-icon" class="absolute right-3.5 text-slate-400 hover:text-slate-600 p-1" title="Lihat/Sembunyikan Sandi">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Remember me checkbox -->
+        <div class="flex items-center">
+          <input type="checkbox" id="remember-me" checked class="w-4 h-4 text-blue-600 focus:ring-blue-500 rounded border-slate-300 cursor-pointer">
+          <label for="remember-me" class="ml-2 text-xs text-slate-600 cursor-pointer select-none">
+            Ingat sesi saya di perangkat ini
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="btn-submit-login" class="w-full h-11 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm hover:shadow transition flex items-center justify-center gap-2">
+          <span>Masuk ke Dashboard</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </form>
+
+      <!-- ======================================================== -->
+      <!-- 1-CLICK QUICK DEMO LOGIN BUTTONS (RESPONSIF, TANPA TIMPA) -->
+      <!-- ======================================================== -->
+      <div class="pt-5 border-t border-slate-100 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Akses Cepat Pengujian (1-Click Demo):</span>
+          <span class="text-[10px] text-emerald-700 font-bold bg-emerald-50 border border-emerald-200/60 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+            <i data-lucide="check" class="w-3 h-3 text-emerald-600"></i>
+            <span>Siap Diuji</span>
+          </span>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <button type="button" onclick="quickLogin('siswa')" class="demo-badge-btn p-3 rounded-xl text-left sm:text-center transition" title="Login Cepat sebagai Siswa">
+            <span class="block text-xs font-bold text-slate-800">Siswa Demo</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5 truncate">Bagus (XII RPL 1)</span>
+          </button>
+          <button type="button" onclick="quickLogin('guru')" class="demo-badge-btn p-3 rounded-xl text-left sm:text-center border-blue-200 bg-blue-50/60 hover:bg-blue-100/70 transition" title="Login Cepat sebagai Guru Produktif">
+            <span class="block text-xs font-bold text-blue-700">Guru Demo</span>
+            <span class="block text-[10px] text-blue-600 font-semibold mt-0.5 truncate">Bpk. Hendro, S.Kom</span>
+          </button>
+          <button type="button" onclick="quickLogin('admin')" class="demo-badge-btn p-3 rounded-xl text-left sm:text-center transition" title="Login Cepat sebagai Admin Tata Usaha">
+            <span class="block text-xs font-bold text-slate-800">Admin TU</span>
+            <span class="block text-[10px] text-slate-500 mt-0.5 truncate">Ibu Siti Rahayu</span>
+          </button>
+        </div>
+      </div>
 
     </div>
 
-  </div>
+  </main>
 
   <!-- Scripts -->
   <script src="js/main.js"></script>
   <script src="js/auth.js"></script>
+  <script>
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
 </body>
 </html>
-

@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Instructor Dashboard • eDupu SMK Puger (DreamsLMS Style)</title>
   
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff5421'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+  <!-- Favicon / Icon URL (eDupu SMK Puger) -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/edupulogo.png">
+  <link rel="shortcut icon" href="favicon.ico">
 
   <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,22 +61,33 @@
 <body class="instructor-body bg-[#f8fafc] h-screen w-screen flex flex-col overflow-hidden antialiased">
 
   <!-- ============================================================== -->
-  <!-- 1. FULL-WIDTH COMPACT HEADER (Selaras Tone Biru & Hijau SMK)   -->
+  <!-- 1. FULL-WIDTH CLEAN NAVBAR HEADER (Logo Kiri & Aksi Profil Kanan) -->
   <!-- ============================================================== -->
   <header class="instructor-full-header bg-white border-b border-slate-200">
-    <div class="px-5 sm:px-8 py-3.5 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+    <div class="px-5 sm:px-8 py-3 flex items-center justify-between gap-4">
       
-      <!-- Left: Avatar (Bulat, Dropdown Profil & Keluar) + Teacher Identity -->
-      <div class="flex items-center gap-3.5 sm:gap-4 min-w-0">
+      <!-- Kiri Pojok: Logo Website eDupu SMK Puger (Tanpa Animasi) -->
+      <a href="index.html" class="flex items-center gap-3 shrink-0 py-0.5" title="eDupu SMK Puger - Beranda">
+        <img src="assets/edupufull.png" alt="eDupu SMK Puger" class="h-11 sm:h-12 w-auto object-contain">
+      </a>
+
+      <!-- Kanan Sendiri: Button Buat Ujian CBT + Icon Profil di Sebelah Kanannya -->
+      <div class="flex items-center gap-3.5 sm:gap-4 shrink-0">
         
-        <!-- Avatar Wrap (Bulat Sempurna, Tanpa Centang, Dropdown Menu Shadcn Style) -->
+        <!-- Button Buat Ujian CBT -->
+        <button onclick="openCreateExamModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm hover:shadow transition flex items-center gap-1.5 shrink-0">
+          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          <span>Buat Ujian CBT</span>
+        </button>
+
+        <!-- Avatar Profil Bulat dengan Dropdown Menu (Right Aligned) -->
         <div class="relative shrink-0">
           <button type="button" onclick="toggleProfileDropdown(event)" id="btn-profile-dropdown" class="block rounded-full ring-2 ring-slate-200 hover:ring-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-2xs group" title="Buka Menu Profil & Akun">
             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" alt="Avatar Bpk. Hendro" class="instructor-avatar-img group-hover:scale-105 transition">
           </button>
 
-          <!-- Shadcn UI Dropdown Menu: Profil & Keluar -->
-          <div id="profile-dropdown-menu" class="hidden absolute left-0 top-full mt-2.5 w-60 rounded-2xl bg-white border border-slate-200 shadow-2xl z-50 py-1.5 animate-fade-in text-xs">
+          <!-- Shadcn UI Dropdown Menu: right-0 agar rapi di pojok kanan -->
+          <div id="profile-dropdown-menu" class="hidden absolute right-0 top-full mt-2.5 w-60 rounded-2xl bg-white border border-slate-200 shadow-2xl z-50 py-1.5 animate-fade-in text-xs">
             <div class="px-4 py-3 border-b border-slate-100 bg-slate-50/60 rounded-t-2xl">
               <div class="font-extrabold text-slate-900 text-sm truncate">Bpk. Hendro, S.Kom</div>
               <div class="text-[11px] text-slate-500 font-mono mt-0.5">NIP: 198402122008011004</div>
@@ -97,54 +111,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Text Name & Info (Sederhana, Bersih, Selaras Biru & Hijau) -->
-        <div class="space-y-0.5 min-w-0">
-          <div class="flex items-center gap-2 flex-wrap">
-            <h1 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight">
-              Bpk. Hendro, S.Kom
-            </h1>
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
-              Aktif Mengajar
-            </span>
-          </div>
-          <p class="text-xs text-slate-500 font-medium truncate flex items-center gap-2">
-            <span>Guru Produktif RPL</span>
-            <span class="text-slate-300">•</span>
-            <span class="font-mono text-slate-400 text-[11px]">NIP: 198402122008011004</span>
-            <span class="text-slate-300 hidden sm:inline">•</span>
-            <span class="text-emerald-600 font-semibold text-[11px] hidden sm:inline-flex items-center gap-1">
-              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Presensi 98.4%
-            </span>
-          </p>
-        </div>
-
-      </div>
-
-      <!-- Right: 3 Counters + Action Button (Selaras Nada Biru SMK) -->
-      <div class="flex items-center justify-between lg:justify-end gap-5 sm:gap-6 w-full lg:w-auto shrink-0 border-t lg:border-t-0 pt-2.5 lg:pt-0 border-slate-100">
-        
-        <div class="flex items-center gap-5 sm:gap-6">
-          <div class="text-center sm:text-left">
-            <div class="text-base sm:text-lg font-extrabold text-slate-800 font-mono leading-none">340</div>
-            <div class="text-[10px] text-slate-400 font-medium mt-1">Siswa Binaan</div>
-          </div>
-          <div class="h-6 w-px bg-slate-200"></div>
-          <div class="text-center sm:text-left">
-            <div class="text-base sm:text-lg font-extrabold text-blue-600 font-mono leading-none">4</div>
-            <div class="text-[10px] text-slate-400 font-medium mt-1">Kelas Aktif</div>
-          </div>
-          <div class="h-6 w-px bg-slate-200"></div>
-          <div class="text-center sm:text-left">
-            <div class="text-base sm:text-lg font-extrabold text-slate-800 font-mono leading-none">28</div>
-            <div class="text-[10px] text-slate-400 font-medium mt-1">Modul & CBT</div>
-          </div>
-        </div>
-
-        <button onclick="openCreateExamModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm hover:shadow transition flex items-center gap-1.5 shrink-0">
-          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-          <span>Buat Ujian CBT</span>
-        </button>
 
       </div>
 
@@ -222,17 +188,18 @@
 
       </div>
 
-      <!-- Bottom TU Box -->
-      <div class="p-4 m-3 rounded-xl bg-slate-900 text-white space-y-2 text-xs">
-        <div class="flex items-center gap-2 text-orange-400 font-bold">
-          <i data-lucide="headphones" class="w-4 h-4"></i>
+      <!-- Bottom TU Box (Biru Bersih dengan Teks Putih) -->
+      <div class="p-4 m-3 rounded-xl bg-blue-600 text-white space-y-2 text-xs shadow-sm border border-blue-500/60">
+        <div class="flex items-center gap-2 text-white font-bold">
+          <i data-lucide="headphones" class="w-4 h-4 text-white"></i>
           <span>Bantuan Tata Usaha</span>
         </div>
-        <p class="text-[11px] text-slate-400 leading-relaxed">
+        <p class="text-[11px] text-blue-100 leading-relaxed">
           Sinkronisasi Dapodik atau reset token ujian siswa SMK Puger.
         </p>
-        <a href="javascript:void(0)" onclick="alert('Hubungi staf Tata Usaha SMK Puger via ekstensi 102.')" class="inline-block text-[11px] font-bold text-orange-400 hover:text-orange-300">
-          Hubungi Staf TU &rarr;
+        <a href="javascript:void(0)" onclick="alert('Hubungi staf Tata Usaha SMK Puger via ekstensi 102.')" class="inline-flex items-center gap-1 text-[11px] font-bold text-white hover:text-blue-100 transition underline underline-offset-2">
+          <span>Hubungi Staf TU</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
         </a>
       </div>
 
