@@ -1,0 +1,320 @@
+/* ==============================================================
+   eDupu / APK Learning - SMK Puger
+   DreamsLMS Instructor Dashboard Stylesheet (css/instructor.css)
+   Inspired by: DreamsLMS Instructor Template
+   ============================================================== */
+
+:root {
+  --lms-primary: #ff5421;      /* DreamsLMS Signature Orange/Coral or #ff7035 */
+  --lms-primary-hover: #e04515;
+  --lms-primary-light: #fff2ee;
+  
+  --lms-secondary: #1b2559;    /* Dark Navy/Slate */
+  --lms-blue: #3d5ee1;
+  --lms-blue-light: #eff2ff;
+  --lms-green: #159f46;
+  --lms-green-light: #eafaf1;
+  --lms-yellow: #f6a000;
+  --lms-yellow-light: #fef8ec;
+  --lms-purple: #754ffe;
+  --lms-purple-light: #f1edfe;
+
+  --lms-body-bg: #f7f8fa;
+  --lms-card-bg: #ffffff;
+  --lms-border: #e9ecef;
+  --lms-text-muted: #687182;
+  --lms-text-dark: #1b2559;
+}
+
+body.instructor-body {
+  background-color: var(--lms-body-bg);
+  color: #333333;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+/* ==============================================================
+   DREAMSLMS TOP HEADER NAVBAR
+   ============================================================== */
+.lms-header {
+  background: #ffffff;
+  border-bottom: 1px solid #eef0f3;
+  position: sticky;
+  top: 0;
+  z-index: 990;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.lms-search-input {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 50px;
+  padding: 8px 18px 8px 40px;
+  font-size: 13px;
+  width: 280px;
+  transition: all 0.2s ease;
+}
+
+.lms-search-input:focus {
+  background-color: #ffffff;
+  border-color: var(--lms-primary);
+  box-shadow: 0 0 0 3px rgba(255, 84, 33, 0.12);
+  width: 320px;
+  outline: none;
+}
+
+/* ==============================================================
+   INSTRUCTOR COVER PROFILE CARD (DreamsLMS Signature Header)
+   ============================================================== */
+.instructor-profile-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #eef0f3;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.instructor-cover {
+  height: 160px;
+  background: linear-gradient(135deg, #1b2559 0%, #2f3e83 50%, #ff5421 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.instructor-cover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.5;
+}
+
+.instructor-avatar-wrap {
+  position: relative;
+  margin-top: -65px;
+  margin-left: 28px;
+}
+
+.instructor-avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.verified-badge {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  background: var(--lms-blue);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  font-size: 11px;
+}
+
+/* ==============================================================
+   DREAMSLMS INSTRUCTOR SIDEBAR
+   ============================================================== */
+.instructor-sidebar {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #eef0f3;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+  padding: 20px 14px;
+}
+
+.instructor-sidebar-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8c97a8;
+  padding: 12px 14px 6px;
+}
+
+.instructor-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5563;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.instructor-nav-link i {
+  font-size: 15px;
+  width: 20px;
+  text-align: center;
+  color: #718096;
+  transition: color 0.2s ease;
+}
+
+.instructor-nav-link:hover {
+  background-color: var(--lms-primary-light);
+  color: var(--lms-primary);
+}
+
+.instructor-nav-link:hover i {
+  color: var(--lms-primary);
+}
+
+.instructor-nav-link.active {
+  background-color: var(--lms-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(255, 84, 33, 0.3);
+}
+
+.instructor-nav-link.active i {
+  color: #ffffff;
+}
+
+.instructor-nav-link .badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+/* ==============================================================
+   METRIC OVERVIEW CARDS (DreamsLMS Style)
+   ============================================================== */
+.lms-stat-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #eef0f3;
+  padding: 20px 22px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.025);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.lms-stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.lms-stat-icon-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.icon-orange {
+  background: var(--lms-primary-light);
+  color: var(--lms-primary);
+}
+
+.icon-blue {
+  background: var(--lms-blue-light);
+  color: var(--lms-blue);
+}
+
+.icon-green {
+  background: var(--lms-green-light);
+  color: var(--lms-green);
+}
+
+.icon-purple {
+  background: var(--lms-purple-light);
+  color: var(--lms-purple);
+}
+
+/* ==============================================================
+   TABLES & CARDS
+   ============================================================== */
+.lms-panel-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #eef0f3;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.025);
+  overflow: hidden;
+}
+
+.lms-panel-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid #f1f3f6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lms-table th {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #718096;
+  padding: 14px 18px;
+  background-color: #fafbfd;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.lms-table td {
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #334155;
+  border-bottom: 1px solid #f3f5f8;
+  vertical-align: middle;
+}
+
+.lms-table tr:hover td {
+  background-color: #fbfcfe;
+}
+
+/* Course / Class Thumbnail */
+.course-thumb-box {
+  width: 56px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+/* Quick Action Button */
+.btn-lms-primary {
+  background: var(--lms-primary);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 9px 18px;
+  border-radius: 12px;
+  border: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(255, 84, 33, 0.25);
+  text-decoration: none;
+}
+
+.btn-lms-primary:hover {
+  background: var(--lms-primary-hover);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+

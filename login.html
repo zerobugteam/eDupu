@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masuk ke Sistem • eDupu SMK Puger (APK Learning)</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%237c3aed'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            primary: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Modular CSS Files -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex items-center justify-center p-3 sm:p-6">
+
+  <!-- Back to Home Floating Button -->
+  <a href="index.html" class="fixed top-5 left-5 z-50 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200 text-xs font-bold text-slate-700 hover:text-primary-600 shadow-sm transition">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span class="hidden sm:inline">Kembali ke Beranda</span>
+  </a>
+
+  <!-- ============================================================== -->
+  <!-- LOGIN CONTAINER -->
+  <!-- ============================================================== -->
+  <div class="auth-card flex flex-col lg:flex-row w-full max-w-[1050px]">
+    
+    <!-- ============================================================ -->
+    <!-- LEFT PANEL: BRANDING & VISUAL -->
+    <!-- ============================================================ -->
+    <div class="auth-brand-side lg:w-5/12 p-8 sm:p-12 text-white flex flex-col justify-between relative">
+      
+      <!-- Top Branding -->
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-11 h-11 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-inner">
+            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-xl font-extrabold tracking-tight">eDupu • SMK Puger</h2>
+            <p class="text-xs text-purple-200">Sistem Pembelajaran Terintegrasi</p>
+          </div>
+        </div>
+
+        <div class="space-y-4 my-8">
+          <h1 class="text-2xl sm:text-3xl font-extrabold leading-snug">
+            Portal Pembelajaran Digital & Presensi Cerdas
+          </h1>
+          <p class="text-xs sm:text-sm text-purple-200 leading-relaxed">
+            Akses absensi GPS geofence, modul ujian digital CBT autosave, dan lembar capaian nilai dalam satu pintu terpadu.
+          </p>
+        </div>
+      </div>
+
+      <!-- Feature Pills on Left -->
+      <div class="space-y-3 pt-6 border-t border-white/10 text-xs">
+        <div class="flex items-center gap-3">
+          <span class="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-emerald-300 shrink-0">
+            <i class="fa-solid fa-location-dot"></i>
+          </span>
+          <span class="text-purple-100">Presensi Geofence Radius 80m</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-indigo-300 shrink-0">
+            <i class="fa-solid fa-laptop-code"></i>
+          </span>
+          <span class="text-purple-100">Ujian Online CBT & Anti-Cheat</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center text-amber-300 shrink-0">
+            <i class="fa-solid fa-file-invoice"></i>
+          </span>
+          <span class="text-purple-100">Leger Rapor Kurikulum Merdeka</span>
+        </div>
+      </div>
+
+      <!-- Footer Info on Left -->
+      <div class="mt-8 pt-4 text-[11px] text-purple-300">
+        &copy; 2026 SMK Puger • Jember, Jawa Timur
+      </div>
+
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- RIGHT PANEL: LOGIN FORM -->
+    <!-- ============================================================ -->
+    <div class="lg:w-7/12 p-8 sm:p-12 bg-white flex flex-col justify-center">
+      
+      <div class="max-w-md mx-auto w-full space-y-6">
+        
+        <div>
+          <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">Selamat Datang!</h2>
+          <p class="text-xs text-slate-500 mt-1">Pilih role Anda dan masukkan kredensial untuk melanjutkan ke sistem.</p>
+        </div>
+
+        <!-- Role Selector Tabs -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-2">Pilih Role Akses:</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 bg-slate-100 rounded-2xl">
+            <button type="button" onclick="selectRole('siswa')" data-role="siswa" class="role-pill-btn active py-2.5 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-user-graduate text-xs"></i>
+              <span>Siswa</span>
+            </button>
+            <button type="button" onclick="selectRole('guru')" data-role="guru" class="role-pill-btn py-2.5 px-2 rounded-xl text-xs font-medium transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-chalkboard-user text-xs"></i>
+              <span>Guru</span>
+            </button>
+            <button type="button" onclick="selectRole('admin')" data-role="admin" class="role-pill-btn py-2.5 px-2 rounded-xl text-xs font-medium transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-user-gear text-xs"></i>
+              <span>Admin TU</span>
+            </button>
+            <button type="button" onclick="selectRole('kepsek')" data-role="kepsek" class="role-pill-btn py-2.5 px-2 rounded-xl text-xs font-medium transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-shield text-xs"></i>
+              <span>Kepsek</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+          
+          <!-- Username / NISN Input -->
+          <div>
+            <label id="login-id-label" class="block text-xs font-bold text-slate-700 mb-1.5">
+              Nomor Induk Siswa Nasional (NISN)
+            </label>
+            <div class="input-with-icon">
+              <input type="text" id="login-id" required class="w-full h-11 px-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition" placeholder="Contoh: 0058291042">
+              <i class="fa-solid fa-id-card text-xs"></i>
+            </div>
+          </div>
+
+          <!-- Password Input -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="text-xs font-bold text-slate-700">Kata Sandi</label>
+              <a href="javascript:void(0)" onclick="alert('Silakan hubungi administrator Tata Usaha SMK Puger di ruang TU untuk reset kata sandi akun Anda.')" class="text-[11px] font-semibold text-primary-600 hover:text-primary-700">
+                Lupa Sandi?
+              </a>
+            </div>
+            <div class="input-with-icon relative">
+              <input type="password" id="login-password" required class="w-full h-11 px-3 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition" placeholder="Masukkan kata sandi">
+              <i class="fa-solid fa-lock text-xs"></i>
+              <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3.5 text-slate-400 hover:text-slate-600 text-xs">
+                <i class="fa-regular fa-eye" id="toggle-eye-icon"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Remember me checkbox -->
+          <div class="flex items-center">
+            <input type="checkbox" id="remember-me" checked class="w-4 h-4 text-primary-600 focus:ring-primary-500 rounded border-slate-300 cursor-pointer">
+            <label for="remember-me" class="ml-2 text-xs text-slate-600 cursor-pointer">Ingat sesi saya di perangkat ini</label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="btn-submit-login" class="w-full py-3 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-extrabold text-xs shadow-md shadow-primary-600/25 transition flex items-center justify-center gap-2">
+            <span>Masuk ke Dashboard</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </form>
+
+        <!-- ======================================================== -->
+        <!-- 1-CLICK QUICK DEMO LOGIN BUTTONS -->
+        <!-- ======================================================== -->
+        <div class="pt-4 border-t border-slate-100 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Akses Cepat Pengujian (1-Click Demo):</span>
+            <span class="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">Siap Diuji</span>
+          </div>
+          
+          <div class="grid grid-cols-3 gap-2">
+            <button type="button" onclick="quickLogin('siswa')" class="demo-badge-btn p-2 rounded-xl text-center bg-slate-50 hover:bg-primary-50 transition">
+              <span class="block text-xs font-bold text-slate-800">Siswa Demo</span>
+              <span class="block text-[10px] text-slate-400">Bagus (XII RPL 1)</span>
+            </button>
+            <button type="button" onclick="quickLogin('guru')" class="demo-badge-btn p-2 rounded-xl text-center bg-orange-50/60 hover:bg-orange-100/80 border-orange-200 transition">
+              <span class="block text-xs font-bold text-orange-800">Guru Demo</span>
+              <span class="block text-[10px] text-orange-600 font-semibold">DreamsLMS Style</span>
+            </button>
+            <button type="button" onclick="quickLogin('admin')" class="demo-badge-btn p-2 rounded-xl text-center bg-slate-50 hover:bg-primary-50 transition">
+              <span class="block text-xs font-bold text-slate-800">Admin TU</span>
+              <span class="block text-[10px] text-slate-400">Ibu Siti Rahayu</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
+

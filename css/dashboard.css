@@ -1,0 +1,149 @@
+/* ==============================================================
+   eDupu / APK Learning - SMK Puger
+   Dashboard & App Interface Stylesheet (dashboard.css)
+   ============================================================== */
+
+/* Dashboard Layout Base */
+.app-wrapper {
+  max-width: 1560px;
+  margin: 0 auto;
+  min-height: calc(100vh - 2rem);
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+  border: 1px solid #f1f5f9;
+  overflow: hidden;
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .app-wrapper {
+    flex-direction: column;
+    border-radius: 18px;
+    margin: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Sidebar Styling */
+.sidebar-nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #94a3b8;
+  position: relative;
+}
+
+.sidebar-nav-btn:hover {
+  color: #7c3aed;
+  background-color: #f5f3ff;
+}
+
+.sidebar-nav-btn.active {
+  background-color: #ede9fe;
+  color: #7c3aed;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.15);
+}
+
+.sidebar-nav-btn.active::after {
+  content: '';
+  position: absolute;
+  left: -12px;
+  width: 4px;
+  height: 22px;
+  background-color: #7c3aed;
+  border-radius: 0 4px 4px 0;
+}
+
+@media (max-width: 768px) {
+  .sidebar-nav-btn.active::after {
+    left: auto;
+    bottom: -6px;
+    width: 22px;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+  }
+}
+
+/* Leaflet Container Overrides */
+.leaflet-container {
+  font-family: var(--font-sans) !important;
+}
+
+.custom-map-tile {
+  filter: saturate(0.65) brightness(1.02);
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 16px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12) !important;
+  font-size: 11px !important;
+  padding: 4px !important;
+}
+
+/* CBT Question Palette Buttons */
+.cbt-num-btn {
+  transition: all 0.15s ease;
+}
+
+.cbt-num-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Tables in Nilai & Master */
+.custom-table th {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+}
+
+.custom-table td {
+  padding: 14px 16px;
+  font-size: 12px;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.custom-table tr:hover td {
+  background-color: #faf5ff;
+}
+
+/* Status Badges */
+.badge-hadir {
+  background-color: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.badge-terlambat {
+  background-color: #fffbeb;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+.badge-alpa {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.badge-role {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
