@@ -110,12 +110,8 @@ function setupUserSession() {
   if (dropRole) dropRole.innerText = user.roleLabel;
   if (dropSub) dropSub.innerText = user.nisn ? `NISN: ${user.nisn}` : (user.role === 'guru' ? 'NIP: 198402122008011004' : 'Akun Resmi eDupu');
 
-  // Set default view based on user role
-  if (user.defaultView) {
-    switchView(user.defaultView);
-  } else {
-    switchView('dashboard');
-  }
+  // Default to dashboard view
+  switchView('dashboard');
 }
 
 // Module View Switcher
@@ -142,24 +138,32 @@ function switchView(viewName) {
   // Update Page Header Titles
   const titleMap = {
     dashboard: {
-      title: 'Schedule & Monitoring Module',
-      sub: 'SMK Puger • Sistem Informasi Pembelajaran Terintegrasi'
+      title: 'Dashboard Siswa • Nilai & Presensi Terpadu',
+      sub: 'Rekapitulasi Capaian Akademik, Presensi GPS Geofence & Jadwal Belajar Siswa'
+    },
+    jadwal: {
+      title: 'Jadwal Pelajaran Kelas XII RPL 1',
+      sub: 'Tahun Ajaran 2026/2027 Ganjil • SMK Puger Jember'
+    },
+    'jadwal-ujian': {
+      title: 'Jadwal Ujian Digital CBT (UTS / UAS)',
+      sub: 'Penilaian Terstandarisasi SMK Puger • Semester Ganjil 2026/2027'
     },
     absensi: {
       title: 'Presensi GPS Geofencing Siswa',
-      sub: 'Validasi Titik Koordinat Real-Time • Radius Batas 80 Meter'
+      sub: 'Validasi Titik Koordinat Real-Time • Radius Batas 80 Meter Gerbang Kampus'
     },
     cbt: {
-      title: 'Ujian Digital CBT (Computer-Based Test)',
+      title: 'Ruang Ujian Digital CBT Online',
       sub: 'Penilaian Terstandarisasi SMK Puger • Autosave & Anti-Cheat Enabled'
     },
     nilai: {
-      title: 'Rekapitulasi Nilai & Leger Siswa',
-      sub: 'Manajemen Capaian Pembelajaran & Rapor Kurikulum Merdeka'
+      title: 'Nilai Per Semester & Kartu Hasil Studi (KHS)',
+      sub: 'Rekapitulasi Capaian Kompetensi Kurikulum Merdeka • Kelas XII RPL 1'
     },
-    master: {
-      title: 'Data Master & Konfigurasi Sistem',
-      sub: 'Pengaturan Sekolah, Siswa, Guru, dan Parameter Geofence'
+    modul: {
+      title: 'Materi & Modul Pembelajaran',
+      sub: 'Unduh Silabus, Bahan Ajar Digital & Kisi-Kisi Ujian dari Guru'
     }
   };
 
@@ -171,6 +175,13 @@ function switchView(viewName) {
 
   if (window.lucide) {
     lucide.createIcons();
+  }
+
+  // Re-render student charts if entering dashboard
+  if (viewName === 'dashboard') {
+    setTimeout(() => {
+      initStudentCharts();
+    }, 50);
   }
 
   // Invalidate Leaflet maps to adjust canvas size
@@ -209,70 +220,138 @@ document.addEventListener('click', (e) => {
     }
   }
 });
-}
 
-// Chart.js: Attendance Statistics
-function initAttendanceChart() {
-  const ctx = document.getElementById('safetacBarChart');
-  if (!ctx) return;
+// Chart.js: Performance Line & Donut GPS Geofence (Dashboard Siswa)
+let studentPerfChartInstance = null;
+let studentDonutChartInstance = null;
 
-  if (attendanceChart) attendanceChart.destroy();
+function initStudentCharts() {
+  // 1. Line Chart: Tren Nilai CBT & Presensi Kehadiran Siswa
+  const perfCtx = document.getElementById('studentPerfChart');
+  if (perfCtx) {
+    if (studentPerfChartInstance) studentPerfChartInstance.destroy();
 
-  attendanceChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['12', '13', '14', '15', '16', '17', '18'],
-      datasets: [
-        {
-          label: 'Hadir Tepat Waktu',
-          data: [26, 28, 24, 29, 27, 25, 29],
-          backgroundColor: '#2563eb',
-          borderRadius: 6,
-          barThickness: 10,
-        },
-        {
-          label: 'Terlambat / Izin',
-          data: [3, 2, 4, 1, 3, 2, 1],
-          backgroundColor: '#bfdbfe',
-          borderRadius: 6,
-          barThickness: 10,
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false }
+    const ctx = perfCtx.getContext('2d');
+    const gradientBlue = ctx.createLinearGradient(0, 0, 0, 260);
+    gradientBlue.addColorStop(0, 'rgba(37, 99, 235, 0.25)');
+    gradientBlue.addColorStop(1, 'rgba(37, 99, 235, 0.01)');
+
+    const gradientGreen = ctx.createLinearGradient(0, 0, 0, 260);
+    gradientGreen.addColorStop(0, 'rgba(16, 185, 129, 0.22)');
+    gradientGreen.addColorStop(1, 'rgba(16, 185, 129, 0.01)');
+
+    studentPerfChartInstance = new Chart(perfCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov'],
+        datasets: [
+          {
+            label: 'Rata-rata Nilai CBT & Tugas',
+            data: [82, 84, 86, 85, 88, 87, 89, 90, 88, 91, 90.8],
+            borderColor: '#2563eb',
+            backgroundColor: gradientBlue,
+            fill: true,
+            tension: 0.4,
+            borderWidth: 3,
+            pointBackgroundColor: '#ffffff',
+            pointBorderColor: '#2563eb',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          },
+          {
+            label: 'Kehadiran GPS (%)',
+            data: [96, 98, 97, 100, 98, 97, 99, 98, 100, 98, 98.4],
+            borderColor: '#10b981',
+            backgroundColor: gradientGreen,
+            fill: true,
+            tension: 0.4,
+            borderWidth: 2.5,
+            pointBackgroundColor: '#ffffff',
+            pointBorderColor: '#10b981',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }
+        ]
       },
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: 30,
-          ticks: {
-            stepSize: 10,
-            font: { size: 10, family: 'Inter' },
-            color: '#94a3b8',
-            callback: function(val) { return val * 30; }
-          },
-          grid: {
-            color: '#f8fafc',
-            borderDash: [4, 4]
-          },
-          border: { display: false }
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#0f172a',
+            titleFont: { family: 'Inter', size: 12 },
+            bodyFont: { family: 'Inter', size: 12 },
+            padding: 10,
+            cornerRadius: 10
+          }
         },
-        x: {
-          ticks: {
-            font: { size: 10, family: 'Inter' },
-            color: '#94a3b8'
+        scales: {
+          y: {
+            min: 60,
+            max: 100,
+            ticks: {
+              stepSize: 10,
+              font: { family: 'Inter', size: 11 },
+              color: '#94a3b8'
+            },
+            grid: {
+              color: '#f1f5f9',
+              borderDash: [3, 3]
+            },
+            border: { display: false }
           },
-          grid: { display: false },
-          border: { display: false }
+          x: {
+            ticks: {
+              font: { family: 'Inter', size: 11 },
+              color: '#94a3b8'
+            },
+            grid: { display: false },
+            border: { display: false }
+          }
         }
       }
-    }
-  });
+    });
+  }
+
+  // 2. Donut Chart: Presensi Siswa Tepat Waktu
+  const donutCtx = document.getElementById('studentDonutChart');
+  if (donutCtx) {
+    if (studentDonutChartInstance) studentDonutChartInstance.destroy();
+
+    studentDonutChartInstance = new Chart(donutCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Hadir Tepat Waktu', 'Terlambat', 'Izin / Sakit'],
+        datasets: [{
+          data: [98.4, 1.1, 0.5],
+          backgroundColor: ['#10b981', '#fbbf24', '#f43f5e'],
+          borderWidth: 0,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '76%',
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return ` ${context.label}: ${context.raw}%`;
+              }
+            }
+          }
+        }
+      }
+    });
+  }
 }
+
+const initAttendanceChart = initStudentCharts;
 
 // Leaflet GPS Setup
 function initLeafletMaps() {
@@ -580,5 +659,94 @@ function filterLeger() {
       row.style.display = 'none';
     }
   });
+}
+
+// Filter Jadwal Pelajaran Berdasarkan Hari
+let currentJadwalHari = 'Semua';
+function filterJadwalHari(hari, el) {
+  currentJadwalHari = hari;
+  
+  // Update button active state
+  if (el) {
+    const parent = el.closest('#jadwal-day-filter');
+    if (parent) {
+      parent.querySelectorAll('button').forEach(btn => {
+        btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 transition';
+      });
+      el.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-blue-700 shadow-2xs transition';
+    }
+  }
+
+  applyJadwalFilter();
+}
+
+function searchJadwal() {
+  applyJadwalFilter();
+}
+
+function applyJadwalFilter() {
+  const searchInput = document.getElementById('search-jadwal-input');
+  const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+  const rows = document.querySelectorAll('#table-jadwal-pelajaran tbody tr.jadwal-row');
+  let visibleCount = 0;
+
+  rows.forEach(row => {
+    const rowHari = row.getAttribute('data-hari');
+    const mapel = row.querySelector('.mapel-name')?.innerText.toLowerCase() || '';
+    const guru = row.querySelector('.guru-name')?.innerText.toLowerCase() || '';
+    
+    const matchHari = (currentJadwalHari === 'Semua' || rowHari === currentJadwalHari);
+    const matchSearch = (!query || mapel.includes(query) || guru.includes(query));
+
+    if (matchHari && matchSearch) {
+      row.style.display = '';
+      visibleCount++;
+    } else {
+      row.style.display = 'none';
+    }
+  });
+
+  const countEl = document.getElementById('count-jadwal-visible');
+  if (countEl) countEl.innerText = visibleCount;
+}
+
+// Search Jadwal Ujian CBT
+function searchUjian() {
+  const query = document.getElementById('search-ujian-input')?.value.toLowerCase().trim() || '';
+  const rows = document.querySelectorAll('#table-jadwal-ujian-cbt tbody tr.ujian-row');
+  let visibleCount = 0;
+
+  rows.forEach(row => {
+    const mapel = row.querySelector('.mapel-ujian-name')?.innerText.toLowerCase() || '';
+    if (!query || mapel.includes(query)) {
+      row.style.display = '';
+      visibleCount++;
+    } else {
+      row.style.display = 'none';
+    }
+  });
+
+  const countEl = document.getElementById('count-ujian-visible');
+  if (countEl) countEl.innerText = visibleCount;
+}
+
+// Search Nilai KHS Siswa
+function searchNilai() {
+  const query = document.getElementById('search-nilai-input')?.value.toLowerCase().trim() || '';
+  const rows = document.querySelectorAll('#table-khs-siswa tbody tr.khs-row');
+  let visibleCount = 0;
+
+  rows.forEach(row => {
+    const mapel = row.querySelector('.khs-mapel-name')?.innerText.toLowerCase() || '';
+    if (!query || mapel.includes(query)) {
+      row.style.display = '';
+      visibleCount++;
+    } else {
+      row.style.display = 'none';
+    }
+  });
+
+  const countEl = document.getElementById('count-khs-visible');
+  if (countEl) countEl.innerText = visibleCount;
 }
 
