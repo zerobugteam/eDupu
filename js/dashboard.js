@@ -128,42 +128,71 @@ function switchView(viewName) {
     target.classList.add('animate-fade-in');
   }
 
-  // Update Sidebar Nav active state (supports both sidebar-nav-btn and instructor-nav-link)
+  // Update Top Navigation (Desktop)
+  document.querySelectorAll('.top-nav-item').forEach(btn => {
+    btn.classList.remove('active', 'border-blue-600', 'text-blue-700', 'font-bold');
+    btn.classList.add('border-transparent', 'text-slate-600', 'font-medium');
+  });
+  const topActive = document.getElementById(`top-nav-${viewName}`);
+  if (topActive) {
+    topActive.classList.add('active', 'border-blue-600', 'text-blue-700', 'font-bold');
+    topActive.classList.remove('border-transparent', 'text-slate-600', 'font-medium');
+  }
+
+  // Update Mobile Bottom Nav
+  document.querySelectorAll('.mob-nav-item').forEach(btn => {
+    btn.classList.remove('text-blue-600', 'font-bold');
+    btn.classList.add('text-slate-500', 'font-medium');
+  });
+  const mobActive = document.getElementById(`mob-nav-${viewName}`);
+  if (mobActive) {
+    mobActive.classList.add('text-blue-600', 'font-bold');
+    mobActive.classList.remove('text-slate-500', 'font-medium');
+  }
+
+  // Update Sidebar Nav active state if present
   document.querySelectorAll('.sidebar-nav-btn, .instructor-nav-link').forEach(btn => {
     btn.classList.remove('active');
   });
   const activeBtn = document.getElementById(`side-${viewName}`);
   if (activeBtn) activeBtn.classList.add('active');
 
-  // Update Page Header Titles
+  // Update Page Header Titles & Breadcrumbs
   const titleMap = {
     dashboard: {
       title: 'Dashboard Siswa • Nilai & Presensi Terpadu',
-      sub: 'Rekapitulasi Capaian Akademik, Presensi GPS Geofence & Jadwal Belajar Siswa'
+      sub: 'Rekapitulasi Capaian Akademik, Presensi GPS Geofence & Jadwal Belajar Siswa',
+      breadcrumb: 'Beranda'
     },
     jadwal: {
       title: 'Jadwal Pelajaran Kelas XII RPL 1',
-      sub: 'Tahun Ajaran 2026/2027 Ganjil • SMK Puger Jember'
+      sub: 'Tahun Ajaran 2026/2027 Ganjil • SMK Puger Jember',
+      breadcrumb: 'Jadwal Pelajaran'
     },
     'jadwal-ujian': {
       title: 'Jadwal Ujian Digital CBT (UTS / UAS)',
-      sub: 'Penilaian Terstandarisasi SMK Puger • Semester Ganjil 2026/2027'
+      sub: 'Penilaian Terstandarisasi SMK Puger • Semester Ganjil 2026/2027',
+      breadcrumb: 'Jadwal Ujian'
     },
     absensi: {
       title: 'Presensi GPS Geofencing Siswa',
-      sub: 'Validasi Titik Koordinat Real-Time • Radius Batas 80 Meter Gerbang Kampus'
+      sub: 'Validasi Titik Koordinat Real-Time • Radius Batas 80 Meter Gerbang Kampus',
+      breadcrumb: 'Presensi GPS'
     },
     cbt: {
       title: 'Ruang Ujian Digital CBT Online',
-      sub: 'Penilaian Terstandarisasi SMK Puger • Autosave & Anti-Cheat Enabled'
+      sub: 'Penilaian Terstandarisasi SMK Puger • Autosave & Anti-Cheat Enabled',
+      breadcrumb: 'Ruang Ujian CBT'
     },
     nilai: {
       title: 'Nilai Per Semester & Kartu Hasil Studi (KHS)',
-      sub: 'Rekapitulasi Capaian Kompetensi Kurikulum Merdeka • Kelas XII RPL 1'
+      sub: 'Rekapitulasi Capaian Kompetensi Kurikulum Merdeka • Kelas XII RPL 1',
+      breadcrumb: 'Kartu Hasil Studi (KHS)'
     },
     modul: {
       title: 'Materi & Modul Pembelajaran',
-      sub: 'Unduh Silabus, Bahan Ajar Digital & Kisi-Kisi Ujian dari Guru'
+      sub: 'Unduh Silabus, Bahan Ajar Digital & Kisi-Kisi Ujian dari Guru',
+      breadcrumb: 'Bahan Ajar & Modul'
     }
   };
 
@@ -172,6 +201,12 @@ function switchView(viewName) {
   const hSub = document.getElementById('module-header-subtitle');
   if (hTitle) hTitle.innerText = headerInfo.title;
   if (hSub) hSub.innerText = headerInfo.sub;
+
+  const breadcrumbEl = document.getElementById('breadcrumb-current-page');
+  if (breadcrumbEl) breadcrumbEl.innerText = headerInfo.breadcrumb;
+
+  // Scroll smoothly to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
   if (window.lucide) {
     lucide.createIcons();
@@ -189,6 +224,24 @@ function switchView(viewName) {
     if (mapSafetac) mapSafetac.invalidateSize();
     if (mapStudent) mapStudent.invalidateSize();
   }, 200);
+}
+
+// Toggle Mobile Top Drawer
+function toggleMobileDrawer() {
+  const drawer = document.getElementById('mobile-drawer-menu');
+  if (drawer) {
+    drawer.classList.toggle('hidden');
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  }
+}
+
+function closeMobileDrawer() {
+  const drawer = document.getElementById('mobile-drawer-menu');
+  if (drawer) {
+    drawer.classList.add('hidden');
+  }
 }
 
 // Profile Dropdown Controls
