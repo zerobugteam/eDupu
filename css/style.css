@@ -25,7 +25,7 @@
   --border-subtle: #f1f5f9;
   --border-light: #e2e8f0;
 
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
@@ -44,6 +44,14 @@ body {
   color: #1e293b;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea {
+  font-family: var(--font-sans);
+}
+
+.font-mono, [class*="font-mono"] {
+  font-family: var(--font-mono) !important;
 }
 
 /* ==============================================================

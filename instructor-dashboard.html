@@ -8,12 +8,15 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff5421'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
 
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   
-  <!-- FontAwesome Icons 6 -->
+  <!-- Lucide Icons (Official Icon Set for Shadcn UI) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- FontAwesome Icons 6 (Fallback) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Chart.js CDN -->
@@ -26,21 +29,21 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['"Inter"', 'system-ui', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
             lms: {
-              primary: '#ff5421',
-              'primary-hover': '#e04515',
-              'primary-light': '#fff2ee',
-              secondary: '#1b2559',
-              blue: '#3d5ee1',
-              'blue-light': '#eff2ff',
-              green: '#159f46',
-              'green-light': '#eafaf1',
-              yellow: '#f6a000',
-              purple: '#754ffe',
+              primary: '#2563eb',
+              'primary-hover': '#1d4ed8',
+              'primary-light': '#eff6ff',
+              secondary: '#0f172a',
+              blue: '#2563eb',
+              'blue-light': '#eff6ff',
+              green: '#059669',
+              'green-light': '#ecfdf5',
+              yellow: '#f59e0b',
+              purple: '#6366f1',
             }
           }
         }
@@ -52,86 +55,96 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/instructor.css">
 </head>
-<body class="instructor-body antialiased">
+<body class="instructor-body bg-[#f8fafc] h-screen w-screen flex flex-col overflow-hidden antialiased">
 
   <!-- ============================================================== -->
-  <!-- DREAMSLMS STYLE TOP NAVBAR -->
+  <!-- 1. FULL-WIDTH COMPACT HEADER (Selaras Tone Biru & Hijau SMK)   -->
   <!-- ============================================================== -->
-  <header class="lms-header">
-    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+  <header class="instructor-full-header bg-white border-b border-slate-200">
+    <div class="px-5 sm:px-8 py-3.5 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
       
-      <!-- Left: Brand Logo & Navigation Links -->
-      <div class="flex items-center gap-8">
-        <a href="index.html" class="flex items-center gap-3 group">
-          <div class="w-10 h-10 rounded-xl bg-lms-primary flex items-center justify-center text-white shadow-md shadow-orange-500/30 group-hover:scale-105 transition">
-            <i class="fa-solid fa-graduation-cap text-lg"></i>
-          </div>
-          <div>
-            <span class="text-lg font-extrabold tracking-tight text-lms-secondary flex items-center gap-1.5 leading-none">
-              eDupu <span class="text-[10px] px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 font-bold font-mono">Instructor</span>
-            </span>
-            <span class="text-[10px] block font-medium text-slate-400 mt-1">SMK Puger Jember</span>
-          </div>
-        </a>
-
-        <!-- Quick Top Links (DreamsLMS style) -->
-        <nav class="hidden xl:flex items-center gap-6 text-xs font-semibold text-slate-600">
-          <a href="index.html" class="hover:text-lms-primary transition flex items-center gap-1.5">
-            <i class="fa-solid fa-globe text-slate-400"></i> Beranda Publik
-          </a>
-          <a href="dashboard.html" class="hover:text-lms-primary transition flex items-center gap-1.5">
-            <i class="fa-solid fa-desktop text-slate-400"></i> Mode Tampilan Safetac
-          </a>
-          <a href="#sec-courses" onclick="switchInstructorView('courses')" class="hover:text-lms-primary transition">Kelas Binaan</a>
-          <a href="#sec-cbt" onclick="switchInstructorView('cbt')" class="hover:text-lms-primary transition">Bank Soal & CBT</a>
-          <a href="#sec-grades" onclick="switchInstructorView('grades')" class="hover:text-lms-primary transition">Leger Nilai</a>
-        </nav>
-      </div>
-
-      <!-- Center: Global Search -->
-      <div class="hidden md:flex items-center relative">
-        <i class="fa-solid fa-magnifying-glass absolute left-4 text-slate-400 text-xs"></i>
-        <input type="text" placeholder="Cari mata pelajaran, siswa, atau bank soal..." class="lms-search-input">
-      </div>
-
-      <!-- Right: Actions, Notifications, & Profile -->
-      <div class="flex items-center gap-3 sm:gap-4">
+      <!-- Left: Avatar (Bulat, Dropdown Profil & Keluar) + Teacher Identity -->
+      <div class="flex items-center gap-3.5 sm:gap-4 min-w-0">
         
-        <!-- Live Clock Pill -->
-        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 text-[11px] font-mono font-bold text-slate-700">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="instructor-live-clock">07:00:00 WIB</span>
-        </div>
-
-        <!-- Create New Course / Exam Action Button -->
-        <button onclick="openCreateExamModal()" class="btn-lms-primary hidden sm:inline-flex">
-          <i class="fa-solid fa-plus text-xs"></i>
-          <span>Buat Ujian / Modul</span>
-        </button>
-
-        <!-- Message Icon -->
-        <button onclick="showToast('Kotak pesan konsultasi siswa telah diperbarui.', 'info')" class="w-10 h-10 rounded-full bg-slate-50 border border-slate-200/80 flex items-center justify-center text-slate-600 hover:text-lms-primary transition relative shadow-2xs" title="Pesan Siswa">
-          <i class="fa-regular fa-comment-dots text-sm"></i>
-          <span class="w-2 h-2 rounded-full bg-lms-primary absolute top-2.5 right-2.5 ring-2 ring-white"></span>
-        </button>
-
-        <!-- Notification Bell -->
-        <button onclick="showToast('28 siswa baru saja menyelesaikan ujian CBT Laravel.', 'success')" class="w-10 h-10 rounded-full bg-slate-50 border border-slate-200/80 flex items-center justify-center text-slate-600 hover:text-lms-primary transition relative shadow-2xs" title="Notifikasi">
-          <i class="fa-regular fa-bell text-sm"></i>
-          <span class="w-2 h-2 rounded-full bg-emerald-500 absolute top-2.5 right-2.5 ring-2 ring-white"></span>
-        </button>
-
-        <!-- Instructor Profile Dropdown Widget -->
-        <div class="flex items-center gap-3 pl-2 sm:pl-3 border-l border-slate-200">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150" alt="Instructor Avatar" class="w-10 h-10 rounded-full object-cover ring-2 ring-orange-200 shadow-sm">
-          <div class="hidden lg:block text-left">
-            <div class="text-xs font-bold text-lms-secondary leading-none">Bpk. Hendro, S.Kom</div>
-            <div class="text-[10px] text-lms-primary font-semibold mt-1">Instructor • Kejuruan RPL</div>
-          </div>
-          <button onclick="logoutUser()" class="text-slate-400 hover:text-rose-600 text-sm ml-1" title="Keluar / Logout">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <!-- Avatar Wrap (Bulat Sempurna, Tanpa Centang, Dropdown Menu Shadcn Style) -->
+        <div class="relative shrink-0">
+          <button type="button" onclick="toggleProfileDropdown(event)" id="btn-profile-dropdown" class="block rounded-full ring-2 ring-slate-200 hover:ring-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-2xs group" title="Buka Menu Profil & Akun">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" alt="Avatar Bpk. Hendro" class="instructor-avatar-img group-hover:scale-105 transition">
           </button>
+
+          <!-- Shadcn UI Dropdown Menu: Profil & Keluar -->
+          <div id="profile-dropdown-menu" class="hidden absolute left-0 top-full mt-2.5 w-60 rounded-2xl bg-white border border-slate-200 shadow-2xl z-50 py-1.5 animate-fade-in text-xs">
+            <div class="px-4 py-3 border-b border-slate-100 bg-slate-50/60 rounded-t-2xl">
+              <div class="font-extrabold text-slate-900 text-sm truncate">Bpk. Hendro, S.Kom</div>
+              <div class="text-[11px] text-slate-500 font-mono mt-0.5">NIP: 198402122008011004</div>
+              <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-[9px] font-bold bg-blue-50 text-blue-700 border border-blue-200/60">Guru Produktif RPL</span>
+            </div>
+            
+            <div class="py-1">
+              <a href="instructor-profile.html" class="w-full px-4 py-2.5 text-left text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition flex items-center gap-2.5 font-semibold">
+                <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
+                <span>Profil & Biodata</span>
+              </a>
+            </div>
+
+            <div class="border-t border-slate-100 my-1"></div>
+
+            <div class="py-1">
+              <button type="button" onclick="logoutUser()" class="w-full px-4 py-2 text-left text-rose-600 hover:bg-rose-50 transition flex items-center gap-2.5 font-semibold">
+                <i data-lucide="log-out" class="w-4 h-4 text-rose-500"></i>
+                <span>Keluar / Logout</span>
+              </button>
+            </div>
+          </div>
         </div>
+
+        <!-- Text Name & Info (Sederhana, Bersih, Selaras Biru & Hijau) -->
+        <div class="space-y-0.5 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight">
+              Bpk. Hendro, S.Kom
+            </h1>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+              Aktif Mengajar
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 font-medium truncate flex items-center gap-2">
+            <span>Guru Produktif RPL</span>
+            <span class="text-slate-300">•</span>
+            <span class="font-mono text-slate-400 text-[11px]">NIP: 198402122008011004</span>
+            <span class="text-slate-300 hidden sm:inline">•</span>
+            <span class="text-emerald-600 font-semibold text-[11px] hidden sm:inline-flex items-center gap-1">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Presensi 98.4%
+            </span>
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Right: 3 Counters + Action Button (Selaras Nada Biru SMK) -->
+      <div class="flex items-center justify-between lg:justify-end gap-5 sm:gap-6 w-full lg:w-auto shrink-0 border-t lg:border-t-0 pt-2.5 lg:pt-0 border-slate-100">
+        
+        <div class="flex items-center gap-5 sm:gap-6">
+          <div class="text-center sm:text-left">
+            <div class="text-base sm:text-lg font-extrabold text-slate-800 font-mono leading-none">340</div>
+            <div class="text-[10px] text-slate-400 font-medium mt-1">Siswa Binaan</div>
+          </div>
+          <div class="h-6 w-px bg-slate-200"></div>
+          <div class="text-center sm:text-left">
+            <div class="text-base sm:text-lg font-extrabold text-blue-600 font-mono leading-none">4</div>
+            <div class="text-[10px] text-slate-400 font-medium mt-1">Kelas Aktif</div>
+          </div>
+          <div class="h-6 w-px bg-slate-200"></div>
+          <div class="text-center sm:text-left">
+            <div class="text-base sm:text-lg font-extrabold text-slate-800 font-mono leading-none">28</div>
+            <div class="text-[10px] text-slate-400 font-medium mt-1">Modul & CBT</div>
+          </div>
+        </div>
+
+        <button onclick="openCreateExamModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm hover:shadow transition flex items-center gap-1.5 shrink-0">
+          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          <span>Buat Ujian CBT</span>
+        </button>
 
       </div>
 
@@ -139,866 +152,1317 @@
   </header>
 
   <!-- ============================================================== -->
-  <!-- MAIN CONTAINER WRAPPER -->
+  <!-- 2. BODY SPLIT: SIDEBAR FULL HEIGHT (KIRI) + MAIN CONTENT (KANAN) -->
   <!-- ============================================================== -->
-  <main class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-7 space-y-7">
+  <div class="flex-1 flex w-full overflow-hidden">
     
     <!-- ============================================================ -->
-    <!-- INSTRUCTOR COVER PROFILE BANNER (DreamsLMS Signature Header) -->
+    <!-- LEFT: SIDEBAR FULL-HEIGHT EDGE-TO-EDGE (BUKAN CARD) -->
     <!-- ============================================================ -->
-    <div class="instructor-profile-card">
+    <aside class="hidden lg:flex instructor-full-sidebar custom-scroll">
       
-      <!-- Cover Header Background -->
-      <div class="instructor-cover">
-        <div class="absolute top-4 right-5 flex items-center gap-2">
-          <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white border border-white/20">
-            Tahun Ajaran 2026/2027 Ganjil
-          </span>
-          <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-500 text-white">
-            Status Mengajar: Aktif
-          </span>
-        </div>
-      </div>
-
-      <!-- Instructor Info & Stats Bar -->
-      <div class="p-6 sm:p-8 pt-0 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+      <!-- Top Menus -->
+      <div class="space-y-1 py-3">
         
-        <!-- Left: Avatar, Name & Rating -->
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-          <div class="instructor-avatar-wrap">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" alt="Avatar" class="instructor-avatar-img">
-            <div class="verified-badge" title="Guru Terverifikasi Dapodik">
-              <i class="fa-solid fa-check"></i>
-            </div>
-          </div>
-          <div class="space-y-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h1 class="text-xl sm:text-2xl font-extrabold text-lms-secondary tracking-tight">
-                Bpk. Hendro, S.Kom
-              </h1>
-              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-700">
-                NIP: 198402122008011004
-              </span>
-            </div>
-            <p class="text-xs text-slate-500 font-medium">
-              Guru Produktif Rekayasa Perangkat Lunak (RPL) • SMK Puger Jember
-            </p>
-            <div class="flex items-center gap-3 text-xs pt-1">
-              <div class="flex items-center text-amber-400 text-xs">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star-half-stroke"></i>
-                <span class="text-slate-700 font-bold ml-1.5">4.9</span>
-              </div>
-              <span class="text-slate-400">•</span>
-              <span class="text-slate-500 font-medium">184 Evaluasi Siswa</span>
-              <span class="text-slate-400">•</span>
-              <span class="text-emerald-600 font-semibold flex items-center gap-1">
-                <i class="fa-solid fa-circle-check text-[10px]"></i> Presensi Mengajar 98.4%
-              </span>
-            </div>
-          </div>
-        </div>
+        <div class="instructor-sidebar-title">Menu Utama</div>
+        <a href="javascript:void(0)" onclick="switchInstructorView('dashboard')" id="nav-dashboard" class="instructor-nav-link active">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Dashboard Guru</span>
+        </a>
 
-        <!-- Right: 3 Big Summary Counters & Quick Action -->
-        <div class="flex flex-wrap items-center gap-6 sm:gap-8 border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-100 w-full lg:w-auto justify-between sm:justify-start">
-          <div class="text-center sm:text-left">
-            <div class="text-xl sm:text-2xl font-extrabold text-lms-secondary font-mono">340</div>
-            <div class="text-xs text-slate-400 font-medium">Siswa Dibimbing</div>
-          </div>
-          <div class="h-8 w-px bg-slate-200 hidden sm:block"></div>
-          <div class="text-center sm:text-left">
-            <div class="text-xl sm:text-2xl font-extrabold text-lms-primary font-mono">4</div>
-            <div class="text-xs text-slate-400 font-medium">Kelas Aktif</div>
-          </div>
-          <div class="h-8 w-px bg-slate-200 hidden sm:block"></div>
-          <div class="text-center sm:text-left">
-            <div class="text-xl sm:text-2xl font-extrabold text-indigo-600 font-mono">28</div>
-            <div class="text-xs text-slate-400 font-medium">Modul & Bank Soal</div>
-          </div>
+        <div class="instructor-sidebar-title pt-3">Pengajaran & Kursus</div>
+        <a href="javascript:void(0)" onclick="switchInstructorView('courses')" id="nav-courses" class="instructor-nav-link">
+          <i data-lucide="book-open"></i>
+          <span>Kelas & Mata Pelajaran</span>
+          <span class="badge bg-blue-100 text-blue-700">4 Kelas</span>
+        </a>
+        <a href="javascript:void(0)" onclick="switchInstructorView('cbt')" id="nav-cbt" class="instructor-nav-link">
+          <i data-lucide="laptop"></i>
+          <span>Bank Soal & CBT Online</span>
+          <span class="badge bg-indigo-100 text-indigo-700">3 Aktif</span>
+        </a>
+        <a href="javascript:void(0)" onclick="switchInstructorView('schedule')" id="nav-schedule" class="instructor-nav-link">
+          <i data-lucide="calendar"></i>
+          <span>Jadwal Mengajar</span>
+        </a>
 
-          <button onclick="openCreateExamModal()" class="btn-lms-primary sm:hidden w-full justify-center mt-2">
-            <i class="fa-solid fa-plus text-xs"></i>
-            <span>Buat Ujian CBT Baru</span>
-          </button>
-        </div>
+        <div class="instructor-sidebar-title pt-3">Evaluasi & Siswa</div>
+        <a href="javascript:void(0)" onclick="switchInstructorView('grades')" id="nav-grades" class="instructor-nav-link">
+          <i data-lucide="clipboard-check"></i>
+          <span>Leger Nilai (Kurikulum Merdeka)</span>
+        </a>
+        <a href="javascript:void(0)" onclick="switchInstructorView('attendance')" id="nav-attendance" class="instructor-nav-link">
+          <i data-lucide="map-pin"></i>
+          <span>Presensi GPS Siswa</span>
+          <span class="badge bg-emerald-100 text-emerald-700">Geofence</span>
+        </a>
+        <a href="javascript:void(0)" onclick="exportAttendanceExcel()" class="instructor-nav-link">
+          <i data-lucide="file-spreadsheet"></i>
+          <span>Rekap Kehadiran Excel</span>
+        </a>
+
+        <div class="instructor-sidebar-title pt-3">Komunikasi & Akun</div>
+        <a href="javascript:void(0)" onclick="switchInstructorView('announcements')" id="nav-announcements" class="instructor-nav-link">
+          <i data-lucide="bell"></i>
+          <span>Pengumuman Kelas</span>
+        </a>
+        <a href="javascript:void(0)" onclick="switchInstructorView('messages')" id="nav-messages" class="instructor-nav-link">
+          <i data-lucide="message-square"></i>
+          <span>Pesan Siswa</span>
+          <span class="badge bg-rose-100 text-rose-700">2 Baru</span>
+        </a>
+        <a href="dashboard.html" class="instructor-nav-link text-slate-500">
+          <i data-lucide="monitor"></i>
+          <span>Mode Tampilan Safetac</span>
+        </a>
+        <a href="javascript:void(0)" onclick="logoutUser()" class="instructor-nav-link text-rose-600 hover:bg-rose-50 hover:text-rose-700">
+          <i data-lucide="log-out" class="text-rose-500"></i>
+          <span>Keluar / Logout</span>
+        </a>
 
       </div>
 
-    </div>
+      <!-- Bottom TU Box -->
+      <div class="p-4 m-3 rounded-xl bg-slate-900 text-white space-y-2 text-xs">
+        <div class="flex items-center gap-2 text-orange-400 font-bold">
+          <i data-lucide="headphones" class="w-4 h-4"></i>
+          <span>Bantuan Tata Usaha</span>
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          Sinkronisasi Dapodik atau reset token ujian siswa SMK Puger.
+        </p>
+        <a href="javascript:void(0)" onclick="alert('Hubungi staf Tata Usaha SMK Puger via ekstensi 102.')" class="inline-block text-[11px] font-bold text-orange-400 hover:text-orange-300">
+          Hubungi Staf TU &rarr;
+        </a>
+      </div>
+
+    </aside>
 
     <!-- ============================================================ -->
-    <!-- 2-COLUMN MAIN CONTENT (DreamsLMS Sidebar + Content Grid) -->
+    <!-- RIGHT: SCROLLABLE MAIN CONTENT (HANYA BAGIAN INI YANG DI-SCROLL) -->
     <!-- ============================================================ -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
+    <main class="flex-1 h-full overflow-y-auto custom-scroll p-6 sm:p-8 space-y-6 sm:space-y-7 pb-16">
       
-      <!-- ========================================================== -->
-      <!-- LEFT SIDEBAR: INSTRUCTOR NAVIGATION -->
-      <!-- ========================================================== -->
-      <aside class="lg:col-span-3 space-y-4">
+      <!-- ======================================================== -->
+      <!-- VIEW 1: DASHBOARD UTAMA GURU -->
+      <!-- ======================================================== -->
+      <div id="sec-dashboard" class="instructor-section space-y-6 sm:space-y-7">
         
-        <div class="instructor-sidebar space-y-1">
+        <!-- TOP 4 METRIC CARDS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5">
           
-          <div class="instructor-sidebar-title">Menu Utama</div>
-          <a href="javascript:void(0)" onclick="switchInstructorView('dashboard')" id="nav-dashboard" class="instructor-nav-link active">
-            <i class="fa-solid fa-gauge-high"></i>
-            <span>Dashboard Guru</span>
-          </a>
-          <a href="javascript:void(0)" onclick="showToast('Menampilkan halaman profil pendidik & sertifikasi...', 'info')" id="nav-profile" class="instructor-nav-link">
-            <i class="fa-solid fa-id-badge"></i>
-            <span>Profil & Biodata</span>
-          </a>
+          <!-- Metric 1 -->
+          <div class="lms-stat-card">
+            <div class="lms-stat-info">
+              <div class="lms-stat-label">Siswa Binaan</div>
+              <div class="lms-stat-number">340</div>
+              <div class="lms-stat-sub text-emerald-600 flex items-center gap-1">
+                <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
+                <span>+12 Siswa semester ini</span>
+              </div>
+            </div>
+            <div class="lms-stat-icon-wrap icon-orange">
+              <i data-lucide="graduation-cap"></i>
+            </div>
+          </div>
 
-          <div class="instructor-sidebar-title pt-3">Pengajaran & Kursus</div>
-          <a href="javascript:void(0)" onclick="switchInstructorView('courses')" id="nav-courses" class="instructor-nav-link">
-            <i class="fa-solid fa-book-open"></i>
-            <span>Kelas & Mata Pelajaran</span>
-            <span class="badge bg-orange-100 text-orange-700">4 Kelas</span>
-          </a>
-          <a href="javascript:void(0)" onclick="switchInstructorView('cbt')" id="nav-cbt" class="instructor-nav-link">
-            <i class="fa-solid fa-laptop-file"></i>
-            <span>Bank Soal & CBT Online</span>
-            <span class="badge bg-indigo-100 text-indigo-700">3 Aktif</span>
-          </a>
-          <a href="javascript:void(0)" onclick="switchInstructorView('schedule')" id="nav-schedule" class="instructor-nav-link">
-            <i class="fa-regular fa-calendar-days"></i>
-            <span>Jadwal Mengajar</span>
-          </a>
+          <!-- Metric 2 -->
+          <div class="lms-stat-card">
+            <div class="lms-stat-info">
+              <div class="lms-stat-label">Presensi GPS Siswa</div>
+              <div class="lms-stat-number">96.8%</div>
+              <div class="lms-stat-sub text-emerald-600 flex items-center gap-1">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+                <span>Radius 80m Valid</span>
+              </div>
+            </div>
+            <div class="lms-stat-icon-wrap icon-green">
+              <i data-lucide="map-pin"></i>
+            </div>
+          </div>
 
-          <div class="instructor-sidebar-title pt-3">Evaluasi & Siswa</div>
-          <a href="javascript:void(0)" onclick="switchInstructorView('grades')" id="nav-grades" class="instructor-nav-link">
-            <i class="fa-solid fa-clipboard-check"></i>
-            <span>Leger Nilai (Kurikulum Merdeka)</span>
-          </a>
-          <a href="javascript:void(0)" onclick="switchInstructorView('attendance')" id="nav-attendance" class="instructor-nav-link">
-            <i class="fa-solid fa-location-crosshairs"></i>
-            <span>Presensi GPS Siswa</span>
-            <span class="badge bg-emerald-100 text-emerald-700">Geofence</span>
-          </a>
-          <a href="javascript:void(0)" onclick="showToast('Mengunduh rekap kehadiran bulanan format resmi...', 'info')" class="instructor-nav-link">
-            <i class="fa-solid fa-file-excel"></i>
-            <span>Rekap Kehadiran Excel</span>
-          </a>
+          <!-- Metric 3 -->
+          <div class="lms-stat-card">
+            <div class="lms-stat-info">
+              <div class="lms-stat-label">Sesi CBT Aktif</div>
+              <div class="lms-stat-number">3 Sesi</div>
+              <div class="lms-stat-sub text-indigo-600 flex items-center gap-1">
+                <i data-lucide="cloud" class="w-3.5 h-3.5"></i>
+                <span>Autosave Aktif</span>
+              </div>
+            </div>
+            <div class="lms-stat-icon-wrap icon-blue">
+              <i data-lucide="laptop"></i>
+            </div>
+          </div>
 
-          <div class="instructor-sidebar-title pt-3">Komunikasi & Akun</div>
-          <a href="javascript:void(0)" onclick="showToast('Fitur siaran pengumuman dibuka.', 'info')" class="instructor-nav-link">
-            <i class="fa-regular fa-bell"></i>
-            <span>Pengumuman Kelas</span>
-          </a>
-          <a href="javascript:void(0)" onclick="showToast('Membuka pesan konsultasi siswa...', 'info')" class="instructor-nav-link">
-            <i class="fa-regular fa-comments"></i>
-            <span>Pesan Siswa</span>
-            <span class="badge bg-rose-100 text-rose-700">2 Baru</span>
-          </a>
-          <a href="dashboard.html" class="instructor-nav-link text-slate-500">
-            <i class="fa-solid fa-arrow-right-arrow-left"></i>
-            <span>Ganti ke Safetac View</span>
-          </a>
-          <a href="javascript:void(0)" onclick="logoutUser()" class="instructor-nav-link text-rose-600 hover:bg-rose-50 hover:text-rose-700">
-            <i class="fa-solid fa-arrow-right-from-bracket text-rose-500"></i>
-            <span>Keluar / Logout</span>
-          </a>
+          <!-- Metric 4 -->
+          <div class="lms-stat-card">
+            <div class="lms-stat-info">
+              <div class="lms-stat-label">Rata-rata Nilai Kelas</div>
+              <div class="lms-stat-number">88.4</div>
+              <div class="lms-stat-sub text-purple-600 flex items-center gap-1">
+                <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                <span>Predikat A (Tuntas)</span>
+              </div>
+            </div>
+            <div class="lms-stat-icon-wrap icon-purple">
+              <i data-lucide="sparkles"></i>
+            </div>
+          </div>
 
         </div>
 
-        <!-- Instructor Support / Help Card (DreamsLMS Style) -->
-        <div class="p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-indigo-950 text-white space-y-3 shadow-sm">
-          <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-orange-400">
-            <i class="fa-solid fa-headset text-sm"></i>
-          </div>
-          <h4 class="text-xs font-bold">Bantuan Guru & Admin TU</h4>
-          <p class="text-[11px] text-slate-300 leading-relaxed">
-            Perlu sinkronisasi nilai ke pangkalan data Dapodik atau reset sesi ujian siswa?
-          </p>
-          <a href="javascript:void(0)" onclick="alert('Hubungi staf Tata Usaha SMK Puger melalui WhatsApp ekstensi internal 102.')" class="inline-block text-[11px] font-bold text-orange-400 hover:text-orange-300">
-            Hubungi Ruang TU &rarr;
-          </a>
-        </div>
-
-      </aside>
-
-      <!-- ========================================================== -->
-      <!-- RIGHT COLUMN: MAIN INSTRUCTOR CONTENT -->
-      <!-- ========================================================== -->
-      <section class="lg:col-span-9 space-y-7">
-        
-        <!-- ======================================================== -->
-        <!-- SECTION 1: DASHBOARD UTAMA GURU -->
-        <!-- ======================================================== -->
-        <div id="sec-dashboard" class="instructor-section space-y-7">
+        <!-- CHARTS SECTION: Performance Line + Donut GPS -->
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-stretch">
           
-          <!-- TOP 4 METRIC CARDS (DreamsLMS Style) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-            
-            <!-- Metric 1: Total Siswa Dibimbing -->
-            <div class="lms-stat-card">
-              <div class="space-y-1">
-                <span class="text-xs font-medium text-slate-500">Total Siswa Binaan</span>
-                <div class="text-2xl font-extrabold text-lms-secondary tracking-tight">340</div>
-                <div class="flex items-center gap-1.5 text-[11px] text-emerald-600 font-semibold pt-1">
-                  <i class="fa-solid fa-arrow-trend-up"></i>
-                  <span>+12 Siswa semester ini</span>
-                </div>
-              </div>
-              <div class="lms-stat-icon-wrap icon-orange">
-                <i class="fa-solid fa-user-graduate"></i>
-              </div>
-            </div>
-
-            <!-- Metric 2: Rata-rata Kehadiran GPS Siswa -->
-            <div class="lms-stat-card">
-              <div class="space-y-1">
-                <span class="text-xs font-medium text-slate-500">Presensi GPS Siswa</span>
-                <div class="text-2xl font-extrabold text-lms-secondary tracking-tight">96.8%</div>
-                <div class="flex items-center gap-1.5 text-[11px] text-emerald-600 font-semibold pt-1">
-                  <i class="fa-solid fa-shield-halved"></i>
-                  <span>Radius 80m Valid</span>
-                </div>
-              </div>
-              <div class="lms-stat-icon-wrap icon-green">
-                <i class="fa-solid fa-location-dot"></i>
-              </div>
-            </div>
-
-            <!-- Metric 3: Sesi CBT Ujian Aktif -->
-            <div class="lms-stat-card">
-              <div class="space-y-1">
-                <span class="text-xs font-medium text-slate-500">Sesi Ujian CBT Aktif</span>
-                <div class="text-2xl font-extrabold text-lms-secondary tracking-tight">3 Sesi</div>
-                <div class="flex items-center gap-1.5 text-[11px] text-indigo-600 font-semibold pt-1">
-                  <i class="fa-solid fa-cloud-arrow-up"></i>
-                  <span>Autosave Cloud Nyala</span>
-                </div>
-              </div>
-              <div class="lms-stat-icon-wrap icon-blue">
-                <i class="fa-solid fa-laptop-code"></i>
-              </div>
-            </div>
-
-            <!-- Metric 4: Rata-rata Nilai Siswa -->
-            <div class="lms-stat-card">
-              <div class="space-y-1">
-                <span class="text-xs font-medium text-slate-500">Rata-rata Nilai Kelas</span>
-                <div class="text-2xl font-extrabold text-lms-secondary tracking-tight">88.4</div>
-                <div class="flex items-center gap-1.5 text-[11px] text-purple-600 font-semibold pt-1">
-                  <i class="fa-solid fa-star"></i>
-                  <span>Predikat A (Tuntas)</span>
-                </div>
-              </div>
-              <div class="lms-stat-icon-wrap icon-purple">
-                <i class="fa-solid fa-award"></i>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- CHARTS ROW: Performance Line Chart & Donut Chart -->
-          <div class="grid grid-cols-1 xl:grid-cols-12 gap-7 items-stretch">
-            
-            <!-- Left Chart: Student Performance & Attendance Trends -->
-            <div class="xl:col-span-8 lms-panel-card p-6 flex flex-col justify-between">
-              <div>
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-100">
-                  <div>
-                    <h3 class="font-extrabold text-lms-secondary text-base">Tren Capaian Belajar & Presensi Siswa</h3>
-                    <p class="text-xs text-slate-400">Rata-rata nilai evaluasi kompetensi vs tingkat kehadiran kelas</p>
-                  </div>
-                  
-                  <div class="flex items-center gap-2">
-                    <span class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-600 mr-2">
-                      <span class="w-3 h-3 rounded-full bg-lms-primary inline-block"></span> Nilai CBT
-                    </span>
-                    <span class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-600 mr-2">
-                      <span class="w-3 h-3 rounded-full bg-lms-blue inline-block"></span> Kehadiran (%)
-                    </span>
-                    <select class="text-xs font-semibold text-slate-600 border border-slate-200 rounded-xl px-2.5 py-1 bg-slate-50 focus:outline-none">
-                      <option>Tahun 2026</option>
-                      <option>Semester Ini</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Canvas -->
-                <div class="h-64 w-full">
-                  <canvas id="instructorPerfChart"></canvas>
-                </div>
-              </div>
-
-              <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                <span>Rata-rata ketuntasan kelas kejuruan: <strong class="text-emerald-600">94.2% Tuntas</strong></span>
-                <a href="javascript:void(0)" onclick="switchInstructorView('grades')" class="font-bold text-lms-primary hover:underline">
-                  Buka Lembar Leger &rarr;
-                </a>
-              </div>
-            </div>
-
-            <!-- Right Chart: Donut Kehadiran GPS Geofence -->
-            <div class="xl:col-span-4 lms-panel-card p-6 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
-                  <h3 class="font-extrabold text-lms-secondary text-sm">Presensi GPS Geofence</h3>
-                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Hari Ini</span>
-                </div>
-
-                <!-- Donut Canvas -->
-                <div class="h-44 relative flex items-center justify-center my-2">
-                  <canvas id="instructorDonutChart"></canvas>
-                  <div class="absolute text-center pointer-events-none">
-                    <span class="text-2xl font-extrabold text-lms-secondary font-mono">95.4%</span>
-                    <span class="block text-[10px] text-slate-400 font-semibold uppercase">Tepat Waktu</span>
-                  </div>
-                </div>
-
-                <!-- Legend Breakdown -->
-                <div class="space-y-2.5 pt-3 text-xs">
-                  <div class="flex items-center justify-between">
-                    <span class="flex items-center gap-2 text-slate-600">
-                      <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                      Hadir Tepat Waktu (GPS &lt; 80m)
-                    </span>
-                    <span class="font-bold text-slate-800 font-mono">324 Siswa</span>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="flex items-center gap-2 text-slate-600">
-                      <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                      Terlambat Masuk
-                    </span>
-                    <span class="font-bold text-slate-800 font-mono">11 Siswa</span>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="flex items-center gap-2 text-slate-600">
-                      <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-                      Izin / Sakit Terverifikasi
-                    </span>
-                    <span class="font-bold text-slate-800 font-mono">5 Siswa</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="pt-4 border-t border-slate-100">
-                <a href="javascript:void(0)" onclick="switchInstructorView('attendance')" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-center rounded-xl text-xs font-bold block transition">
-                  Lihat Peta GPS Siswa
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- TABLE 1: KELAS & MATA PELAJARAN YANG DIAMPU (DreamsLMS Enrolled Courses Table) -->
-          <div class="lms-panel-card">
-            
-            <div class="lms-panel-header">
-              <div>
-                <h3 class="font-extrabold text-lms-secondary text-base">Kelas & Mata Pelajaran Aktif</h3>
-                <p class="text-xs text-slate-400">Daftar rombongan belajar dan progres capaian materi semester ganjil</p>
-              </div>
-              <button onclick="openCreateExamModal()" class="px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:text-lms-primary hover:border-orange-300 transition flex items-center gap-1.5">
-                <i class="fa-solid fa-plus text-xs"></i> Tambah Materi
-              </button>
-            </div>
-
-            <div class="overflow-x-auto">
-              <table class="w-full text-left lms-table">
-                <thead>
-                  <tr>
-                    <th>Mata Pelajaran & Modul</th>
-                    <th>Kelas</th>
-                    <th>Jumlah Siswa</th>
-                    <th>Capaian Kurikulum</th>
-                    <th>Rata-rata Nilai</th>
-                    <th>Status</th>
-                    <th class="text-right">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                  <tr>
-                    <td>
-                      <div class="flex items-center gap-3">
-                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=120" alt="Thumb" class="course-thumb-box">
-                        <div>
-                          <div class="font-bold text-slate-900">Pemrograman Web & Perangkat Bergerak</div>
-                          <div class="text-[11px] text-slate-400">Modul 8: Laravel 11 MVC & REST API</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td><span class="font-bold text-slate-800">XII RPL 1</span></td>
-                    <td class="font-mono">36 Siswa</td>
-                    <td>
-                      <div class="w-32">
-                        <div class="flex justify-between text-[10px] text-slate-500 font-bold mb-1">
-                          <span>85% Tuntas</span>
-                        </div>
-                        <div class="w-full bg-slate-100 rounded-full h-1.5">
-                          <div class="bg-lms-primary h-1.5 rounded-full" style="width: 85%"></div>
-                        </div>
-                      </div>
-                    </td>
-                    <td><span class="font-bold text-slate-900 font-mono">90.2</span> <span class="text-[10px] text-emerald-600">(A)</span></td>
-                    <td><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">AKTIF MENGAJAR</span></td>
-                    <td class="text-right">
-                      <div class="flex items-center justify-end gap-2">
-                        <button onclick="switchInstructorView('grades')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-orange-50 hover:text-lms-primary flex items-center justify-center text-xs text-slate-600 transition" title="Lihat Leger">
-                          <i class="fa-solid fa-list-check"></i>
-                        </button>
-                        <button onclick="switchInstructorView('cbt')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 flex items-center justify-center text-xs text-slate-600 transition" title="Buka CBT">
-                          <i class="fa-solid fa-laptop-code"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <div class="flex items-center gap-3">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=120" alt="Thumb" class="course-thumb-box">
-                        <div>
-                          <div class="font-bold text-slate-900">Pemrograman Web & Perangkat Bergerak</div>
-                          <div class="text-[11px] text-slate-400">Modul 7: Database Relasional & Eloquent</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td><span class="font-bold text-slate-800">XII RPL 2</span></td>
-                    <td class="font-mono">35 Siswa</td>
-                    <td>
-                      <div class="w-32">
-                        <div class="flex justify-between text-[10px] text-slate-500 font-bold mb-1">
-                          <span>78% Tuntas</span>
-                        </div>
-                        <div class="w-full bg-slate-100 rounded-full h-1.5">
-                          <div class="bg-lms-blue h-1.5 rounded-full" style="width: 78%"></div>
-                        </div>
-                      </div>
-                    </td>
-                    <td><span class="font-bold text-slate-900 font-mono">86.4</span> <span class="text-[10px] text-emerald-600">(B+)</span></td>
-                    <td><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">AKTIF MENGAJAR</span></td>
-                    <td class="text-right">
-                      <div class="flex items-center justify-end gap-2">
-                        <button onclick="switchInstructorView('grades')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-orange-50 hover:text-lms-primary flex items-center justify-center text-xs text-slate-600 transition">
-                          <i class="fa-solid fa-list-check"></i>
-                        </button>
-                        <button onclick="switchInstructorView('cbt')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 flex items-center justify-center text-xs text-slate-600 transition">
-                          <i class="fa-solid fa-laptop-code"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <div class="flex items-center gap-3">
-                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=120" alt="Thumb" class="course-thumb-box">
-                        <div>
-                          <div class="font-bold text-slate-900">Basis Data & SQL Lanjutan</div>
-                          <div class="text-[11px] text-slate-400">Modul 5: Stored Procedure & Normalisasi</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td><span class="font-bold text-slate-800">XI RPL 1</span></td>
-                    <td class="font-mono">36 Siswa</td>
-                    <td>
-                      <div class="w-32">
-                        <div class="flex justify-between text-[10px] text-slate-500 font-bold mb-1">
-                          <span>92% Tuntas</span>
-                        </div>
-                        <div class="w-full bg-slate-100 rounded-full h-1.5">
-                          <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 92%"></div>
-                        </div>
-                      </div>
-                    </td>
-                    <td><span class="font-bold text-slate-900 font-mono">88.9</span> <span class="text-[10px] text-emerald-600">(A)</span></td>
-                    <td><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">AKTIF MENGAJAR</span></td>
-                    <td class="text-right">
-                      <div class="flex items-center justify-end gap-2">
-                        <button onclick="switchInstructorView('grades')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-orange-50 hover:text-lms-primary flex items-center justify-center text-xs text-slate-600 transition">
-                          <i class="fa-solid fa-list-check"></i>
-                        </button>
-                        <button onclick="switchInstructorView('cbt')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 flex items-center justify-center text-xs text-slate-600 transition">
-                          <i class="fa-solid fa-laptop-code"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-
-                </tbody>
-              </table>
-            </div>
-
-          </div>
-
-          <!-- 2-COLUMN LOWER ROW: Recent CBT Submissions & Today's Schedule -->
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
-            
-            <!-- Left: Pengumpulan Tugas & Ujian Terbaru -->
-            <div class="lg:col-span-7 lms-panel-card">
-              <div class="lms-panel-header">
+          <!-- Left Chart -->
+          <div class="xl:col-span-8 lms-panel-card p-5 sm:p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-100">
                 <div>
-                  <h3 class="font-extrabold text-lms-secondary text-sm">Pengumpulan CBT & Tugas Terbaru</h3>
-                  <p class="text-[11px] text-slate-400">Hasil pengerjaan otomatis oleh siswa dengan skoring instan</p>
+                  <h3 class="font-extrabold text-lms-secondary text-base">Tren Nilai Kompetensi & Presensi</h3>
+                  <p class="text-xs text-slate-400">Rata-rata capaian belajar vs kedisiplinan kehadiran bulanan</p>
                 </div>
-                <a href="javascript:void(0)" onclick="switchInstructorView('grades')" class="text-xs font-bold text-lms-primary hover:underline">
-                  Semua Nilai
-                </a>
-              </div>
-
-              <div class="divide-y divide-slate-100 text-xs">
                 
-                <div class="p-4 flex items-center justify-between hover:bg-slate-50 transition">
-                  <div class="flex items-center gap-3">
-                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=100" class="w-9 h-9 rounded-full object-cover">
-                    <div>
-                      <div class="font-bold text-slate-800">Bagus Permadi</div>
-                      <div class="text-[11px] text-slate-400">XII RPL 1 • CBT Laravel Routing & Controller</div>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <span class="font-mono font-bold text-emerald-600 text-sm">92 / 100</span>
-                    <span class="block text-[10px] text-slate-400">06:49 WIB • Otomatis</span>
-                  </div>
-                </div>
-
-                <div class="p-4 flex items-center justify-between hover:bg-slate-50 transition">
-                  <div class="flex items-center gap-3">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" class="w-9 h-9 rounded-full object-cover">
-                    <div>
-                      <div class="font-bold text-slate-800">Aditya Pratama</div>
-                      <div class="text-[11px] text-slate-400">XII RPL 1 • CBT Laravel Routing & Controller</div>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <span class="font-mono font-bold text-emerald-600 text-sm">88 / 100</span>
-                    <span class="block text-[10px] text-slate-400">06:54 WIB • Otomatis</span>
-                  </div>
-                </div>
-
-                <div class="p-4 flex items-center justify-between hover:bg-slate-50 transition">
-                  <div class="flex items-center gap-3">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" class="w-9 h-9 rounded-full object-cover">
-                    <div>
-                      <div class="font-bold text-slate-800">Dewi Anggraini</div>
-                      <div class="text-[11px] text-slate-400">XII RPL 1 • CBT Laravel Routing & Controller</div>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <span class="font-mono font-bold text-emerald-600 text-sm">96 / 100</span>
-                    <span class="block text-[10px] text-slate-400">07:02 WIB • Otomatis</span>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- Right: Agenda Tatap Muka & Jadwal Hari Ini -->
-            <div class="lg:col-span-5 lms-panel-card p-6 flex flex-col justify-between space-y-4">
-              <div>
-                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                  <h3 class="font-extrabold text-lms-secondary text-sm">Agenda Mengajar Hari Ini</h3>
-                  <span class="text-[10px] font-mono font-bold bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full">
-                    Rabu, 04 Nov 2026
+                <div class="flex items-center gap-3">
+                  <span class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-600">
+                    <span class="w-2.5 h-2.5 rounded-full bg-lms-primary inline-block"></span> Nilai CBT
+                  </span>
+                  <span class="flex items-center gap-1.5 text-[11px] font-semibold text-slate-600">
+                    <span class="w-2.5 h-2.5 rounded-full bg-lms-blue inline-block"></span> Kehadiran %
                   </span>
                 </div>
-
-                <div class="space-y-3 pt-3">
-                  
-                  <div class="p-3.5 rounded-xl bg-orange-50/60 border border-orange-200/70 text-xs space-y-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-bold text-slate-900">Pemrograman Web & Mobile</span>
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-white">SEDANG BERLANGSUNG</span>
-                    </div>
-                    <div class="text-[11px] text-slate-500">Kelas XII RPL 1 • Lab Komputer 2</div>
-                    <div class="font-mono text-xs font-bold text-orange-700">07:00 - 09:15 WIB</div>
-                  </div>
-
-                  <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 text-xs space-y-1">
-                    <div class="flex items-center justify-between">
-                      <span class="font-bold text-slate-900">Basis Data & Relasional</span>
-                      <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-600">BERIKUTNYA</span>
-                    </div>
-                    <div class="text-[11px] text-slate-500">Kelas XI RPL 1 • Lab RPL 1</div>
-                    <div class="font-mono text-xs font-bold text-slate-700">09:30 - 11:45 WIB</div>
-                  </div>
-
-                </div>
               </div>
 
-              <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span class="text-xs text-slate-400">Total tatap muka: 8 JP</span>
-                <button onclick="showToast('Presensi mengajar guru berhasil divalidasi di Lab 2.', 'success')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition">
-                  <i class="fa-solid fa-fingerprint mr-1"></i> Presensi Mengajar
-                </button>
+              <div class="h-64 w-full">
+                <canvas id="instructorPerfChart"></canvas>
               </div>
             </div>
 
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+              <span>Rata-rata ketuntasan kelas kejuruan: <strong class="text-emerald-600">94.2% Tuntas</strong></span>
+              <a href="javascript:void(0)" onclick="switchInstructorView('grades')" class="font-bold text-lms-primary hover:underline">
+                Buka Lembar Leger &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Donut Chart -->
+          <div class="xl:col-span-4 lms-panel-card p-5 sm:p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+                <h3 class="font-extrabold text-lms-secondary text-sm">Presensi GPS Geofence</h3>
+                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Hari Ini</span>
+              </div>
+
+              <div class="h-44 relative flex items-center justify-center my-1">
+                <canvas id="instructorDonutChart"></canvas>
+                <div class="absolute text-center pointer-events-none">
+                  <span class="text-2xl font-extrabold text-lms-secondary font-mono">95.4%</span>
+                  <span class="block text-[10px] text-slate-400 font-semibold uppercase">Tepat Waktu</span>
+                </div>
+              </div>
+
+              <div class="space-y-2 pt-2 text-xs">
+                <div class="flex items-center justify-between">
+                  <span class="flex items-center gap-2 text-slate-600">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Hadir Tepat Waktu (&le;80m)
+                  </span>
+                  <span class="font-bold text-slate-800 font-mono">324 Siswa</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="flex items-center gap-2 text-slate-600">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Terlambat Masuk
+                  </span>
+                  <span class="font-bold text-slate-800 font-mono">11 Siswa</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="flex items-center gap-2 text-slate-600">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Izin / Sakit Terdata
+                  </span>
+                  <span class="font-bold text-slate-800 font-mono">5 Siswa</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100">
+              <a href="javascript:void(0)" onclick="switchInstructorView('attendance')" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-center rounded-xl text-xs font-bold block transition">
+                Lihat Detail Koordinat &rarr;
+              </a>
+            </div>
           </div>
 
         </div>
 
-        <!-- ======================================================== -->
-        <!-- SECTION 2: KELAS & MATA PELAJARAN DETAIL -->
-        <!-- ======================================================== -->
-        <div id="sec-courses" class="instructor-section hidden space-y-6">
-          <div class="lms-panel-card p-6">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
-              <div>
-                <h2 class="text-xl font-extrabold text-lms-secondary">Manajemen Rombongan Belajar & Silabus</h2>
-                <p class="text-xs text-slate-400">Kelola materi pembelajaran, modul PDF/video, dan tugas praktikum siswa</p>
-              </div>
-              <button onclick="openCreateExamModal()" class="btn-lms-primary">
-                <i class="fa-solid fa-plus"></i> Tambah Silabus
-              </button>
+        <!-- TABLE: KELAS & MATA PELAJARAN -->
+        <div class="lms-panel-card">
+          
+          <div class="lms-panel-header">
+            <div>
+              <h3 class="font-extrabold text-lms-secondary text-base">Kelas & Mata Pelajaran yang Diampu</h3>
+              <p class="text-xs text-slate-400">Progres capaian modul kurikulum semester ganjil</p>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              
-              <div class="p-5 rounded-2xl border border-slate-200 bg-white hover:border-orange-300 transition space-y-4 shadow-2xs">
-                <div class="flex items-start justify-between">
-                  <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center font-extrabold text-lg">
-                      RPL
-                    </div>
-                    <div>
-                      <h4 class="font-bold text-slate-900 text-sm">Pemrograman Web & Mobile</h4>
-                      <p class="text-xs text-slate-400">Kelas XII RPL 1 • 36 Siswa</p>
-                    </div>
-                  </div>
-                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Kurikulum Merdeka</span>
-                </div>
-                <p class="text-xs text-slate-600 leading-relaxed">
-                  Capaian Pembelajaran: Peserta didik mampu merancang arsitektur backend REST API Laravel, migrasi database, dan autentikasi token JWT.
-                </p>
-                <div class="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
-                  <span class="font-mono font-bold text-slate-700">12 Modul • 4 Tugas</span>
-                  <button onclick="switchInstructorView('cbt')" class="text-xs font-bold text-lms-primary hover:underline">Kelola CBT &rarr;</button>
-                </div>
-              </div>
-
-              <div class="p-5 rounded-2xl border border-slate-200 bg-white hover:border-orange-300 transition space-y-4 shadow-2xs">
-                <div class="flex items-start justify-between">
-                  <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-extrabold text-lg">
-                      RPL
-                    </div>
-                    <div>
-                      <h4 class="font-bold text-slate-900 text-sm">Pemrograman Web & Mobile</h4>
-                      <p class="text-xs text-slate-400">Kelas XII RPL 2 • 35 Siswa</p>
-                    </div>
-                  </div>
-                  <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Kurikulum Merdeka</span>
-                </div>
-                <p class="text-xs text-slate-600 leading-relaxed">
-                  Capaian Pembelajaran: Implementasi Blade templating engine, routing, validasi form request, dan pembuatan RESTful API.
-                </p>
-                <div class="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
-                  <span class="font-mono font-bold text-slate-700">10 Modul • 3 Tugas</span>
-                  <button onclick="switchInstructorView('cbt')" class="text-xs font-bold text-lms-primary hover:underline">Kelola CBT &rarr;</button>
-                </div>
-              </div>
-
-            </div>
+            <button onclick="openCreateExamModal()" class="btn-lms-primary text-xs">
+              <i class="fa-solid fa-plus text-xs"></i> Tambah Silabus
+            </button>
           </div>
+
+          <div class="overflow-x-auto custom-scroll">
+            <table class="lms-table">
+              <thead>
+                <tr>
+                  <th>Mata Pelajaran & Silabus</th>
+                  <th>Kelas</th>
+                  <th>Jumlah Siswa</th>
+                  <th>Capaian Kurikulum</th>
+                  <th>Rata-rata Nilai</th>
+                  <th>Status</th>
+                  <th class="text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=120" alt="Thumb" class="course-thumb-box">
+                      <div class="min-w-[220px]">
+                        <div class="font-bold text-slate-900 leading-tight">Pemrograman Web & Mobile</div>
+                        <div class="text-[11px] text-slate-400 mt-0.5">Modul 8: Laravel 11 MVC & REST API</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="font-bold text-slate-800">XII RPL 1</span></td>
+                  <td class="font-mono">36 Siswa</td>
+                  <td>
+                    <div class="w-28 sm:w-32">
+                      <div class="flex justify-between text-[10px] text-slate-500 font-bold mb-1">
+                        <span>85% Tuntas</span>
+                      </div>
+                      <div class="w-full bg-slate-100 rounded-full h-1.5">
+                        <div class="bg-lms-primary h-1.5 rounded-full" style="width: 85%"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="font-bold text-slate-900 font-mono">90.2</span> <span class="text-[10px] text-emerald-600 font-bold">(A)</span></td>
+                  <td><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 whitespace-nowrap">AKTIF MENGAJAR</span></td>
+                  <td class="text-right">
+                    <div class="flex items-center justify-end gap-1.5">
+                      <button onclick="switchInstructorView('grades')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-orange-50 hover:text-lms-primary flex items-center justify-center text-xs text-slate-600 transition" title="Lihat Leger">
+                        <i class="fa-solid fa-list-check"></i>
+                      </button>
+                      <button onclick="switchInstructorView('cbt')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 flex items-center justify-center text-xs text-slate-600 transition" title="Kelola CBT">
+                        <i class="fa-solid fa-laptop-code"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=120" alt="Thumb" class="course-thumb-box">
+                      <div class="min-w-[220px]">
+                        <div class="font-bold text-slate-900 leading-tight">Pemrograman Web & Mobile</div>
+                        <div class="text-[11px] text-slate-400 mt-0.5">Modul 7: Database Relasional & Eloquent</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="font-bold text-slate-800">XII RPL 2</span></td>
+                  <td class="font-mono">35 Siswa</td>
+                  <td>
+                    <div class="w-28 sm:w-32">
+                      <div class="flex justify-between text-[10px] text-slate-500 font-bold mb-1">
+                        <span>78% Tuntas</span>
+                      </div>
+                      <div class="w-full bg-slate-100 rounded-full h-1.5">
+                        <div class="bg-lms-blue h-1.5 rounded-full" style="width: 78%"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="font-bold text-slate-900 font-mono">86.4</span> <span class="text-[10px] text-emerald-600 font-bold">(B+)</span></td>
+                  <td><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 whitespace-nowrap">AKTIF MENGAJAR</span></td>
+                  <td class="text-right">
+                    <div class="flex items-center justify-end gap-1.5">
+                      <button onclick="switchInstructorView('grades')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-orange-50 hover:text-lms-primary flex items-center justify-center text-xs text-slate-600 transition">
+                        <i class="fa-solid fa-list-check"></i>
+                      </button>
+                      <button onclick="switchInstructorView('cbt')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 flex items-center justify-center text-xs text-slate-600 transition">
+                        <i class="fa-solid fa-laptop-code"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=120" alt="Thumb" class="course-thumb-box">
+                      <div class="min-w-[220px]">
+                        <div class="font-bold text-slate-900 leading-tight">Basis Data & SQL Terapan</div>
+                        <div class="text-[11px] text-slate-400 mt-0.5">Modul 5: Stored Procedure & Normalisasi</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="font-bold text-slate-800">XI RPL 1</span></td>
+                  <td class="font-mono">36 Siswa</td>
+                  <td>
+                    <div class="w-28 sm:w-32">
+                      <div class="flex justify-between text-[10px] text-slate-500 font-bold mb-1">
+                        <span>92% Tuntas</span>
+                      </div>
+                      <div class="w-full bg-slate-100 rounded-full h-1.5">
+                        <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 92%"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="font-bold text-slate-900 font-mono">88.9</span> <span class="text-[10px] text-emerald-600 font-bold">(A)</span></td>
+                  <td><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 whitespace-nowrap">AKTIF MENGAJAR</span></td>
+                  <td class="text-right">
+                    <div class="flex items-center justify-end gap-1.5">
+                      <button onclick="switchInstructorView('grades')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-orange-50 hover:text-lms-primary flex items-center justify-center text-xs text-slate-600 transition">
+                        <i class="fa-solid fa-list-check"></i>
+                      </button>
+                      <button onclick="switchInstructorView('cbt')" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 flex items-center justify-center text-xs text-slate-600 transition">
+                        <i class="fa-solid fa-laptop-code"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
         </div>
 
-        <!-- ======================================================== -->
-        <!-- SECTION 3: BANK SOAL & CBT ONLINE -->
-        <!-- ======================================================== -->
-        <div id="sec-cbt" class="instructor-section hidden space-y-6">
-          <div class="lms-panel-card p-6">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+        <!-- LOWER GRID: Submissions Feed + Schedule -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- Pengumpulan CBT -->
+          <div class="lg:col-span-7 lms-panel-card">
+            <div class="lms-panel-header">
               <div>
-                <h2 class="text-xl font-extrabold text-lms-secondary">Bank Soal & Penjadwalan CBT Online</h2>
-                <p class="text-xs text-slate-400">Kelola soal pilihan ganda, esai, timer durasi, dan token ujian siswa</p>
+                <h3 class="font-extrabold text-lms-secondary text-sm">Pengumpulan CBT & Tugas Terbaru</h3>
+                <p class="text-[11px] text-slate-400">Skoring instan otomatis oleh sistem CBT eDupu</p>
               </div>
-              <button onclick="openCreateExamModal()" class="btn-lms-primary">
-                <i class="fa-solid fa-plus"></i> Buat Paket Soal Baru
-              </button>
-            </div>
-
-            <div class="space-y-4 text-xs">
-              
-              <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div class="space-y-1">
-                  <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">SEDANG BERLANGSUNG</span>
-                    <span class="text-slate-400 font-mono">Token: RPL-2026</span>
-                  </div>
-                  <h4 class="text-base font-extrabold text-slate-900">Penilaian Akhir Semester: Laravel Framework & API</h4>
-                  <p class="text-slate-500">20 Soal Pilihan Ganda • Durasi: 90 Menit • Autosave Cloud Aktif</p>
-                </div>
-                <div class="flex items-center gap-2 self-end sm:self-auto">
-                  <a href="dashboard.html" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition flex items-center gap-1.5 shadow-sm">
-                    <i class="fa-solid fa-eye"></i> Pratinjau Siswa
-                  </a>
-                  <button onclick="showToast('Sesi ujian disetel ulang untuk Bagus Permadi.', 'info')" class="px-3.5 py-2 border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 rounded-xl font-bold transition">
-                    Reset Token
-                  </button>
-                </div>
-              </div>
-
-              <div class="p-5 rounded-2xl border border-slate-200 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div class="space-y-1">
-                  <div class="flex items-center gap-2">
-                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-700">DRAFT TERSIMPAN</span>
-                    <span class="text-slate-400 font-mono">Token: SQL-2026</span>
-                  </div>
-                  <h4 class="text-base font-extrabold text-slate-900">Kuis Tengah Semester: Normalisasi Database & Query SQL</h4>
-                  <p class="text-slate-500">15 Soal Pilihan Ganda • 5 Esai • Dijadwalkan pekan depan</p>
-                </div>
-                <div class="flex items-center gap-2 self-end sm:self-auto">
-                  <button onclick="showToast('Paket soal kuis telah dipublikasikan ke siswa!', 'success')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold transition">
-                    Publikasikan
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <!-- ======================================================== -->
-        <!-- SECTION 4: LEGER NILAI KURIKULUM MERDEKA -->
-        <!-- ======================================================== -->
-        <div id="sec-grades" class="instructor-section hidden space-y-6">
-          <div class="lms-panel-card p-6 space-y-5">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
-              <div>
-                <h2 class="text-xl font-extrabold text-lms-secondary">Leger Nilai Siswa (Kurikulum Merdeka)</h2>
-                <p class="text-xs text-slate-400">Perhitungan pembobotan nilai tugas, UH, UTS, dan CBT secara otomatis</p>
-              </div>
-              <div class="flex items-center gap-2">
-                <button onclick="showToast('Mengunduh Leger Nilai format resmi Excel (.xlsx)...', 'success')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm">
-                  <i class="fa-solid fa-file-excel"></i> Ekspor Excel
-                </button>
-                <button onclick="showToast('Menyiapkan dokumen cetak rapor PDF...', 'info')" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-sm">
-                  <i class="fa-solid fa-file-pdf"></i> Cetak PDF
-                </button>
-              </div>
-            </div>
-
-            <!-- Table of Grades -->
-            <div class="overflow-x-auto">
-              <table class="w-full text-left lms-table">
-                <thead>
-                  <tr>
-                    <th>NISN</th>
-                    <th>Nama Siswa</th>
-                    <th>Kelas</th>
-                    <th>Kehadiran</th>
-                    <th>Tugas</th>
-                    <th>UH</th>
-                    <th>UTS</th>
-                    <th>UAS (CBT)</th>
-                    <th>Nilai Akhir</th>
-                    <th>Predikat</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="font-mono">0058291042</td>
-                    <td class="font-bold text-slate-900">Bagus Permadi</td>
-                    <td>XII RPL 1</td>
-                    <td><span class="text-emerald-600 font-bold">100%</span></td>
-                    <td>90</td>
-                    <td>88</td>
-                    <td>92</td>
-                    <td>90</td>
-                    <td class="font-bold text-slate-900 font-mono">90.2</td>
-                    <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-800">A</span></td>
-                    <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">TUNTAS</span></td>
-                  </tr>
-                  <tr>
-                    <td class="font-mono">0058291043</td>
-                    <td class="font-bold text-slate-900">Aditya Pratama</td>
-                    <td>XII RPL 1</td>
-                    <td><span class="text-emerald-600 font-bold">96%</span></td>
-                    <td>85</td>
-                    <td>82</td>
-                    <td>88</td>
-                    <td>84</td>
-                    <td class="font-bold text-slate-900 font-mono">85.1</td>
-                    <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">B+</span></td>
-                    <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">TUNTAS</span></td>
-                  </tr>
-                  <tr>
-                    <td class="font-mono">0058291044</td>
-                    <td class="font-bold text-slate-900">Dewi Anggraini</td>
-                    <td>XII RPL 1</td>
-                    <td><span class="text-emerald-600 font-bold">98%</span></td>
-                    <td>92</td>
-                    <td>90</td>
-                    <td>94</td>
-                    <td>92</td>
-                    <td class="font-bold text-slate-900 font-mono">92.4</td>
-                    <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-800">A</span></td>
-                    <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">TUNTAS</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ======================================================== -->
-        <!-- SECTION 5: PRESENSI GPS GEOFENCE SISWA -->
-        <!-- ======================================================== -->
-        <div id="sec-attendance" class="instructor-section hidden space-y-6">
-          <div class="lms-panel-card p-6 space-y-4">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-              <div>
-                <h2 class="text-xl font-extrabold text-lms-secondary">Pantauan Presensi GPS Geofencing Siswa</h2>
-                <p class="text-xs text-slate-400">Verifikasi kehadiran siswa di lingkungan kampus SMK Puger (Toleransi Radius: 80 meter)</p>
-              </div>
-              <a href="dashboard.html" class="px-4 py-2 bg-lms-primary text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm">
-                <i class="fa-solid fa-map-location-dot"></i> Buka Simulator Peta Interaktif
+              <a href="javascript:void(0)" onclick="switchInstructorView('grades')" class="text-xs font-bold text-lms-primary hover:underline">
+                Semua Nilai &rarr;
               </a>
             </div>
 
-            <div class="p-6 rounded-2xl bg-slate-900 text-white space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-orange-400">Pusat Koordinat Geofence Sekolah</span>
-                <span class="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded text-slate-300">Lat: -8.3650, Lng: 113.4750</span>
+            <div class="divide-y divide-slate-100 text-xs">
+              
+              <div class="p-3.5 sm:p-4 flex items-center justify-between hover:bg-slate-50 transition">
+                <div class="flex items-center gap-3 min-w-0">
+                  <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=100" class="w-9 h-9 rounded-full object-cover shrink-0">
+                  <div class="min-w-0">
+                    <div class="font-bold text-slate-800 truncate">Bagus Permadi</div>
+                    <div class="text-[11px] text-slate-400 truncate">XII RPL 1 • CBT Laravel Routing & Controller</div>
+                  </div>
+                </div>
+                <div class="text-right shrink-0 pl-2">
+                  <span class="font-mono font-bold text-emerald-600 text-sm">92 / 100</span>
+                  <span class="block text-[10px] text-slate-400">06:49 WIB</span>
+                </div>
               </div>
-              <p class="text-xs text-slate-300">
-                Sistem secara otomatis memblokir siswa yang mencoba absen dari luar radius 80 meter dan mencatat riwayat akurasi satelit.
+
+              <div class="p-3.5 sm:p-4 flex items-center justify-between hover:bg-slate-50 transition">
+                <div class="flex items-center gap-3 min-w-0">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" class="w-9 h-9 rounded-full object-cover shrink-0">
+                  <div class="min-w-0">
+                    <div class="font-bold text-slate-800 truncate">Aditya Pratama</div>
+                    <div class="text-[11px] text-slate-400 truncate">XII RPL 1 • CBT Laravel Routing & Controller</div>
+                  </div>
+                </div>
+                <div class="text-right shrink-0 pl-2">
+                  <span class="font-mono font-bold text-emerald-600 text-sm">88 / 100</span>
+                  <span class="block text-[10px] text-slate-400">06:54 WIB</span>
+                </div>
+              </div>
+
+              <div class="p-3.5 sm:p-4 flex items-center justify-between hover:bg-slate-50 transition">
+                <div class="flex items-center gap-3 min-w-0">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" class="w-9 h-9 rounded-full object-cover shrink-0">
+                  <div class="min-w-0">
+                    <div class="font-bold text-slate-800 truncate">Dewi Anggraini</div>
+                    <div class="text-[11px] text-slate-400 truncate">XII RPL 1 • CBT Laravel Routing & Controller</div>
+                  </div>
+                </div>
+                <div class="text-right shrink-0 pl-2">
+                  <span class="font-mono font-bold text-emerald-600 text-sm">96 / 100</span>
+                  <span class="block text-[10px] text-slate-400">07:02 WIB</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Agenda Mengajar -->
+          <div class="lg:col-span-5 lms-panel-card p-5 sm:p-6 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <h3 class="font-extrabold text-lms-secondary text-sm">Agenda Mengajar Hari Ini</h3>
+                <span class="text-[10px] font-mono font-bold bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full">
+                  Rabu, 04 Nov 2026
+                </span>
+              </div>
+
+              <div class="space-y-3 pt-3">
+                
+                <div class="p-3.5 rounded-xl bg-orange-50/70 border border-orange-200 text-xs space-y-1">
+                  <div class="flex items-center justify-between">
+                    <span class="font-bold text-slate-900">Pemrograman Web & Mobile</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-white">SEDANG BERJALAN</span>
+                  </div>
+                  <div class="text-[11px] text-slate-500">Kelas XII RPL 1 • Lab Komputer 2</div>
+                  <div class="font-mono text-xs font-bold text-orange-700">07:00 - 09:15 WIB</div>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+                  <div class="flex items-center justify-between">
+                    <span class="font-bold text-slate-900">Basis Data & Relasional</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-600">BERIKUTNYA</span>
+                  </div>
+                  <div class="text-[11px] text-slate-500">Kelas XI RPL 1 • Lab RPL 1</div>
+                  <div class="font-mono text-xs font-bold text-slate-700">09:30 - 11:45 WIB</div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-slate-400">Total: 8 Jam Pelajaran</span>
+              <button onclick="showToast('Presensi mengajar guru tervalidasi.', 'success')" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-fingerprint"></i>
+                <span>Presensi Kelas</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- VIEW 2: KELAS & MATA PELAJARAN DETAIL -->
+      <!-- ======================================================== -->
+      <div id="sec-courses" class="instructor-section hidden space-y-6">
+        <div class="lms-panel-card p-5 sm:p-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-6">
+            <div>
+              <h2 class="text-xl font-extrabold text-lms-secondary">Rombongan Belajar & Silabus</h2>
+              <p class="text-xs text-slate-400">Pengelolaan materi kejuruan Kurikulum Merdeka</p>
+            </div>
+            <button onclick="openCreateExamModal()" class="btn-lms-primary">
+              <i class="fa-solid fa-plus text-xs"></i> Tambah Silabus
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white hover:border-orange-300 transition space-y-3.5">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center font-extrabold text-base shrink-0">
+                    RPL
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-slate-900 text-sm">Pemrograman Web & Mobile</h4>
+                    <p class="text-xs text-slate-400">Kelas XII RPL 1 • 36 Siswa</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Kurikulum Merdeka</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Capaian: Merancang arsitektur backend REST API Laravel, migrasi database, dan autentikasi token JWT.
               </p>
-              <div class="pt-2 flex items-center gap-4 text-xs">
-                <span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle-check"></i> 324 Siswa Hadir Valid</span>
-                <span class="text-amber-400 font-bold"><i class="fa-solid fa-clock"></i> 11 Siswa Terlambat</span>
-                <span class="text-rose-400 font-bold"><i class="fa-solid fa-ban"></i> 0 Pelanggaran Fake GPS</span>
+              <div class="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
+                <span class="font-mono font-bold text-slate-700">12 Modul • 4 Tugas</span>
+                <button onclick="switchInstructorView('cbt')" class="font-bold text-lms-primary hover:underline">Kelola CBT &rarr;</button>
               </div>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white hover:border-orange-300 transition space-y-3.5">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-extrabold text-base shrink-0">
+                    RPL
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-slate-900 text-sm">Pemrograman Web & Mobile</h4>
+                    <p class="text-xs text-slate-400">Kelas XII RPL 2 • 35 Siswa</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Kurikulum Merdeka</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Capaian: Implementasi Blade template engine, form request validation, dan pengujian API menggunakan Postman.
+              </p>
+              <div class="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
+                <span class="font-mono font-bold text-slate-700">10 Modul • 3 Tugas</span>
+                <button onclick="switchInstructorView('cbt')" class="font-bold text-lms-primary hover:underline">Kelola CBT &rarr;</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- VIEW 3: BANK SOAL & CBT ONLINE -->
+      <!-- ======================================================== -->
+      <div id="sec-cbt" class="instructor-section hidden space-y-6">
+        <div class="lms-panel-card p-5 sm:p-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-6">
+            <div>
+              <h2 class="text-xl font-extrabold text-lms-secondary">Bank Soal & CBT Online</h2>
+              <p class="text-xs text-slate-400">Paket soal evaluasi kompetensi, token pengerjaan, dan autosave cloud</p>
+            </div>
+            <button onclick="openCreateExamModal()" class="btn-lms-primary">
+              <i class="fa-solid fa-plus text-xs"></i> Buat Paket Soal Baru
+            </button>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            
+            <div class="p-4 sm:p-5 rounded-2xl border border-slate-200 bg-slate-50/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div class="space-y-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">SEDANG BERLANGSUNG</span>
+                  <span class="text-slate-400 font-mono">Token: RPL-2026</span>
+                </div>
+                <h4 class="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">Penilaian Akhir Semester: Laravel Framework & API</h4>
+                <p class="text-slate-500">20 Soal Pilihan Ganda • Durasi: 90 Menit • Autosave Aktif</p>
+              </div>
+              <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                <a href="dashboard.html" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition flex items-center gap-1.5 shadow-2xs">
+                  <i class="fa-solid fa-eye"></i> Pratinjau Siswa
+                </a>
+                <button onclick="showToast('Sesi token berhasil di-refresh.', 'info')" class="px-3 py-2 border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 rounded-xl font-bold transition">
+                  Reset Token
+                </button>
+              </div>
+            </div>
+
+            <div class="p-4 sm:p-5 rounded-2xl border border-slate-200 bg-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div class="space-y-1 min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-200 text-slate-700">DRAFT TERSIMPAN</span>
+                  <span class="text-slate-400 font-mono">Token: SQL-2026</span>
+                </div>
+                <h4 class="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">Kuis Tengah Semester: Normalisasi & SQL Query</h4>
+                <p class="text-slate-500">15 Pilihan Ganda • 5 Esai • Dijadwalkan pekan depan</p>
+              </div>
+              <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                <button onclick="showToast('Paket soal kuis telah dipublikasikan ke siswa!', 'success')" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold transition">
+                  Publikasikan
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- VIEW 4: LEGER NILAI KURIKULUM MERDEKA -->
+      <!-- ======================================================== -->
+      <div id="sec-grades" class="instructor-section hidden space-y-6">
+        <div class="lms-panel-card p-5 sm:p-6 space-y-5">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+            <div>
+              <h2 class="text-xl font-extrabold text-lms-secondary">Leger Nilai (Kurikulum Merdeka)</h2>
+              <p class="text-xs text-slate-400">Rekapitulasi nilai tugas, praktikum, UTS, dan UAS CBT otomatis</p>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <button onclick="showToast('Mengunduh Leger Nilai format Excel (.xlsx)...', 'success')" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-file-excel"></i> Ekspor Excel
+              </button>
+              <button onclick="showToast('Menyiapkan dokumen cetak rapor PDF...', 'info')" class="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-file-pdf"></i> Cetak PDF
+              </button>
+            </div>
+          </div>
+
+          <!-- Table of Grades -->
+          <div class="overflow-x-auto custom-scroll">
+            <table class="lms-table">
+              <thead>
+                <tr>
+                  <th>NISN</th>
+                  <th>Nama Siswa</th>
+                  <th>Kelas</th>
+                  <th>Kehadiran</th>
+                  <th>Tugas</th>
+                  <th>UH</th>
+                  <th>UTS</th>
+                  <th>UAS (CBT)</th>
+                  <th>Nilai Akhir</th>
+                  <th>Predikat</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-mono">0058291042</td>
+                  <td class="font-bold text-slate-900 whitespace-nowrap">Bagus Permadi</td>
+                  <td>XII RPL 1</td>
+                  <td><span class="text-emerald-600 font-bold">100%</span></td>
+                  <td>90</td>
+                  <td>88</td>
+                  <td>92</td>
+                  <td>90</td>
+                  <td class="font-bold text-slate-900 font-mono">90.2</td>
+                  <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-800">A</span></td>
+                  <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">TUNTAS</span></td>
+                </tr>
+                <tr>
+                  <td class="font-mono">0058291043</td>
+                  <td class="font-bold text-slate-900 whitespace-nowrap">Aditya Pratama</td>
+                  <td>XII RPL 1</td>
+                  <td><span class="text-emerald-600 font-bold">96%</span></td>
+                  <td>85</td>
+                  <td>82</td>
+                  <td>88</td>
+                  <td>84</td>
+                  <td class="font-bold text-slate-900 font-mono">85.1</td>
+                  <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">B+</span></td>
+                  <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">TUNTAS</span></td>
+                </tr>
+                <tr>
+                  <td class="font-mono">0058291044</td>
+                  <td class="font-bold text-slate-900 whitespace-nowrap">Dewi Anggraini</td>
+                  <td>XII RPL 1</td>
+                  <td><span class="text-emerald-600 font-bold">98%</span></td>
+                  <td>92</td>
+                  <td>90</td>
+                  <td>94</td>
+                  <td>92</td>
+                  <td class="font-bold text-slate-900 font-mono">92.4</td>
+                  <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-800">A</span></td>
+                  <td><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">TUNTAS</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- VIEW 5: PRESENSI GPS GEOFENCE SISWA -->
+      <!-- ======================================================== -->
+      <div id="sec-attendance" class="instructor-section hidden space-y-6">
+        <div class="lms-panel-card p-5 sm:p-6 space-y-4">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+            <div>
+              <h2 class="text-xl font-extrabold text-lms-secondary">Pantauan Presensi GPS Geofence Siswa</h2>
+              <p class="text-xs text-slate-400">Radius toleransi sekolah 80 meter • Validasi satelit real-time</p>
+            </div>
+            <a href="dashboard.html" class="btn-lms-primary text-xs">
+              <i class="fa-solid fa-map-location-dot"></i> Buka Peta Simulator
+            </a>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-slate-900 text-white space-y-3">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <span class="text-xs font-bold text-orange-400">Gerbang Utama Kampus SMK Puger</span>
+              <span class="text-[10px] font-mono bg-white/10 px-2.5 py-0.5 rounded text-slate-300">Lat: -8.3650, Lng: 113.4750</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Algoritma geodesik Haversine aktif. Presensi di luar radius 80 meter ditolak otomatis oleh sistem.
+            </p>
+            <div class="pt-2 flex items-center gap-4 text-xs flex-wrap">
+              <span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle-check"></i> 324 Siswa Hadir Valid</span>
+              <span class="text-amber-400 font-bold"><i class="fa-solid fa-clock"></i> 11 Siswa Terlambat</span>
+              <span class="text-emerald-300 font-bold"><i class="fa-solid fa-shield"></i> Anti-Fake GPS Aktif</span>
             </div>
           </div>
         </div>
+      </div>
 
-      </section>
+      <!-- ======================================================== -->
+      <!-- VIEW 6: JADWAL MENGAJAR GURU -->
+      <!-- ======================================================== -->
+      <div id="sec-schedule" class="instructor-section hidden space-y-6">
+        
+        <!-- Header & Action -->
+        <div class="lms-panel-card p-5 sm:p-6 space-y-4">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-xl font-black text-lms-secondary">Jadwal Mengajar & Praktikum Guru</h2>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-700 font-mono">24 JP / Minggu</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">Tahun Ajaran 2026/2027 Semester Ganjil • Rekayasa Perangkat Lunak (RPL)</p>
+            </div>
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <button onclick="showToast('Jadwal PDF berhasil diunduh ke perangkat Anda.', 'success')" class="px-3.5 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold hover:bg-slate-200 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-file-pdf text-rose-500"></i>
+                <span>Unduh Jadwal PDF</span>
+              </button>
+              <button onclick="showToast('Jadwal berhasil disinkronkan dengan Google Calendar!', 'success')" class="btn-lms-primary text-xs flex items-center gap-1.5">
+                <i class="fa-regular fa-calendar-check"></i>
+                <span>Sinkronkan Kalender</span>
+              </button>
+            </div>
+          </div>
 
-    </div>
+          <!-- Banner Mengajar Hari Ini -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-indigo-950 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-orange-400 text-xl shrink-0">
+                <i class="fa-solid fa-chalkboard-user"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-orange-400 uppercase tracking-wider">Sesi Hari Ini (Rabu, 04 Nov 2026)</span>
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                </div>
+                <h3 class="text-base sm:text-lg font-black text-white mt-0.5">Pemrograman Web & Perangkat Bergerak • XII RPL 1</h3>
+                <p class="text-xs text-slate-300">Pukul 07.15 - 11.45 WIB (4 Jam Pelajaran) • Lokasi: Lab Komputer RPL 1</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <button onclick="switchInstructorView('attendance')" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition shadow-xs flex items-center gap-1.5">
+                <i class="fa-solid fa-user-check"></i>
+                <span>Buka Presensi Kelas</span>
+              </button>
+            </div>
+          </div>
 
-  </main>
+          <!-- Day Filter Buttons -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-1 pt-2">
+            <button onclick="filterScheduleDay('all', this)" class="schedule-day-btn px-4 py-2 rounded-xl text-xs font-bold bg-orange-500 text-white transition shrink-0">
+              Semua Hari (Senin - Jumat)
+            </button>
+            <button onclick="filterScheduleDay('senin', this)" class="schedule-day-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0">
+              Senin
+            </button>
+            <button onclick="filterScheduleDay('selasa', this)" class="schedule-day-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0">
+              Selasa
+            </button>
+            <button onclick="filterScheduleDay('rabu', this)" class="schedule-day-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0">
+              Rabu (Hari Ini)
+            </button>
+            <button onclick="filterScheduleDay('kamis', this)" class="schedule-day-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0">
+              Kamis
+            </button>
+            <button onclick="filterScheduleDay('jumat', this)" class="schedule-day-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition shrink-0">
+              Jumat
+            </button>
+          </div>
+
+          <!-- Timetable Cards List -->
+          <div class="space-y-3 pt-2" id="schedule-cards-container">
+            
+            <!-- Senin Card -->
+            <div class="schedule-card p-4 rounded-2xl border border-slate-200 bg-white hover:border-orange-300 transition flex flex-col md:flex-row items-start md:items-center justify-between gap-4" data-day="senin">
+              <div class="flex items-start sm:items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-orange-50 border border-orange-200 text-orange-600 flex flex-col items-center justify-center shrink-0">
+                  <span class="text-[10px] font-extrabold uppercase">SENIN</span>
+                  <span class="text-sm font-black font-mono">07.15</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h4 class="text-sm font-black text-slate-800">Pemrograman Web & Mobile (Laravel 11 REST API)</h4>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-700">XII RPL 1</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 font-mono">4 JP (07.15 - 10.30)</span>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-1 flex items-center gap-3 flex-wrap">
+                    <span><i class="fa-solid fa-door-open text-slate-400 mr-1"></i> Lab Komputer RPL 1 (Lantai 2)</span>
+                    <span><i class="fa-solid fa-users text-slate-400 mr-1"></i> 36 Siswa</span>
+                    <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> Selesai Dilaksanakan</span>
+                  </p>
+                </div>
+              </div>
+              <button onclick="showToast('Membuka jurnal mengajar materi Senin...', 'info')" class="px-3.5 py-1.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition self-stretch md:self-auto">
+                Lihat Jurnal Mengajar
+              </button>
+            </div>
+
+            <!-- Selasa Card -->
+            <div class="schedule-card p-4 rounded-2xl border border-slate-200 bg-white hover:border-indigo-300 transition flex flex-col md:flex-row items-start md:items-center justify-between gap-4" data-day="selasa">
+              <div class="flex items-start sm:items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex flex-col items-center justify-center shrink-0">
+                  <span class="text-[10px] font-extrabold uppercase">SELASA</span>
+                  <span class="text-sm font-black font-mono">08.00</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h4 class="text-sm font-black text-slate-800">Basis Data & Relational Database Management (MySQL & PostgreSQL)</h4>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-700">XI RPL 2</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 font-mono">4 JP (08.00 - 11.45)</span>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-1 flex items-center gap-3 flex-wrap">
+                    <span><i class="fa-solid fa-door-open text-slate-400 mr-1"></i> Lab Database & Cloud (Lantai 1)</span>
+                    <span><i class="fa-solid fa-users text-slate-400 mr-1"></i> 36 Siswa</span>
+                    <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> Selesai Dilaksanakan</span>
+                  </p>
+                </div>
+              </div>
+              <button onclick="showToast('Membuka jurnal mengajar materi Selasa...', 'info')" class="px-3.5 py-1.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition self-stretch md:self-auto">
+                Lihat Jurnal Mengajar
+              </button>
+            </div>
+
+            <!-- Rabu Card (Aktif Hari Ini) -->
+            <div class="schedule-card p-4 rounded-2xl border-2 border-orange-400 bg-orange-50/20 hover:border-orange-500 transition flex flex-col md:flex-row items-start md:items-center justify-between gap-4" data-day="rabu">
+              <div class="flex items-start sm:items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-orange-500 text-white flex flex-col items-center justify-center shrink-0 shadow-md shadow-orange-500/20">
+                  <span class="text-[10px] font-black uppercase">RABU</span>
+                  <span class="text-sm font-black font-mono">07.15</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h4 class="text-sm font-black text-slate-800">Pemrograman Web Lanjutan & Arsitektur Microservices</h4>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-500 text-white">XII RPL 1</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 animate-pulse font-mono">Sedang Berlangsung</span>
+                  </div>
+                  <p class="text-xs text-slate-600 mt-1 flex items-center gap-3 flex-wrap font-medium">
+                    <span><i class="fa-solid fa-door-open text-orange-500 mr-1"></i> Lab Komputer RPL 1 (Lantai 2)</span>
+                    <span><i class="fa-solid fa-clock text-slate-400 mr-1"></i> 07.15 - 11.45 WIB</span>
+                    <span><i class="fa-solid fa-users text-slate-400 mr-1"></i> 36 Siswa</span>
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 self-stretch md:self-auto">
+                <button onclick="openCreateExamModal()" class="btn-lms-primary text-xs flex-1 md:flex-initial">
+                  <i class="fa-solid fa-play"></i> Mulai Ujian CBT
+                </button>
+              </div>
+            </div>
+
+            <!-- Kamis Card -->
+            <div class="schedule-card p-4 rounded-2xl border border-slate-200 bg-white hover:border-emerald-300 transition flex flex-col md:flex-row items-start md:items-center justify-between gap-4" data-day="kamis">
+              <div class="flex items-start sm:items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex flex-col items-center justify-center shrink-0">
+                  <span class="text-[10px] font-extrabold uppercase">KAMIS</span>
+                  <span class="text-sm font-black font-mono">09.30</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h4 class="text-sm font-black text-slate-800">Pemodelan Perangkat Lunak & Dokumentasi Agile SCRUM</h4>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">XII RPL 2</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 font-mono">4 JP (09.30 - 13.00)</span>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-1 flex items-center gap-3 flex-wrap">
+                    <span><i class="fa-solid fa-door-open text-slate-400 mr-1"></i> Ruang Teori RPL (Gedung B)</span>
+                    <span><i class="fa-solid fa-users text-slate-400 mr-1"></i> 36 Siswa</span>
+                    <span class="text-slate-400"><i class="fa-regular fa-clock mr-1"></i> Jadwal Esok Hari</span>
+                  </p>
+                </div>
+              </div>
+              <button onclick="showToast('Materi ajar Kamis telah siap di modul.', 'info')" class="px-3.5 py-1.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition self-stretch md:self-auto">
+                Siapkan Modul & Soal
+              </button>
+            </div>
+
+            <!-- Jumat Card -->
+            <div class="schedule-card p-4 rounded-2xl border border-slate-200 bg-white hover:border-purple-300 transition flex flex-col md:flex-row items-start md:items-center justify-between gap-4" data-day="jumat">
+              <div class="flex items-start sm:items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-purple-50 border border-purple-200 text-purple-600 flex flex-col items-center justify-center shrink-0">
+                  <span class="text-[10px] font-extrabold uppercase">JUMAT</span>
+                  <span class="text-sm font-black font-mono">07.00</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h4 class="text-sm font-black text-slate-800">Bimbingan Portofolio Uji LSP-P1 & Karya Kewirausahaan</h4>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-700">XII RPL 1 & 2</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 font-mono">4 JP (07.00 - 10.30)</span>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-1 flex items-center gap-3 flex-wrap">
+                    <span><i class="fa-solid fa-door-open text-slate-400 mr-1"></i> Aula RPL / Software Incubator</span>
+                    <span><i class="fa-solid fa-users text-slate-400 mr-1"></i> 72 Siswa</span>
+                    <span class="text-purple-600 font-semibold"><i class="fa-solid fa-award mr-1"></i> Sesi Portofolio LSP</span>
+                  </p>
+                </div>
+              </div>
+              <button onclick="showToast('Membuka daftar rubrik portofolio siswa...', 'info')" class="px-3.5 py-1.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition self-stretch md:self-auto">
+                Rubrik Portofolio
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- VIEW 8: PENGUMUMAN KELAS & SEKOLAH -->
+      <!-- ======================================================== -->
+      <div id="sec-announcements" class="instructor-section hidden space-y-6">
+        
+        <!-- Header & Action -->
+        <div class="lms-panel-card p-5 sm:p-6 space-y-4">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-xl font-black text-lms-secondary">Siaran Pengumuman Kelas & Ujian</h2>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Push Notifikasi Aktif</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">Pengumuman langsung diterima siswa di aplikasi HP & Portal eDupu SMK Puger</p>
+            </div>
+            <button onclick="openCreateAnnouncementModal()" class="btn-lms-primary text-xs flex items-center gap-1.5">
+              <i class="fa-solid fa-plus"></i>
+              <span>Buat Pengumuman Baru</span>
+            </button>
+          </div>
+
+          <!-- 3 Kartu Metrik Ringkas -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div>
+                <div class="text-[11px] font-bold text-slate-400 uppercase">Pengumuman Aktif</div>
+                <div class="text-xl font-black text-slate-800 font-mono mt-0.5">3 Siaran</div>
+              </div>
+              <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center">
+                <i class="fa-solid fa-bullhorn text-sm"></i>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div>
+                <div class="text-[11px] font-bold text-slate-400 uppercase">Tingkat Keterbacaan</div>
+                <div class="text-xl font-black text-emerald-600 font-mono mt-0.5">94.2%</div>
+              </div>
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                <i class="fa-solid fa-eye text-sm"></i>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div>
+                <div class="text-[11px] font-bold text-slate-400 uppercase">Target Siswa Terjangkau</div>
+                <div class="text-xl font-black text-indigo-600 font-mono mt-0.5">340 Siswa</div>
+              </div>
+              <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center">
+                <i class="fa-solid fa-users-viewfinder text-sm"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Daftar Pengumuman -->
+          <div class="space-y-4 pt-2" id="announcements-list-container">
+            
+            <!-- Pengumuman 1 (Pinned) -->
+            <div class="p-5 rounded-2xl border-2 border-orange-200 bg-orange-50/30 space-y-3">
+              <div class="flex items-start justify-between gap-3 flex-wrap">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-500 text-white flex items-center gap-1">
+                    <i class="fa-solid fa-thumbtack text-[9px]"></i> Disematkan (Pinned)
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-700">Penilaian Harian CBT</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">Sasaran: XII RPL 1 & XII RPL 2</span>
+                </div>
+                <div class="text-[11px] text-slate-400 font-mono">
+                  <i class="fa-regular fa-clock mr-1"></i> Hari ini, 07:00 WIB
+                </div>
+              </div>
+
+              <div>
+                <h3 class="text-base font-extrabold text-slate-900">
+                  Persiapan Ujian CBT: Modul 8 Laravel 11 MVC & Arsitektur RESTful API
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed mt-1.5">
+                  Diberitahukan kepada seluruh siswa kelas XII RPL 1 dan XII RPL 2 bahwa Penilaian Harian CBT Modul 8 akan dilaksanakan hari ini. Pastikan baterai laptop dalam kondisi prima, telah terinstal PHP 8.2+ dan Laragon. Token ujian akan diumumkan 5 menit sebelum sesi dimulai. Fitur anti-cheat peramban aktif otomatis.
+                </p>
+              </div>
+
+              <div class="pt-2 border-t border-orange-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-3 text-slate-500 text-[11px]">
+                  <span class="font-bold text-emerald-600"><i class="fa-solid fa-check-double mr-1"></i> Dibaca: 69 / 72 Siswa (95.8%)</span>
+                  <span>•</span>
+                  <span><i class="fa-solid fa-paperclip mr-1"></i> 1 Lampiran: <a href="javascript:void(0)" onclick="showToast('Mengunduh Kisi_Kisi_Laravel11.pdf...', 'info')" class="text-orange-600 font-bold hover:underline">Kisi_Kisi_Laravel11.pdf</a></span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="showToast('Notifikasi pengingat ujian telah dikirim ulang ke HP siswa.', 'success')" class="px-3 py-1.5 rounded-lg bg-orange-100 text-orange-700 font-bold text-[11px] hover:bg-orange-200 transition">
+                    <i class="fa-solid fa-paper-plane mr-1"></i> Kirim Ulang Pengingat
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pengumuman 2 -->
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white space-y-3">
+              <div class="flex items-start justify-between gap-3 flex-wrap">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-700">Tugas Praktik</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">Sasaran: XI RPL 1</span>
+                </div>
+                <div class="text-[11px] text-slate-400 font-mono">
+                  <i class="fa-regular fa-clock mr-1"></i> Kemarin, 13:45 WIB
+                </div>
+              </div>
+
+              <div>
+                <h3 class="text-base font-extrabold text-slate-900">
+                  Pengumpulan Rancangan Database ERD & DDL Studi Kasus Apotek Puger
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed mt-1.5">
+                  Batas akhir submit file skema relasi database (PDF + file .sql) paling lambat hari Jumat, 06 November 2026 pukul 23.59 WIB melalui portal tugas eDupu. Siswa yang mengalami kendala relasi foreign key silakan bertanya via menu Pesan Siswa.
+                </p>
+              </div>
+
+              <div class="pt-2 border-t border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-3 text-slate-500 text-[11px]">
+                  <span class="font-bold text-emerald-600"><i class="fa-solid fa-check-double mr-1"></i> Dibaca: 34 / 36 Siswa (94.4%)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="showToast('Membuka lembar tugas masuk siswa...', 'info')" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold text-[11px] hover:bg-slate-200 transition">
+                    Lihat Submisi Tugas (28 Masuk)
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pengumuman 3 -->
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white space-y-3">
+              <div class="flex items-start justify-between gap-3 flex-wrap">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Kunjungan Industri</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">Sasaran: Semua Siswa Jurusan RPL</span>
+                </div>
+                <div class="text-[11px] text-slate-400 font-mono">
+                  <i class="fa-regular fa-clock mr-1"></i> 02 Nov 2026
+                </div>
+              </div>
+
+              <div>
+                <h3 class="text-base font-extrabold text-slate-900">
+                  Kuliah Praktisi Industri: Best Practice CI/CD Pipeline dari Software House Surabaya
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed mt-1.5">
+                  Hari Sabtu ini akan diadakan sesi berbagi industri bersama Lead Developer PT Java Inovasi Mediatama di Lab RPL 1. Siswa wajib membawa notebook dan akun GitHub yang sudah terverifikasi.
+                </p>
+              </div>
+
+              <div class="pt-2 border-t border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-3 text-slate-500 text-[11px]">
+                  <span class="font-bold text-emerald-600"><i class="fa-solid fa-check-double mr-1"></i> Dibaca: 142 Siswa</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- VIEW 9: PESAN & KONSULTASI SISWA -->
+      <!-- ======================================================== -->
+      <div id="sec-messages" class="instructor-section hidden space-y-6">
+        
+        <div class="lms-panel-card p-0 overflow-hidden bg-white">
+          
+          <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[620px]">
+            
+            <!-- LEFT COLUMN: DAFTAR KONTAK SISWA (4 Cols) -->
+            <div class="lg:col-span-4 border-r border-slate-200 flex flex-col h-full bg-slate-50/50">
+              
+              <!-- Search & Header Kontak -->
+              <div class="p-4 border-b border-slate-200 bg-white space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-base font-black text-lms-secondary">Konsultasi Siswa</h3>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-700">2 Baru</span>
+                  </div>
+                  <button onclick="showToast('Menyegarkan daftar pesan masuk...', 'info')" class="text-slate-400 hover:text-slate-600 text-xs" title="Refresh Pesan">
+                    <i class="fa-solid fa-rotate-right"></i>
+                  </button>
+                </div>
+                <div class="relative">
+                  <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+                  <input type="text" placeholder="Cari nama siswa atau kelas..." class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-lms-primary">
+                </div>
+              </div>
+
+              <!-- List Kontak Siswa -->
+              <div class="flex-1 overflow-y-auto custom-scroll divide-y divide-slate-100" id="chat-contact-list">
+                
+                <!-- Contact 1: Ahmad Fauzi (Aktif) -->
+                <div onclick="selectChatContact('fauzi', this)" class="chat-contact-item p-3.5 sm:p-4 bg-orange-50/60 border-l-4 border-orange-500 cursor-pointer transition flex items-start gap-3">
+                  <div class="relative shrink-0">
+                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=120" class="w-11 h-11 rounded-full object-cover">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 border-2 border-white absolute bottom-0 right-0"></span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between gap-1">
+                      <h4 class="text-xs font-black text-slate-900 truncate">Ahmad Fauzi</h4>
+                      <span class="text-[10px] font-mono font-bold text-orange-600 shrink-0">08:12</span>
+                    </div>
+                    <div class="text-[11px] text-slate-500 font-medium truncate">XII RPL 1 • NISN: 0067823912</div>
+                    <p class="text-xs text-slate-700 truncate mt-1 font-semibold">Pak, untuk file konfigurasi .env apa perlu migration ulang?</p>
+                  </div>
+                </div>
+
+                <!-- Contact 2: Siti Nurhaliza -->
+                <div onclick="selectChatContact('siti', this)" class="chat-contact-item p-3.5 sm:p-4 hover:bg-slate-100/70 cursor-pointer transition flex items-start gap-3">
+                  <div class="relative shrink-0">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=120" class="w-11 h-11 rounded-full object-cover">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 border-2 border-white absolute bottom-0 right-0"></span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between gap-1">
+                      <h4 class="text-xs font-bold text-slate-900 truncate">Siti Nurhaliza</h4>
+                      <span class="text-[10px] font-mono text-slate-400 shrink-0">07:45</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 truncate">XII RPL 2 • NISN: 0068112344</div>
+                    <p class="text-xs text-slate-500 truncate mt-1">Terima kasih pak, REST API Controller saya sudah bisa return JSON.</p>
+                  </div>
+                </div>
+
+                <!-- Contact 3: Budi Santoso -->
+                <div onclick="selectChatContact('budi', this)" class="chat-contact-item p-3.5 sm:p-4 hover:bg-slate-100/70 cursor-pointer transition flex items-start gap-3">
+                  <div class="relative shrink-0">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120" class="w-11 h-11 rounded-full object-cover">
+                    <span class="w-3 h-3 rounded-full bg-slate-300 border-2 border-white absolute bottom-0 right-0"></span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between gap-1">
+                      <h4 class="text-xs font-bold text-slate-900 truncate">Budi Santoso</h4>
+                      <span class="text-[10px] font-mono text-slate-400 shrink-0">Kemarin</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 truncate">XI RPL 1 • NISN: 0072391028</div>
+                    <p class="text-xs text-slate-500 truncate mt-1">Pak izin bertanya jadwal remidi presensi GPS hari Kamis...</p>
+                  </div>
+                </div>
+
+                <!-- Contact 4: Rangga Pratama -->
+                <div onclick="selectChatContact('rangga', this)" class="chat-contact-item p-3.5 sm:p-4 hover:bg-slate-100/70 cursor-pointer transition flex items-start gap-3">
+                  <div class="relative shrink-0">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120" class="w-11 h-11 rounded-full object-cover">
+                    <span class="w-3 h-3 rounded-full bg-slate-300 border-2 border-white absolute bottom-0 right-0"></span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between gap-1">
+                      <h4 class="text-xs font-bold text-slate-900 truncate">Rangga Pratama</h4>
+                      <span class="text-[10px] font-mono text-slate-400 shrink-0">Kemarin</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 truncate">X PPLG • NISN: 0081293012</div>
+                    <p class="text-xs text-slate-500 truncate mt-1">Pak link materi dasar algoritma pemrograman belum bisa dibuka...</p>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: CHAT WINDOW AKTIF (8 Cols) -->
+            <div class="lg:col-span-8 flex flex-col h-full bg-white">
+              
+              <!-- Chat Active Header -->
+              <div class="p-4 border-b border-slate-200 flex items-center justify-between gap-3 bg-white">
+                <div class="flex items-center gap-3">
+                  <div class="relative">
+                    <img id="chat-header-avatar" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=120" class="w-10 h-10 rounded-full object-cover">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white absolute bottom-0 right-0"></span>
+                  </div>
+                  <div>
+                    <h4 id="chat-header-name" class="text-sm font-extrabold text-lms-secondary">Ahmad Fauzi</h4>
+                    <p id="chat-header-sub" class="text-[11px] text-slate-500 font-medium">Siswa XII RPL 1 • Sedang Online di Aplikasi Siswa</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="showToast('Memuat rekap nilai dan presensi Ahmad Fauzi...', 'info')" class="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold hover:bg-slate-200 transition">
+                    <i class="fa-solid fa-chart-simple mr-1"></i> Lihat Rapor Siswa
+                  </button>
+                </div>
+              </div>
+
+              <!-- Chat Messages Scroll Area -->
+              <div id="chat-messages-container" class="flex-1 p-5 overflow-y-auto custom-scroll space-y-4 bg-slate-50/30 max-h-[440px]">
+                
+                <!-- Tanggal Divider -->
+                <div class="flex items-center justify-center">
+                  <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-slate-200/80 text-slate-600 font-mono">
+                    Hari Ini • 04 November 2026
+                  </span>
+                </div>
+
+                <!-- Message 1: Siswa -->
+                <div class="flex items-start gap-3 max-w-[85%]">
+                  <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=120" class="w-8 h-8 rounded-full object-cover shrink-0 mt-1">
+                  <div class="space-y-1">
+                    <div class="p-3.5 rounded-2xl rounded-tl-sm bg-white border border-slate-200 text-xs text-slate-800 shadow-2xs leading-relaxed">
+                      Selamat pagi Pak Hendro. Mohon izin bertanya, untuk tugas Modul 8 Laravel 11 bagian migrasi database apakah tabel <code class="bg-slate-100 px-1 py-0.5 rounded text-orange-600 font-mono">students</code> perlu ditambahkan foreign key ke tabel <code class="bg-slate-100 px-1 py-0.5 rounded text-orange-600 font-mono">classes</code> sekarang pak?
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-400 pl-1">08:05 WIB</span>
+                  </div>
+                </div>
+
+                <!-- Message 2: Guru (Bpk Hendro) -->
+                <div class="flex items-start justify-end gap-3 max-w-[85%] ml-auto">
+                  <div class="space-y-1 text-right">
+                    <div class="p-3.5 rounded-2xl rounded-tr-sm bg-lms-primary text-white text-xs shadow-2xs leading-relaxed text-left">
+                      Pagi Ahmad. Betul sekali, silakan gunakan constrained foreign key di migrasi: <br>
+                      <code class="bg-black/20 text-orange-100 px-1.5 py-0.5 rounded font-mono text-[11px] mt-1 inline-block">$table-&gt;foreignId('class_id')-&gt;constrained();</code>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-400 pr-1">08:09 WIB • Dibaca</span>
+                  </div>
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" class="w-8 h-8 rounded-full object-cover shrink-0 mt-1 border border-orange-500">
+                </div>
+
+                <!-- Message 3: Siswa -->
+                <div class="flex items-start gap-3 max-w-[85%]">
+                  <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=120" class="w-8 h-8 rounded-full object-cover shrink-0 mt-1">
+                  <div class="space-y-1">
+                    <div class="p-3.5 rounded-2xl rounded-tl-sm bg-white border border-slate-200 text-xs text-slate-800 shadow-2xs leading-relaxed">
+                      Siap pak, terima kasih banyak pencerahannya. Untuk ujian CBT nanti jam 09.00 apakah laptop kami wajib terhubung ke WiFi Lab RPL 1 pak?
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-400 pl-1">08:12 WIB</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Chat Input Box -->
+              <div class="p-3.5 border-t border-slate-200 bg-white">
+                <form onsubmit="sendChatMessage(event)" class="flex items-center gap-2">
+                  <button type="button" onclick="showToast('Fitur lampirkan kodingan .php / .zip siap digunakan.', 'info')" class="w-9 h-9 rounded-xl bg-slate-100 text-slate-500 hover:text-lms-primary hover:bg-orange-50 transition flex items-center justify-center shrink-0" title="Lampirkan File">
+                    <i class="fa-solid fa-paperclip text-xs"></i>
+                  </button>
+                  <input type="text" id="chat-input-field" placeholder="Ketik balasan untuk siswa (contoh: Iya Ahmad, koneksikan ke SSID Lab-RPL-1)..." required class="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-lms-primary">
+                  <button type="submit" class="px-4 py-2.5 rounded-xl bg-lms-primary text-white font-bold text-xs hover:bg-orange-600 transition shrink-0 flex items-center gap-1.5 shadow-xs">
+                    <span>Kirim</span>
+                    <i class="fa-solid fa-paper-plane text-[11px]"></i>
+                  </button>
+                </form>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
 
   <!-- ============================================================== -->
   <!-- MODAL: BUAT SOAL UJIAN / MODUL BARU -->
   <!-- ============================================================== -->
-  <div id="modal-create-exam" class="fixed inset-0 z-[1000] bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white rounded-3xl w-full max-w-xl p-6 sm:p-8 shadow-2xl border border-slate-100 space-y-5 animate-fade-in">
+  <div id="modal-create-exam" class="fixed inset-0 z-[1100] bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl w-full max-w-lg p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-4 animate-fade-in max-h-[90vh] overflow-y-auto">
       
       <div class="flex items-center justify-between pb-3 border-b border-slate-100">
         <div>
-          <h3 class="text-lg font-extrabold text-lms-secondary">Terbitkan Paket Ujian CBT / Modul</h3>
-          <p class="text-xs text-slate-400">Atur mata pelajaran, kelas sasaran, durasi, dan token akses</p>
+          <h3 class="text-base sm:text-lg font-extrabold text-lms-secondary">Terbitkan Paket Ujian CBT / Modul</h3>
+          <p class="text-[11px] text-slate-400">Atur silabus mata pelajaran, kelas, durasi, dan token</p>
         </div>
-        <button onclick="closeCreateExamModal()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center">
+        <button onclick="closeCreateExamModal()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center shrink-0">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <form onsubmit="submitNewExam(event)" class="space-y-4 text-xs">
+      <form onsubmit="submitNewExam(event)" class="space-y-3.5 text-xs">
         <div>
           <label class="block font-bold text-slate-700 mb-1">Judul Ujian / Materi</label>
-          <input type="text" required placeholder="Contoh: Penilaian Harian Laravel 11 MVC & Eloquent" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary">
+          <input type="text" required placeholder="Contoh: Penilaian Harian Laravel 11 MVC" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary">
         </div>
 
         <div class="grid grid-cols-2 gap-3">
@@ -1011,7 +1475,7 @@
             </select>
           </div>
           <div>
-            <label class="block font-bold text-slate-700 mb-1">Durasi Pengerjaan (Menit)</label>
+            <label class="block font-bold text-slate-700 mb-1">Durasi Pengerjaan</label>
             <input type="number" value="90" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-mono focus:outline-none">
           </div>
         </div>
@@ -1027,17 +1491,83 @@
           </div>
         </div>
 
-        <div class="p-3 bg-orange-50 border border-orange-200 rounded-xl text-[11px] text-orange-900">
+        <div class="p-3 bg-orange-50 border border-orange-200 rounded-xl text-[11px] text-orange-900 leading-relaxed">
           <i class="fa-solid fa-circle-check text-orange-600 mr-1"></i>
-          Fitur autosave cloud dan deteksi anti-cheat aktif otomatis untuk paket soal ini.
+          Autosave cloud & sensor anti-curang otomatis diaktifkan untuk paket soal ini.
         </div>
 
         <div class="pt-2 flex items-center justify-end gap-3">
-          <button type="button" onclick="closeCreateExamModal()" class="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition">
+          <button type="button" onclick="closeCreateExamModal()" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition">
             Batal
           </button>
           <button type="submit" class="btn-lms-primary">
             Terbitkan Soal ke Siswa
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: BUAT PENGUMUMAN KELAS BARU -->
+  <!-- ============================================================== -->
+  <div id="modal-create-announcement" class="fixed inset-0 z-[1100] bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl w-full max-w-lg p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-4 animate-fade-in max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div>
+          <h3 class="text-base sm:text-lg font-extrabold text-lms-secondary">Kirim Siaran Pengumuman Baru</h3>
+          <p class="text-[11px] text-slate-400">Siarkan materi, pengingat tugas, atau agenda sekolah ke siswa</p>
+        </div>
+        <button onclick="closeCreateAnnouncementModal()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center shrink-0">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form onsubmit="submitNewAnnouncement(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Judul Pengumuman</label>
+          <input type="text" id="ann-title" required placeholder="Contoh: Jadwal Praktik Tambahan Lab RPL" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Kategori</label>
+            <select id="ann-category" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none">
+              <option>Ujian & Penilaian</option>
+              <option>Tugas Praktik</option>
+              <option>Kunjungan Industri</option>
+              <option>Informasi Umum</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Sasaran Siswa</label>
+            <select id="ann-target" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none">
+              <option>Semua Siswa Jurusan RPL (340 Siswa)</option>
+              <option>XII RPL 1 (36 Siswa)</option>
+              <option>XII RPL 2 (36 Siswa)</option>
+              <option>XI RPL 1 (36 Siswa)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Isi Pengumuman Lengkap</label>
+          <textarea id="ann-content" rows="4" required placeholder="Tuliskan detail instruksi atau pengumuman untuk siswa..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary"></textarea>
+        </div>
+
+        <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-[11px] text-emerald-900 leading-relaxed">
+          <i class="fa-solid fa-bell text-emerald-600 mr-1"></i>
+          Notifikasi instan akan dikirimkan langsung ke HP siswa yang menggunakan aplikasi eDupu Mobile.
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeCreateAnnouncementModal()" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition">
+            Batal
+          </button>
+          <button type="submit" class="btn-lms-primary">
+            Siarkan Pengumuman Sekarang
           </button>
         </div>
       </form>
@@ -1051,4 +1581,3 @@
   <script src="js/instructor.js"></script>
 </body>
 </html>
-

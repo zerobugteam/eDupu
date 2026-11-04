@@ -8,10 +8,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%237c3aed'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
 
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   
   <!-- FontAwesome Icons 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -30,7 +30,7 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['"Inter"', 'system-ui', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
@@ -62,19 +62,19 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/dashboard.css">
 </head>
-<body class="bg-canvas text-slate-800 font-sans antialiased min-h-screen p-2 sm:p-5 lg:p-7 flex items-center justify-center">
+<body class="bg-canvas text-slate-800 font-sans antialiased min-h-screen p-2 sm:p-5 lg:p-7 flex flex-col items-center justify-start">
 
   <!-- ============================================================== -->
   <!-- MAIN APP CONTAINER (Safetac Workforce Style Card) -->
   <!-- ============================================================== -->
-  <div class="w-full max-w-[1520px] bg-white rounded-3xl sm:rounded-4xl shadow-xl shadow-slate-300/40 border border-slate-100 overflow-hidden flex flex-col min-h-[920px]">
+  <div class="w-full max-w-[1520px] bg-white rounded-3xl sm:rounded-4xl shadow-xl shadow-slate-300/40 border border-slate-100 flex flex-col mb-12">
     
     <div class="flex flex-1 flex-col md:flex-row">
       
       <!-- ========================================================== -->
-      <!-- SLIM VERTICAL ICON SIDEBAR (Left) -->
+      <!-- SLIM VERTICAL ICON SIDEBAR (Left - Sticky on scroll) -->
       <!-- ========================================================== -->
-      <aside class="w-full md:w-20 bg-white border-b md:border-b-0 md:border-r border-slate-100 flex md:flex-col items-center justify-between p-3 md:py-6 shrink-0 z-30">
+      <aside class="w-full md:w-20 bg-white border-b md:border-b-0 md:border-r border-slate-100 flex md:flex-col items-center justify-between p-3 md:py-6 shrink-0 z-30 md:sticky md:top-6 md:self-start md:h-[calc(100vh-3.5rem)] rounded-t-3xl md:rounded-l-4xl md:rounded-tr-none">
         
         <!-- Brand Logo -->
         <a href="index.html" class="flex items-center gap-3 group" title="Kembali ke Landing Page">
@@ -128,9 +128,9 @@
       </aside>
 
       <!-- ========================================================== -->
-      <!-- MAIN CONTENT WRAPPER -->
+      <!-- MAIN CONTENT WRAPPER (Natural Smooth Flow) -->
       <!-- ========================================================== -->
-      <div class="flex-1 flex flex-col p-4 sm:p-7 lg:p-8 overflow-y-auto max-h-[960px]">
+      <div class="flex-1 flex flex-col p-4 sm:p-7 lg:p-8 min-w-0">
         
         <!-- TOP HEADER -->
         <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-6 mb-2 border-b border-slate-100 gap-4">

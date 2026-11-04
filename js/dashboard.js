@@ -205,7 +205,7 @@ function initAttendanceChart() {
           max: 30,
           ticks: {
             stepSize: 10,
-            font: { size: 10, family: 'Plus Jakarta Sans' },
+            font: { size: 10, family: 'Inter' },
             color: '#94a3b8',
             callback: function(val) { return val * 30; }
           },
@@ -217,7 +217,7 @@ function initAttendanceChart() {
         },
         x: {
           ticks: {
-            font: { size: 10, family: 'Plus Jakarta Sans' },
+            font: { size: 10, family: 'Inter' },
             color: '#94a3b8'
           },
           grid: { display: false },

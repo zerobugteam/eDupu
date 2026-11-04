@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profil & Biodata Pendidik • eDupu SMK Puger</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff5421'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons (Official Icon Set for Shadcn UI) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            lms: {
+              primary: '#2563eb',
+              'primary-hover': '#1d4ed8',
+              'primary-light': '#eff6ff',
+              secondary: '#0f172a',
+              blue: '#2563eb',
+              'blue-light': '#eff6ff',
+              green: '#059669',
+              'green-light': '#ecfdf5',
+              yellow: '#f59e0b',
+              purple: '#6366f1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Modular CSS Files -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/instructor.css">
+</head>
+<body class="instructor-body bg-[#f8fafc] h-screen w-screen flex flex-col overflow-hidden antialiased">
+
+  <!-- ============================================================== -->
+  <!-- 1. DEDICATED PROFILE HEADER (Header Khusus Halaman Profil) -->
+  <!-- ============================================================== -->
+  <header class="instructor-full-header bg-white border-b border-slate-200">
+    <div class="px-5 sm:px-8 py-3.5 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+      
+      <!-- Left: Back Arrow Icon (Tanpa Card) + Page Title -->
+      <div class="flex items-center gap-3 min-w-0">
+        
+        <!-- Back to Dashboard Guru (Icon Arrow Saja Tanpa Card) -->
+        <a href="instructor-dashboard.html" class="text-slate-400 hover:text-blue-600 p-1.5 -ml-1 rounded-lg hover:bg-blue-50 transition shrink-0" title="Kembali ke Dashboard Guru">
+          <i data-lucide="arrow-left" class="w-5 h-5 stroke-[2.2]"></i>
+        </a>
+
+        <!-- Title & Subtitle -->
+        <div class="space-y-0.5 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-tight">
+              Profil & Biodata Pendidik
+            </h1>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60 flex items-center gap-1">
+              <i data-lucide="shield-check" class="w-3 h-3 text-emerald-600"></i>
+              <span>Dapodik Terverifikasi</span>
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 font-medium truncate">
+            Pengaturan akun, biodata kepegawaian, riwayat pendidikan & sertifikasi BNSP
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Right: Actions & Teacher Avatar -->
+      <div class="flex items-center justify-between lg:justify-end gap-4 w-full lg:w-auto shrink-0 border-t lg:border-t-0 pt-2.5 lg:pt-0 border-slate-100">
+        
+        <button onclick="showToast('Mengunduh resume biodata pendidik PDF...', 'info')" class="px-3.5 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold hover:bg-slate-200 transition flex items-center gap-1.5 shadow-2xs">
+          <i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-500"></i>
+          <span>Cetak Biodata PDF</span>
+        </button>
+
+        <!-- Avatar Wrap (Bulat, Dropdown Shadcn Style) -->
+        <div class="relative shrink-0">
+          <button type="button" onclick="toggleProfileDropdown(event)" id="btn-profile-dropdown" class="block rounded-full ring-2 ring-slate-200 hover:ring-lms-primary focus:outline-none focus:ring-2 focus:ring-lms-primary transition shadow-2xs group" title="Buka Menu Akun">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" alt="Avatar Bpk. Hendro" class="instructor-avatar-img group-hover:scale-105 transition">
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div id="profile-dropdown-menu" class="hidden absolute right-0 top-full mt-2.5 w-60 rounded-2xl bg-white border border-slate-200 shadow-2xl z-50 py-1.5 animate-fade-in text-xs">
+            <div class="px-4 py-3 border-b border-slate-100 bg-slate-50/60 rounded-t-2xl">
+              <div class="font-extrabold text-lms-secondary text-sm truncate">Bpk. Hendro, S.Kom</div>
+              <div class="text-[11px] text-slate-500 font-mono mt-0.5">NIP: 198402122008011004</div>
+            </div>
+            
+            <div class="py-1">
+              <a href="instructor-dashboard.html" class="w-full px-4 py-2.5 text-left text-slate-700 hover:bg-orange-50 hover:text-lms-primary transition flex items-center gap-2.5 font-semibold">
+                <i data-lucide="layout-dashboard" class="w-4 h-4 text-slate-400"></i>
+                <span>Dashboard Guru</span>
+              </a>
+            </div>
+
+            <div class="border-t border-slate-100 my-1"></div>
+
+            <div class="py-1">
+              <button type="button" onclick="logoutUser()" class="w-full px-4 py-2 text-left text-rose-600 hover:bg-rose-50 transition flex items-center gap-2.5 font-semibold">
+                <i data-lucide="log-out" class="w-4 h-4 text-rose-500"></i>
+                <span>Keluar / Logout</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ============================================================== -->
+  <!-- 2. BODY SPLIT: SIDEBAR KHUSUS PROFIL + KONTEN BIODATA LENGKAP -->
+  <!-- ============================================================== -->
+  <div class="flex-1 flex w-full overflow-hidden">
+    
+    <!-- ============================================================ -->
+    <!-- LEFT: SIDEBAR PROFIL PENDIDIK (KIRI FULL HEIGHT) -->
+    <!-- ============================================================ -->
+    <aside class="hidden lg:flex instructor-full-sidebar custom-scroll">
+      
+      <div class="space-y-1 py-3">
+        
+        <!-- Sidebar Navigation Heading -->
+        <div class="instructor-sidebar-title">Menu Profil & Biodata</div>
+
+        <!-- Tab 1: Data Pribadi & Kontak -->
+        <a href="javascript:void(0)" onclick="switchProfileTab('personal')" id="tab-btn-personal" class="instructor-nav-link active">
+          <i data-lucide="user"></i>
+          <span>Data Pribadi & Kontak</span>
+        </a>
+
+        <!-- Tab 2: Kepegawaian & Dapodik -->
+        <a href="javascript:void(0)" onclick="switchProfileTab('employment')" id="tab-btn-employment" class="instructor-nav-link">
+          <i data-lucide="briefcase"></i>
+          <span>Data Kepegawaian & SK</span>
+        </a>
+
+        <!-- Tab 3: Sertifikasi & Lisensi BNSP -->
+        <a href="javascript:void(0)" onclick="switchProfileTab('certifications')" id="tab-btn-certifications" class="instructor-nav-link">
+          <i data-lucide="award"></i>
+          <span>Sertifikasi & Lisensi BNSP</span>
+        </a>
+
+        <!-- Tab 4: Keamanan Akun -->
+        <a href="javascript:void(0)" onclick="switchProfileTab('security')" id="tab-btn-security" class="instructor-nav-link">
+          <i data-lucide="key-round"></i>
+          <span>Keamanan & Password</span>
+        </a>
+
+        <!-- Divider -->
+        <div class="instructor-sidebar-title pt-4">Navigasi Sistem</div>
+
+        <a href="instructor-dashboard.html" class="instructor-nav-link text-slate-600 hover:text-lms-primary">
+          <i data-lucide="arrow-left" class="text-slate-400"></i>
+          <span>Kembali ke Dashboard</span>
+        </a>
+
+        <a href="javascript:void(0)" onclick="logoutUser()" class="instructor-nav-link text-rose-600 hover:bg-rose-50 hover:text-rose-700">
+          <i data-lucide="log-out" class="text-rose-500"></i>
+          <span>Keluar / Logout</span>
+        </a>
+
+      </div>
+
+      <!-- Bottom Card: Sinkronisasi Terakhir -->
+      <div class="p-4 m-3 rounded-2xl bg-slate-900 text-white space-y-2 text-xs">
+        <div class="flex items-center gap-2 text-emerald-400 font-bold">
+          <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+          <span>Dapodik Kemendikbud</span>
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          Terakhir disinkronkan otomatis dengan server pusat pada 04 Nov 2026.
+        </p>
+        <span class="inline-block text-[10px] font-mono text-slate-400 bg-white/10 px-2 py-0.5 rounded">
+          Status: Terhubung (Real-time)
+        </span>
+      </div>
+
+    </aside>
+
+    <!-- ============================================================ -->
+    <!-- RIGHT: SCROLLABLE MAIN CONTENT FOR PROFILE SECTIONS -->
+    <!-- ============================================================ -->
+    <main class="flex-1 h-full overflow-y-auto custom-scroll p-6 sm:p-8 space-y-6 sm:space-y-7 pb-20">
+      
+      <!-- ======================================================== -->
+      <!-- TAB 1: DATA PRIBADI & KONTAK -->
+      <!-- ======================================================== -->
+      <div id="prof-sec-personal" class="profile-content-tab space-y-6">
+        
+        <!-- Hero Card Profil -->
+        <div class="lms-panel-card p-6 bg-white space-y-5">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 pb-5 border-b border-slate-100">
+            
+            <div class="flex items-center gap-4">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" alt="Avatar Hendro" class="w-20 h-20 rounded-full object-cover border-4 border-slate-100 shadow-md">
+              <div class="space-y-1">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h2 class="text-xl sm:text-2xl font-black text-lms-secondary">Bpk. Hendro Wicaksono, S.Kom., M.Cs.</h2>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-orange-700 font-mono">NIP: 198402122008011004</span>
+                </div>
+                <p class="text-xs text-slate-500 font-medium">Guru Produktif Rekayasa Perangkat Lunak (RPL) • SMK Negeri Puger Jember</p>
+                <div class="flex items-center gap-3 text-xs text-slate-400 font-mono pt-0.5">
+                  <span>NUPTK: 4839762664200032</span>
+                  <span>•</span>
+                  <span>Golongan: IV/a (Pembina)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 self-stretch sm:self-auto justify-end">
+              <button onclick="showToast('Silakan pilih berkas foto foto profil baru (PNG/JPG)...', 'info')" class="px-4 py-2 rounded-xl bg-orange-50 border border-orange-200 text-orange-700 text-xs font-bold hover:bg-orange-100 transition flex items-center gap-1.5">
+                <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+                <span>Ganti Foto</span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Form Edit Biodata -->
+          <form onsubmit="saveProfilePersonal(event)" class="space-y-5 text-xs">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Nama Lengkap & Gelar</label>
+                <input type="text" value="Bpk. Hendro Wicaksono, S.Kom., M.Cs." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary font-medium text-slate-800">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Tempat & Tanggal Lahir</label>
+                <input type="text" value="Jember, 12 Februari 1984" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary text-slate-800">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Nomor WhatsApp Resmi / HP Dinas</label>
+                <input type="text" id="prof-input-phone" value="+62 812-3456-7890" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary font-mono text-slate-800">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Email Resmi Pendidik (@smkpuger.sch.id)</label>
+                <input type="email" id="prof-input-email" value="hendro.rpl@smkpuger.sch.id" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary font-mono text-slate-800">
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Alamat Domisili Pendidik</label>
+              <input type="text" value="Jl. Raya Puger No. 45, RT 02 / RW 04, Puger, Kabupaten Jember, Jawa Timur" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary text-slate-800">
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Biodata Singkat / Visi Mengajar</label>
+              <textarea rows="3" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary text-slate-800">Membimbing siswa kejuruan Rekayasa Perangkat Lunak SMK Puger Jember menjadi talenta software engineer yang berkarakter, kompeten, dan siap bersaing di industri teknologi global.</textarea>
+            </div>
+
+            <div class="pt-2 flex items-center justify-end gap-3">
+              <button type="submit" class="btn-lms-primary px-5 py-2.5 text-xs flex items-center gap-1.5 shadow-md">
+                <i data-lucide="save" class="w-4 h-4"></i>
+                <span>Simpan Perubahan Biodata</span>
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 2: DATA POKOK KEPEGAWAIAN & SK -->
+      <!-- ======================================================== -->
+      <div id="prof-sec-employment" class="profile-content-tab hidden space-y-6">
+        
+        <div class="lms-panel-card p-6 bg-white space-y-6">
+          
+          <div class="pb-4 border-b border-slate-100 flex items-center justify-between">
+            <div>
+              <h2 class="text-lg font-black text-lms-secondary">Data Pokok Kepegawaian & Dapodik</h2>
+              <p class="text-xs text-slate-400">Sinkronisasi resmi basis data pendidik Kemendikbudristek</p>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">PNS / ASN Aktif</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+              <div class="text-[11px] font-bold text-slate-400 uppercase">Jabatan Fungsional</div>
+              <div class="text-sm font-extrabold text-slate-800">Guru Ahli Madya (Gol. IV/a)</div>
+              <div class="text-[11px] text-slate-500">Masa Kerja: 18 Tahun 3 Bulan</div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+              <div class="text-[11px] font-bold text-slate-400 uppercase">Unit Kerja / Satminkal</div>
+              <div class="text-sm font-extrabold text-slate-800">SMK Negeri Puger Jember</div>
+              <div class="text-[11px] text-slate-500">NPSN: 20523842 • Terakreditasi A</div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+              <div class="text-[11px] font-bold text-slate-400 uppercase">TMT Pengangkatan Pertama (CPNS)</div>
+              <div class="text-sm font-extrabold text-slate-800 font-mono">01 Januari 2008</div>
+              <div class="text-[11px] text-slate-500">Nomor SK: 821.2/012/BKD/2008</div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+              <div class="text-[11px] font-bold text-slate-400 uppercase">Beban Mengajar Resmi</div>
+              <div class="text-sm font-extrabold text-lms-primary font-mono">24 Jam Pelajaran (JP) / Minggu</div>
+              <div class="text-[11px] text-slate-500">Status Beban Mengajar: Memenuhi Syarat TPG</div>
+            </div>
+
+          </div>
+
+          <!-- Riwayat Pendidikan Formal -->
+          <div class="space-y-3 pt-2">
+            <h3 class="text-xs font-black uppercase text-slate-400 tracking-wider">Riwayat Pendidikan Formal</h3>
+            <div class="space-y-3 text-xs">
+              
+              <div class="p-4 rounded-xl border border-slate-200 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">S2</div>
+                  <div>
+                    <div class="font-extrabold text-slate-900">Magister Ilmu Komputer (M.Cs.)</div>
+                    <div class="text-slate-500 text-[11px]">Universitas Jember • Lulus Tahun 2016 • IPK 3.88</div>
+                  </div>
+                </div>
+                <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">Ijazah Terverifikasi</span>
+              </div>
+
+              <div class="p-4 rounded-xl border border-slate-200 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-sm">S1</div>
+                  <div>
+                    <div class="font-extrabold text-slate-900">Sarjana Komputer Pendidikan TIK (S.Kom.)</div>
+                    <div class="text-slate-500 text-[11px]">Universitas Negeri Malang • Lulus Tahun 2007 • IPK 3.75</div>
+                  </div>
+                </div>
+                <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">Ijazah Terverifikasi</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 3: SERTIFIKASI & LISENSI INDUSTRI BNSP -->
+      <!-- ======================================================== -->
+      <div id="prof-sec-certifications" class="profile-content-tab hidden space-y-6">
+        
+        <div class="lms-panel-card p-6 bg-white space-y-6">
+          
+          <div class="pb-4 border-b border-slate-100 flex items-center justify-between flex-wrap gap-3">
+            <div>
+              <h2 class="text-lg font-black text-lms-secondary">Lisensi Keahlian & Sertifikasi Pendidik</h2>
+              <p class="text-xs text-slate-400">Kompetensi industri, asesor BNSP, dan sertifikasi pendidik nasional</p>
+            </div>
+            <button onclick="showToast('Sertifikat resmi tersinkron dengan PDDikti & BNSP.', 'success')" class="px-3.5 py-2 rounded-xl bg-orange-50 border border-orange-200 text-orange-700 text-xs font-bold hover:bg-orange-100 transition">
+              + Tambah Sertifikat Baru
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- Card Sertifikasi 1: Serdik -->
+            <div class="p-5 rounded-2xl border-2 border-orange-200 bg-orange-50/20 space-y-3 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-500 text-white">Sertifikasi Pendidik</span>
+                <span class="text-[10px] font-mono text-slate-400">Kemendikbudristek</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold text-slate-900">Sertifikat Pendidik Profesional (Rekayasa Perangkat Lunak)</h3>
+                <p class="text-slate-500 text-[11px] mt-1">Bidang Studi: Rekayasa Perangkat Lunak • No. Registrasi: 19840212008011004-RPL</p>
+              </div>
+              <div class="pt-2 border-t border-orange-100 flex items-center justify-between">
+                <span class="font-bold text-emerald-600 text-[11px]"><i data-lucide="check" class="w-3.5 h-3.5 inline mr-1"></i> Status: Aktif / Valid</span>
+                <button onclick="showToast('Mengunduh e-Sertifikat Serdik...', 'info')" class="text-orange-600 font-bold hover:underline">Unduh PDF</button>
+              </div>
+            </div>
+
+            <!-- Card Sertifikasi 2: Asesor BNSP -->
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white space-y-3 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-700">Lisensi BNSP</span>
+                <span class="text-[10px] font-mono text-slate-400">LSP-P1 SMK Puger</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold text-slate-900">Asesor Kompetensi LSP-P1 Bidang Rekayasa Perangkat Lunak</h3>
+                <p class="text-slate-500 text-[11px] mt-1">No. REG: MET.000.0129 2022 • Skema Sertifikasi Pemrograman Web & Mobile</p>
+              </div>
+              <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                <span class="font-bold text-emerald-600 text-[11px]"><i data-lucide="check" class="w-3.5 h-3.5 inline mr-1"></i> Berlaku s/d 2027</span>
+                <button onclick="showToast('Mengunduh SK Lisensi Asesor...', 'info')" class="text-indigo-600 font-bold hover:underline">Unduh PDF</button>
+              </div>
+            </div>
+
+            <!-- Card Sertifikasi 3: Oracle -->
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white space-y-3 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">Industri Global</span>
+                <span class="text-[10px] font-mono text-slate-400">Oracle University</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold text-slate-900">Oracle Certified Associate (OCA) Java SE 11 Developer</h3>
+                <p class="text-slate-500 text-[11px] mt-1">Credential ID: OC1198421 • Sertifikasi Pemrograman Berorientasi Objek Lanjutan</p>
+              </div>
+              <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                <span class="font-bold text-emerald-600 text-[11px]"><i data-lucide="check" class="w-3.5 h-3.5 inline mr-1"></i> Lifetime Credential</span>
+                <button onclick="showToast('Membuka sertifikat Oracle digital badge...', 'info')" class="text-blue-600 font-bold hover:underline">Verifikasi Badge</button>
+              </div>
+            </div>
+
+            <!-- Card Sertifikasi 4: AWS -->
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white space-y-3 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Cloud Computing</span>
+                <span class="text-[10px] font-mono text-slate-400">Amazon Web Services</span>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold text-slate-900">AWS Academy Accredited Educator (Cloud Architecture)</h3>
+                <p class="text-slate-500 text-[11px] mt-1">Instruktur Resmi Kurikulum Cloud Computing di SMK Pusat Keunggulan</p>
+              </div>
+              <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                <span class="font-bold text-emerald-600 text-[11px]"><i data-lucide="check" class="w-3.5 h-3.5 inline mr-1"></i> Aktif 2026/2027</span>
+                <button onclick="showToast('Membuka sertifikat AWS Academy...', 'info')" class="text-emerald-600 font-bold hover:underline">Verifikasi</button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 4: KEAMANAN & KATA SANDI -->
+      <!-- ======================================================== -->
+      <div id="prof-sec-security" class="profile-content-tab hidden space-y-6">
+        
+        <div class="lms-panel-card p-6 bg-white space-y-6">
+          
+          <div class="pb-4 border-b border-slate-100">
+            <h2 class="text-lg font-black text-lms-secondary">Keamanan Akun & Ganti Password</h2>
+            <p class="text-xs text-slate-400">Lindungi akses akun pengajar, bank soal CBT, dan leger nilai siswa</p>
+          </div>
+
+          <form onsubmit="saveProfilePassword(event)" class="max-w-xl space-y-4 text-xs">
+            
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Kata Sandi Saat Ini</label>
+              <input type="password" required placeholder="Masukkan kata sandi lama Anda..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary">
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Kata Sandi Baru</label>
+              <input type="password" required placeholder="Minimal 8 karakter kombinasi huruf dan angka..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary">
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Konfirmasi Kata Sandi Baru</label>
+              <input type="password" required placeholder="Ulangi kata sandi baru Anda..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-lms-primary">
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-orange-50 border border-orange-200 text-orange-900 leading-relaxed text-[11px]">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-orange-600 inline mr-1"></i>
+              Setelah mengganti kata sandi, sesi login Anda pada perangkat lain akan otomatis dinonaktifkan demi keamanan.
+            </div>
+
+            <div class="pt-2">
+              <button type="submit" class="btn-lms-primary px-5 py-2.5 text-xs flex items-center gap-1.5 shadow-md">
+                <i data-lucide="key" class="w-4 h-4"></i>
+                <span>Perbarui Kata Sandi</span>
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Tab Switching on Profile Page
+    function switchProfileTab(tabId) {
+      document.querySelectorAll('.profile-content-tab').forEach(tab => {
+        tab.classList.add('hidden');
+      });
+      document.querySelectorAll('.instructor-nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+
+      const targetTab = document.getElementById(`prof-sec-${tabId}`);
+      if (targetTab) {
+        targetTab.classList.remove('hidden');
+        targetTab.classList.add('animate-fade-in');
+      }
+
+      const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    function toggleProfileDropdown(e) {
+      if (e) e.stopPropagation();
+      const dropdown = document.getElementById('profile-dropdown-menu');
+      if (dropdown) {
+        dropdown.classList.toggle('hidden');
+        if (window.lucide) lucide.createIcons();
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const dropdown = document.getElementById('profile-dropdown-menu');
+      const btn = document.getElementById('btn-profile-dropdown');
+      if (dropdown && !dropdown.classList.contains('hidden')) {
+        if (btn && !btn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add('hidden');
+        }
+      }
+    });
+
+    function saveProfilePersonal(e) {
+      if (e) e.preventDefault();
+      if (typeof showToast === 'function') {
+        showToast('Data pribadi & kontak berhasil diperbarui!', 'success');
+      } else {
+        alert('Data pribadi berhasil disimpan!');
+      }
+    }
+
+    function saveProfilePassword(e) {
+      if (e) e.preventDefault();
+      if (typeof showToast === 'function') {
+        showToast('Kata sandi berhasil diperbarui dengan aman!', 'success');
+      } else {
+        alert('Kata sandi berhasil diubah!');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>
+
