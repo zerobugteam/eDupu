@@ -1,11 +1,99 @@
 /**
  * eDupu / APK Learning - SMK Puger
- * DreamsLMS Style Instructor Dashboard Logic (js/instructor.js)
+ * DreamsLMS Style Multi-Role Dashboard Logic (js/instructor.js)
+ * Mendukung 5 Role Staff: Guru Mapel, Wali Kelas, Admin TU, Kepsek, Super Admin
  */
 
 let performanceChart, attendanceDonutChart;
+let currentActiveRole = 'walikelas';
+
+// Konfigurasi Navigasi dan Menu Resmi per Role
+const ROLE_NAV_CONFIGS = {
+  guru: {
+    roleTitle: 'Menu Guru Mapel',
+    defaultView: 'dashboard',
+    headerAction: {
+      label: 'Buat Ujian CBT',
+      icon: 'plus',
+      onclick: 'openCreateExamModal()'
+    },
+    menus: [
+      { id: 'dashboard', label: 'Dashboard Guru Pengampu', icon: 'layout-dashboard', badge: 'Aktif' },
+      { id: 'schedule', label: 'Jadwal Mengajar Saya', icon: 'calendar', badge: 'Senin - Jumat' },
+      { id: 'attendance', label: 'Presensi Jam Pelajaran', icon: 'check-square', badge: 'Tatap Muka' },
+      { id: 'grades', label: 'Input & Rekap Nilai', icon: 'clipboard-check' },
+      { id: 'cbt', label: 'Bank Soal & Ujian CBT', icon: 'laptop', badge: '3 Sesi' },
+      { id: 'courses', label: 'Materi & Modul Ajar', icon: 'book-open', badge: '4 Modul' }
+    ]
+  },
+  walikelas: {
+    roleTitle: 'Menu Wali Kelas',
+    defaultView: 'dashboard',
+    headerAction: {
+      label: 'Cetak Raport Kelas',
+      icon: 'printer',
+      onclick: "switchInstructorView('raport')"
+    },
+    menus: [
+      { id: 'dashboard', label: 'Dashboard Wali Kelas', icon: 'layout-dashboard', badge: 'XII RPL 1' },
+      { id: 'attendance', label: 'Monitoring Presensi Rombel', icon: 'map-pin', badge: '36 Siswa' },
+      { id: 'grades', label: 'Leger Nilai Kelas', icon: 'clipboard-check', badge: 'Semester 5' },
+      { id: 'raport', label: 'Cetak Raport Siswa', icon: 'file-text', badge: 'A4 Resmi' },
+      { id: 'konseling', label: 'Catatan Konseling & Karakter', icon: 'award' }
+    ]
+  },
+  admin: {
+    roleTitle: 'Menu Administrasi TU',
+    defaultView: 'admin-dashboard',
+    headerAction: {
+      label: 'Tambah Data Siswa',
+      icon: 'user-plus',
+      onclick: 'openAddStudentModal()'
+    },
+    menus: [
+      { id: 'admin-dashboard', label: 'Dashboard Administrasi TU', icon: 'layout-dashboard', badge: 'Dapodik' },
+      { id: 'admin-students', label: 'Data Master Kesiswaan', icon: 'users', badge: '864 Siswa' },
+      { id: 'admin-teachers', label: 'Data Pendidik & Staf', icon: 'user-check', badge: '48 Guru' },
+      { id: 'schedule', label: 'Kurikulum & Jadwal Sekolah', icon: 'calendar-days' },
+      { id: 'admin-accounts', label: 'Layanan Akun & Sandi', icon: 'key-round', badge: 'Reset' },
+      { id: 'admin-reports', label: 'Laporan & Rekapitulasi', icon: 'file-spreadsheet', badge: 'Export' }
+    ]
+  },
+  kepsek: {
+    roleTitle: 'Menu Kepala Sekolah',
+    defaultView: 'kepsek-dashboard',
+    headerAction: {
+      label: 'Unduh Laporan Mutu',
+      icon: 'download',
+      onclick: 'downloadLaporanMutu()'
+    },
+    menus: [
+      { id: 'kepsek-dashboard', label: 'Dashboard Eksekutif', icon: 'layout-dashboard', badge: 'Monitoring' },
+      { id: 'attendance', label: 'Monitoring Presensi Sekolah', icon: 'map-pin', badge: '97.4%' },
+      { id: 'kepsek-evaluation', label: 'Monitoring Hasil Belajar & CBT', icon: 'line-chart', badge: 'KKTP 75.0' },
+      { id: 'kepsek-reports', label: 'Laporan Mutu Pendidikan', icon: 'award', badge: 'Dinas' }
+    ]
+  },
+  superadmin: {
+    roleTitle: 'Menu Super Admin IT',
+    defaultView: 'super-dashboard',
+    headerAction: {
+      label: 'Backup Database',
+      icon: 'database',
+      onclick: 'backupSystemDatabase()'
+    },
+    menus: [
+      { id: 'super-dashboard', label: 'Dashboard Teknis Sistem', icon: 'layout-dashboard', badge: 'Online' },
+      { id: 'super-users', label: 'Manajemen Akun & Hak Akses', icon: 'shield-alert', badge: '6 Role' },
+      { id: 'super-gps', label: 'Pengaturan GPS & Geofence', icon: 'map-pin', badge: '80m Valid' },
+      { id: 'super-cbt', label: 'Konfigurasi Sistem & CBT', icon: 'sliders', badge: 'Safe Exam' },
+      { id: 'super-backup', label: 'Cadangan Basis Data & Audit', icon: 'database', badge: 'Auto Sync' }
+    ]
+  }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
+  initRoleContext();
   initInstructorCharts();
   startInstructorClock();
   if (window.lucide) {
@@ -43,6 +131,117 @@ function switchInstructorView(viewId) {
   if (window.innerWidth < 1024) {
     const el = document.getElementById(`sec-${viewId}`);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+// Inisialisasi Konteks Role Pengguna Aktif
+function initRoleContext() {
+  let user = null;
+  try {
+    const raw = localStorage.getItem('edupu_current_user');
+    if (raw) user = JSON.parse(raw);
+  } catch (err) {
+    console.error('Error parsing stored user:', err);
+  }
+
+  // Jika belum login atau role siswa, defaultkan ke walikelas untuk view staf
+  if (!user || user.role === 'siswa' || !ROLE_NAV_CONFIGS[user.role]) {
+    user = (typeof DEMO_ACCOUNTS !== 'undefined' && DEMO_ACCOUNTS.walikelas) ? DEMO_ACCOUNTS.walikelas : {
+      role: 'walikelas',
+      name: 'Bpk. Hendro, S.Kom.',
+      nisn: '198402122008011004',
+      roleLabel: 'Wali Kelas XII RPL 1',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250'
+    };
+  }
+
+  currentActiveRole = user.role;
+
+  // Update Header User Info
+  const nameEl = document.getElementById('header-user-name');
+  if (nameEl) nameEl.textContent = user.name;
+
+  const nipEl = document.getElementById('header-user-nip');
+  if (nipEl) {
+    nipEl.textContent = user.nisn ? `NIP: ${user.nisn}` : `User: ${user.username || 'Staff'}`;
+  }
+
+  const badgeEl = document.getElementById('header-user-badge');
+  if (badgeEl) badgeEl.textContent = user.roleLabel || 'Staff Pengajar';
+
+  const avatarEl = document.getElementById('header-user-avatar');
+  if (avatarEl && user.avatar) avatarEl.src = user.avatar;
+
+  // Update Header Action Button
+  const actionContainer = document.getElementById('header-action-container');
+  const roleCfg = ROLE_NAV_CONFIGS[user.role] || ROLE_NAV_CONFIGS.walikelas;
+
+  if (actionContainer && roleCfg.headerAction) {
+    actionContainer.innerHTML = `
+      <button onclick="${roleCfg.headerAction.onclick}" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm hover:shadow transition flex items-center gap-1.5 shrink-0">
+        <i data-lucide="${roleCfg.headerAction.icon}" class="w-3.5 h-3.5"></i>
+        <span>${roleCfg.headerAction.label}</span>
+      </button>
+    `;
+  }
+
+  // Render Sidebar
+  renderRoleSidebar(user.role);
+
+  // Tampilkan View Default Role
+  switchInstructorView(roleCfg.defaultView);
+}
+
+// Beralih Role Secara Cepat untuk Keperluan Testing
+function switchActiveRole(roleKey) {
+  if (typeof DEMO_ACCOUNTS !== 'undefined' && DEMO_ACCOUNTS[roleKey]) {
+    localStorage.setItem('edupu_current_user', JSON.stringify(DEMO_ACCOUNTS[roleKey]));
+    initRoleContext();
+    if (typeof showToast === 'function') {
+      showToast(`Beralih ke mode tampilan: ${DEMO_ACCOUNTS[roleKey].roleLabel}`, 'info');
+    }
+  }
+}
+
+// Render Dinamis Menu Sidebar Berdasarkan Role
+function renderRoleSidebar(role) {
+  const container = document.getElementById('sidebar-menu-container');
+  if (!container) return;
+
+  const cfg = ROLE_NAV_CONFIGS[role] || ROLE_NAV_CONFIGS.walikelas;
+
+  let html = `
+    <div class="instructor-sidebar-title">${cfg.roleTitle}</div>
+  `;
+
+  cfg.menus.forEach((item, idx) => {
+    const badgeHtml = item.badge ? `<span class="badge bg-blue-100 text-blue-700 ml-auto font-mono text-[9px]">${item.badge}</span>` : '';
+    html += `
+      <a href="javascript:void(0)" onclick="switchInstructorView('${item.id}')" id="nav-${item.id}" class="instructor-nav-link ${idx === 0 ? 'active' : ''}">
+        <i data-lucide="${item.icon}"></i>
+        <span class="truncate">${item.label}</span>
+        ${badgeHtml}
+      </a>
+    `;
+  });
+
+  // Tambahkan Menu Navigasi Standar di Bagian Bawah
+  html += `
+    <div class="instructor-sidebar-title pt-3">Akses & Sesi</div>
+    <a href="dashboard.html" class="instructor-nav-link text-slate-500">
+      <i data-lucide="monitor"></i>
+      <span>Mode Portal Siswa</span>
+    </a>
+    <a href="javascript:void(0)" onclick="logoutUser()" class="instructor-nav-link text-rose-600 hover:bg-rose-50 hover:text-rose-700">
+      <i data-lucide="log-out" class="text-rose-500"></i>
+      <span>Keluar / Logout</span>
+    </a>
+  `;
+
+  container.innerHTML = html;
+
+  if (window.lucide) {
+    lucide.createIcons();
   }
 }
 
@@ -527,6 +726,212 @@ function sendChatMessage(e) {
 function exportAttendanceExcel() {
   if (typeof showToast === 'function') {
     showToast('Mengunduh Rekap_Presensi_SMK_Puger_November_2026.xlsx...', 'success');
+  }
+}
+
+// ==============================================================
+// FITUR MODUL ROLE RESMI: WALI KELAS, TU, KEPSEK, SUPER ADMIN
+// ==============================================================
+
+// 1. Cetak Raport Siswa (Wali Kelas)
+function printRaportSiswa(nama, nisn, kelas) {
+  if (typeof showToast === 'function') {
+    showToast(`Menyiapkan lembar Raport Resmi Kurikulum Merdeka: ${nama} (${nisn})...`, 'info');
+  }
+
+  // Gunakan dialog cetak atau iframe cetak A4
+  setTimeout(() => {
+    let printFrame = document.getElementById('raport-staff-print-frame');
+    if (!printFrame) {
+      printFrame = document.createElement('iframe');
+      printFrame.id = 'raport-staff-print-frame';
+      printFrame.style.position = 'fixed';
+      printFrame.style.right = '0';
+      printFrame.style.bottom = '0';
+      printFrame.style.width = '0';
+      printFrame.style.height = '0';
+      printFrame.style.border = '0';
+      document.body.appendChild(printFrame);
+    }
+
+    const doc = printFrame.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <!DOCTYPE html>
+      <html lang="id">
+      <head>
+        <meta charset="UTF-8">
+        <title>Raport Resmi • ${nama} (${nisn})</title>
+        <style>
+          * { box-sizing: border-box; font-family: 'Times New Roman', Times, serif; }
+          body { padding: 30px; color: #000; line-height: 1.4; }
+          .kop { text-align: center; border-bottom: 3px double #000; padding-bottom: 10px; margin-bottom: 20px; }
+          .kop h2 { margin: 0; font-size: 16pt; font-weight: bold; text-transform: uppercase; }
+          .kop h3 { margin: 3px 0; font-size: 13pt; }
+          .kop p { margin: 0; font-size: 9.5pt; font-family: Arial, sans-serif; }
+          .title { text-align: center; margin: 15px 0; font-size: 13pt; font-weight: bold; text-decoration: underline; }
+          table.meta { width: 100%; margin-bottom: 15px; font-size: 10pt; }
+          table.meta td { padding: 3px 5px; }
+          table.data { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 10pt; }
+          table.data th, table.data td { border: 1px solid #000; padding: 6px 8px; text-align: left; }
+          table.data th { background: #f0f0f0; text-align: center; font-weight: bold; }
+          .ttd-wrap { margin-top: 35px; width: 100%; display: flex; justify-content: space-between; font-size: 10pt; }
+          .ttd-box { width: 45%; text-align: center; }
+          @media print { body { padding: 0; } }
+        </style>
+      </head>
+      <body>
+        <div class="kop">
+          <h2>Pemerintah Provinsi Jawa Timur • Dinas Pendidikan</h2>
+          <h3>SMK PUGER JEMBER (TERAKREDITASI A)</h3>
+          <p>Jl. Pelita No. 22, Puger, Kabupaten Jember, Jawa Timur 68164 • Telp: (0336) 721234 • Email: info@smkpuger.sch.id</p>
+        </div>
+        <div class="title">LAPORAN CAPAIAN HASIL BELAJAR PESERTA DIDIK (RAPORT)</div>
+        <table class="meta">
+          <tr>
+            <td width="20%"><strong>Nama Siswa</strong></td>
+            <td width="30%">: ${nama || 'Bagus Permadi'}</td>
+            <td width="20%"><strong>Tahun Ajaran</strong></td>
+            <td width="30%">: 2026/2027 (Ganjil)</td>
+          </tr>
+          <tr>
+            <td><strong>NISN / NIPD</strong></td>
+            <td>: ${nisn || '0058291042'}</td>
+            <td><strong>Kelas / Rombel</strong></td>
+            <td>: ${kelas || 'XII RPL 1'}</td>
+          </tr>
+          <tr>
+            <td><strong>Program Keahlian</strong></td>
+            <td>: Teknik Komputer & Informatika</td>
+            <td><strong>Wali Kelas</strong></td>
+            <td>: Bpk. Hendro, S.Kom.</td>
+          </tr>
+        </table>
+        <table class="data">
+          <thead>
+            <tr>
+              <th width="5%">No</th>
+              <th width="35%">Mata Pelajaran</th>
+              <th width="10%">KKTP</th>
+              <th width="12%">Nilai Akhir</th>
+              <th width="10%">Predikat</th>
+              <th width="28%">Capaian Kompetensi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td align="center">1</td><td>Pemrograman Web & Perangkat Bergerak</td><td align="center">75.0</td><td align="center"><strong>92.5</strong></td><td align="center">A</td><td>Sangat menguasai RESTful API Laravel & arsitektur Vue.js.</td></tr>
+            <tr><td align="center">2</td><td>Basis Data Terdistribusi & SQL Server</td><td align="center">75.0</td><td align="center"><strong>89.0</strong></td><td align="center">A</td><td>Terampil optimasi stored procedure & replikasi database.</td></tr>
+            <tr><td align="center">3</td><td>Pemrograman Berorientasi Objek (Java OOP)</td><td align="center">75.0</td><td align="center"><strong>88.0</strong></td><td align="center">A</td><td>Memahami enkapsulasi, polimorfisme, dan GUI framework.</td></tr>
+            <tr><td align="center">4</td><td>Pemodelan Perangkat Lunak & Analisis Sistem</td><td align="center">75.0</td><td align="center"><strong>86.5</strong></td><td align="center">B+</td><td>Mampu merancang UML Diagram & Flowchart sistem akurat.</td></tr>
+            <tr><td align="center">5</td><td>Produk Kreatif & Kewirausahaan (RPL)</td><td align="center">75.0</td><td align="center"><strong>90.0</strong></td><td align="center">A</td><td>Berhasil memproduksi prototipe aplikasi kasir UMKM.</td></tr>
+          </tbody>
+        </table>
+        <div class="ttd-wrap">
+          <div class="ttd-box">
+            <p>Mengetahui,<br>Orang Tua / Wali Murid</p><br><br><br>
+            <p>( ..................................................... )</p>
+          </div>
+          <div class="ttd-box">
+            <p>Puger, 05 November 2026<br>Wali Kelas XII RPL 1</p><br><br><br>
+            <p><strong>Bpk. Hendro, S.Kom.</strong><br>NIP. 198402122008011004</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `);
+    doc.close();
+    printFrame.contentWindow.focus();
+    printFrame.contentWindow.print();
+  }, 300);
+}
+
+// 2. Simpan Catatan Konseling & Karakter (Wali Kelas)
+function saveKonselingNotes(e) {
+  if (e) e.preventDefault();
+  if (typeof showToast === 'function') {
+    showToast('Catatan perkembangan karakter & konseling siswa berhasil disimpan ke Raport.', 'success');
+  } else {
+    alert('Catatan berhasil disimpan!');
+  }
+}
+
+// 3. Unduh Laporan Mutu Pendidikan (Kepala Sekolah)
+function downloadLaporanMutu() {
+  if (typeof showToast === 'function') {
+    showToast('Menyiapkan Laporan_Evaluasi_Mutu_SMK_Puger_Semester_Ganjil_2026.pdf untuk Dinas Pendidikan...', 'success');
+  }
+}
+
+// 4. Cadangkan Basis Data (Super Admin)
+function backupSystemDatabase() {
+  if (typeof showToast === 'function') {
+    showToast('Membuat cadangan database: eDupu_Database_Backup_20261105.sql (42.8 MB)... Selesai diunduh.', 'success');
+  }
+}
+
+// 5. Tambah Data Siswa Baru (Admin TU)
+function openAddStudentModal() {
+  const modal = document.getElementById('add-student-modal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function closeAddStudentModal() {
+  const modal = document.getElementById('add-student-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+function saveNewStudent(e) {
+  if (e) e.preventDefault();
+  closeAddStudentModal();
+  if (typeof showToast === 'function') {
+    showToast('Data siswa baru berhasil ditambahkan dan disinkronkan ke master data Dapodik.', 'success');
+  }
+}
+
+// 6. Reset Kata Sandi Pengguna (Admin TU)
+function resetUserPasswordDirect(username) {
+  if (confirm(`Reset kata sandi akun ${username} ke kata sandi standar sekolah?`)) {
+    if (typeof showToast === 'function') {
+      showToast(`Kata sandi akun ${username} berhasil direset ke sandi awal!`, 'success');
+    }
+  }
+}
+
+// 7. Simpan Pengaturan Geofence GPS (Super Admin)
+function saveGpsGeofenceSettings(e) {
+  if (e) e.preventDefault();
+  const radius = document.getElementById('setting-geofence-radius')?.value || '80';
+  if (typeof showToast === 'function') {
+    showToast(`Parameter Geofence berhasil disimpan! Titik gerbang aktif dengan radius toleransi ${radius} meter.`, 'success');
+  }
+}
+
+// 8. Simpan Pengaturan Keamanan CBT (Super Admin)
+function saveCbtSecuritySettings(e) {
+  if (e) e.preventDefault();
+  if (typeof showToast === 'function') {
+    showToast('Aturan proteksi Safe Exam Browser & Anti-Kecurangan CBT berhasil diperbarui.', 'success');
+  }
+}
+
+// 9. Mobile Sidebar Drawer Toggle
+function toggleInstructorMobileSidebar() {
+  const sidebar = document.getElementById('instructor-sidebar-aside');
+  if (sidebar) {
+    sidebar.classList.toggle('hidden');
+    sidebar.classList.toggle('flex');
+    sidebar.classList.toggle('fixed');
+    sidebar.classList.toggle('inset-y-0');
+    sidebar.classList.toggle('left-0');
+    sidebar.classList.toggle('z-50');
+    sidebar.classList.toggle('w-72');
+    sidebar.classList.toggle('shadow-2xl');
   }
 }
 

@@ -18,6 +18,13 @@ Dokumen ini berisi daftar nama pengguna (*username*), nomor induk (NISN/NIP), da
 
 ---
 
+siswa : bagus / siswa123
+walikelas : wali / wali123
+guru mapel : guru / guru123
+admin TU : admin / admin123
+kepala sekolah : kepsek / kepsek123
+super admin : superadmin / superadmin123
+
 ## 🚀 Cara Cepat Melakukan Pengujian di Halaman Login
 
 Halaman [`login.html`](file:///d:/Projects/Joki/eDupu/login.html) kini menggunakan **Portal Login Terpadu (Single Portal)**. Anda tidak perlu lagi memilih tab role secara manual:
