@@ -66,95 +66,78 @@
   <!-- 1. SINGLE-ROW COMPACT NAVBAR (Satu Baris Bersih ala SIM Polije) -->
   <!-- ============================================================== -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+    <div class="max-w-7xl mx-auto px-3 sm:px-5 flex items-center justify-between h-14">
       
-      <!-- Kiri: Logo + Menu Horizontal Sebaris -->
-      <div class="flex items-center gap-4 sm:gap-6">
-        <!-- Logo eDupu Ringkas -->
+      <!-- Kiri: Logo eDupu Ringkas -->
+      <div class="shrink-0 flex items-center">
         <a href="index.html" class="flex items-center shrink-0 py-1" title="eDupu SMK Puger - Beranda">
           <img src="assets/edupufull.png" alt="eDupu SMK Puger" class="h-8 sm:h-9 w-auto object-contain">
         </a>
-
-        <!-- Menu Horizontal Desktop (SIM Polije Style Langsung Sebaris) -->
-        <nav class="hidden lg:flex items-center gap-1 text-xs">
-          <a href="javascript:void(0)" onclick="switchView('dashboard')" id="top-nav-dashboard" class="top-nav-item py-4 px-3 border-b-2 border-blue-600 text-blue-700 font-bold transition flex items-center gap-1.5">
-            <i data-lucide="user" class="w-4 h-4"></i>
-            <span>Beranda (Profil)</span>
-          </a>
-          <a href="javascript:void(0)" onclick="switchView('jadwal')" id="top-nav-jadwal" class="top-nav-item py-4 px-3 border-b-2 border-transparent text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5">
-            <i data-lucide="calendar" class="w-4 h-4"></i>
-            <span>Jadwal Pelajaran</span>
-          </a>
-          <a href="javascript:void(0)" onclick="switchView('absensi')" id="top-nav-absensi" class="top-nav-item py-4 px-3 border-b-2 border-transparent text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5">
-            <i data-lucide="map-pin" class="w-4 h-4"></i>
-            <span>Presensi GPS</span>
-          </a>
-          <a href="javascript:void(0)" onclick="switchView('jadwal-ujian')" id="top-nav-jadwal-ujian" class="top-nav-item py-4 px-3 border-b-2 border-transparent text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5">
-            <i data-lucide="calendar-check-2" class="w-4 h-4"></i>
-            <span>Jadwal Ujian</span>
-          </a>
-          <a href="javascript:void(0)" onclick="switchView('cbt')" id="top-nav-cbt" class="top-nav-item py-4 px-3 border-b-2 border-transparent text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5">
-            <i data-lucide="laptop" class="w-4 h-4"></i>
-            <span>Ruang CBT</span>
-          </a>
-          <a href="javascript:void(0)" onclick="switchView('nilai')" id="top-nav-nilai" class="top-nav-item py-4 px-3 border-b-2 border-transparent text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5">
-            <i data-lucide="file-text" class="w-4 h-4"></i>
-            <span>Nilai Raport</span>
-          </a>
-          <a href="javascript:void(0)" onclick="switchView('modul')" id="top-nav-modul" class="top-nav-item py-4 px-3 border-b-2 border-transparent text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5">
-            <i data-lucide="book-open" class="w-4 h-4"></i>
-            <span>Materi Modul</span>
-          </a>
-        </nav>
       </div>
 
-      <!-- Kanan: Jam, Info Akun & Dropdown -->
-      <div class="flex items-center gap-2.5 sm:gap-3">
-        <!-- Live Clock Pill (Desktop) -->
-        <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 border border-slate-200/80 text-[11px] font-mono font-bold text-slate-600">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="live-clock">07:00:00 WIB</span>
-        </div>
+      <!-- Tengah: Menu Horizontal Desktop Rata Tengah -->
+      <nav class="hidden md:flex flex-1 items-center justify-center gap-1 lg:gap-2 text-xs overflow-x-auto no-scrollbar">
+        <a href="javascript:void(0)" onclick="switchView('dashboard')" id="top-nav-dashboard" class="top-nav-item py-4 px-2.5 lg:px-3 border-b-2 border-blue-600 text-blue-700 font-bold transition flex items-center gap-1.5 whitespace-nowrap">
+          <i data-lucide="user" class="w-4 h-4"></i>
+          <span>Beranda</span>
+        </a>
+        <a href="javascript:void(0)" onclick="switchView('jadwal')" id="top-nav-jadwal" class="top-nav-item py-4 px-2.5 lg:px-3 border-b-2 border-transparent text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5 whitespace-nowrap">
+          <i data-lucide="calendar" class="w-4 h-4"></i>
+          <span>Jadwal Pelajaran</span>
+        </a>
+        <a href="javascript:void(0)" onclick="switchView('absensi')" id="top-nav-absensi" class="top-nav-item py-4 px-2.5 lg:px-3 border-b-2 border-transparent text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5 whitespace-nowrap">
+          <i data-lucide="map-pin" class="w-4 h-4"></i>
+          <span>Presensi GPS</span>
+        </a>
+        <a href="javascript:void(0)" onclick="switchView('jadwal-ujian')" id="top-nav-jadwal-ujian" class="top-nav-item py-4 px-2.5 lg:px-3 border-b-2 border-transparent text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5 whitespace-nowrap">
+          <i data-lucide="calendar-check-2" class="w-4 h-4"></i>
+          <span>Jadwal Ujian</span>
+        </a>
+        <a href="javascript:void(0)" onclick="switchView('nilai')" id="top-nav-nilai" class="top-nav-item py-4 px-2.5 lg:px-3 border-b-2 border-transparent text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5 whitespace-nowrap">
+          <i data-lucide="file-text" class="w-4 h-4"></i>
+          <span>Nilai Raport</span>
+        </a>
+        <a href="javascript:void(0)" onclick="switchView('modul')" id="top-nav-modul" class="top-nav-item py-4 px-2.5 lg:px-3 border-b-2 border-transparent text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5 whitespace-nowrap">
+          <i data-lucide="book-open" class="w-4 h-4"></i>
+          <span>Materi Modul</span>
+        </a>
+      </nav>
 
-        <!-- Profil Siswa Singkat & Dropdown -->
-        <div class="relative shrink-0 flex items-center gap-2">
-          <button type="button" onclick="toggleProfileDropdown(event)" id="btn-profile-dropdown" class="flex items-center gap-2 py-1 px-2 rounded-xl hover:bg-slate-50 transition border border-transparent hover:border-slate-200">
-            <img id="user-avatar-img" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=150" alt="Avatar Siswa" class="w-8 h-8 rounded-full object-cover ring-2 ring-slate-200">
-            <div class="hidden md:flex flex-col text-left">
-              <span class="text-xs font-bold text-slate-900 leading-tight" id="user-display-name">Bagus Permadi</span>
-              <span class="text-[10px] text-slate-500 font-mono" id="user-role-label">NISN: 0058291042</span>
-            </div>
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
+      <!-- Kanan: Jam (Tanpa Card & Tanpa Bulatan Hijau), Icon Profile Dropdown & Menu Mobile -->
+      <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+        <!-- Live Clock Tanpa Card & Tanpa Bulatan Hijau -->
+        <span id="live-clock" class="hidden sm:inline-block text-xs font-mono font-bold text-slate-700">07:00:00 WIB</span>
+
+        <!-- Icon Profile Siswa Bulat & Dropdown (Tanpa Card/Border, Khusus Foto Siswa Bulat) -->
+        <div class="relative shrink-0 flex items-center">
+          <button type="button" onclick="toggleProfileDropdown(event)" id="btn-profile-dropdown" class="focus:outline-none transition hover:opacity-90 active:scale-95 shrink-0" title="Profil Siswa">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=150" alt="Avatar Siswa" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover ring-2 ring-slate-200 hover:ring-blue-500 transition shadow-2xs">
           </button>
 
-          <!-- Dropdown Menu -->
-          <div id="profile-dropdown-menu" class="hidden absolute right-0 top-full mt-2 w-56 rounded-2xl bg-white border border-slate-200 shadow-2xl z-50 py-1.5 animate-fade-in text-xs">
-            <div class="px-4 py-2.5 border-b border-slate-100 bg-slate-50/60 rounded-t-2xl">
+          <!-- Dropdown Menu: Lupa Kata Sandi & Keluar -->
+          <div id="profile-dropdown-menu" class="hidden absolute right-0 top-full mt-2 w-56 rounded-2xl bg-white border border-slate-200 shadow-xl z-50 py-1.5 animate-fade-in text-xs">
+            <div class="px-4 py-2.5 border-b border-slate-100 bg-slate-50/70 rounded-t-2xl">
               <div class="font-extrabold text-slate-900 text-xs truncate">Bagus Permadi</div>
               <div class="text-[10px] text-slate-500 font-mono">NISN: 0058291042 • XII RPL 1</div>
             </div>
             <div class="py-1">
-              <a href="javascript:void(0)" onclick="switchView('dashboard'); closeProfileDropdown();" class="w-full px-4 py-2 text-left text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition flex items-center gap-2 font-medium">
-                <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
-                <span>Profil & Biodata</span>
-              </a>
-              <a href="javascript:void(0)" onclick="switchView('nilai'); closeProfileDropdown();" class="w-full px-4 py-2 text-left text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition flex items-center gap-2 font-medium">
-                <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
-                <span>Nilai Raport Saya</span>
-              </a>
+              <button type="button" onclick="openForgotPasswordModal(); closeProfileDropdown();" class="w-full px-4 py-2.5 text-left text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition flex items-center gap-2.5 font-medium">
+                <i data-lucide="key-round" class="w-4 h-4 text-amber-500"></i>
+                <span>Lupa Kata Sandi</span>
+              </button>
             </div>
             <div class="border-t border-slate-100 my-1"></div>
             <div class="py-1">
-              <button type="button" onclick="logoutUser()" class="w-full px-4 py-2 text-left text-rose-600 hover:bg-rose-50 transition flex items-center gap-2 font-semibold">
+              <button type="button" onclick="logoutUser()" class="w-full px-4 py-2 text-left text-rose-600 hover:bg-rose-50 transition flex items-center gap-2.5 font-semibold">
                 <i data-lucide="log-out" class="w-4 h-4 text-rose-500"></i>
-                <span>Keluar / Logout</span>
+                <span>Keluar</span>
               </button>
             </div>
           </div>
         </div>
 
         <!-- Tombol Menu Mobile Drawer (HP) -->
-        <button type="button" onclick="toggleMobileDrawer()" class="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 focus:outline-none transition" title="Buka Menu">
+        <button type="button" onclick="toggleMobileDrawer()" class="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 focus:outline-none transition" title="Buka Menu">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
@@ -162,7 +145,7 @@
     </div>
 
     <!-- Mobile Top Drawer Menu (Dropdown Lengkap di Layar HP) -->
-    <div id="mobile-drawer-menu" class="hidden lg:hidden bg-white border-t border-slate-200 px-4 py-3 space-y-1 text-xs">
+    <div id="mobile-drawer-menu" class="hidden md:hidden bg-white border-t border-slate-200 px-4 py-3 space-y-1 text-xs">
       <a href="javascript:void(0)" onclick="switchView('dashboard'); closeMobileDrawer();" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-blue-50 font-semibold flex items-center gap-2.5">
         <i data-lucide="user" class="w-4 h-4 text-blue-600"></i>
         <span>Beranda (Profil Siswa)</span>
@@ -179,225 +162,179 @@
         <i data-lucide="calendar-check-2" class="w-4 h-4 text-blue-600"></i>
         <span>Jadwal Ujian UTS / UAS CBT</span>
       </a>
-      <a href="javascript:void(0)" onclick="switchView('cbt'); closeMobileDrawer();" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-blue-50 font-semibold flex items-center gap-2.5">
-        <i data-lucide="laptop" class="w-4 h-4 text-blue-600"></i>
-        <span>Ruang Ujian Digital CBT</span>
-      </a>
       <a href="javascript:void(0)" onclick="switchView('nilai'); closeMobileDrawer();" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-blue-50 font-semibold flex items-center gap-2.5">
         <i data-lucide="file-text" class="w-4 h-4 text-blue-600"></i>
-        <span>Nilai Raport</span>
+        <span>Nilai Raport Siswa</span>
       </a>
       <a href="javascript:void(0)" onclick="switchView('modul'); closeMobileDrawer();" class="block py-2.5 px-3 rounded-lg text-slate-700 hover:bg-blue-50 font-semibold flex items-center gap-2.5">
-        <i data-lucide="book-open" class="w-4 h-4 text-blue-600"></i>
-        <span>Bahan Ajar & Modul</span>
+        <i data-lucide="book-open" class="w-4 h-4 text-amber-600"></i>
+        <span>Bahan Ajar & Modul Digital</span>
       </a>
-      <div class="border-t border-slate-100 pt-2">
-        <a href="javascript:void(0)" onclick="logoutUser()" class="block py-2.5 px-3 rounded-lg text-rose-600 hover:bg-rose-50 font-bold flex items-center gap-2.5">
+      <div class="border-t border-slate-100 pt-2 space-y-1">
+        <button type="button" onclick="openForgotPasswordModal(); closeMobileDrawer();" class="w-full text-left py-2.5 px-3 rounded-lg text-amber-700 hover:bg-amber-50 font-semibold flex items-center gap-2.5">
+          <i data-lucide="key-round" class="w-4 h-4 text-amber-600"></i>
+          <span>Lupa Kata Sandi</span>
+        </button>
+        <button type="button" onclick="logoutUser()" class="w-full text-left py-2.5 px-3 rounded-lg text-rose-600 hover:bg-rose-50 font-bold flex items-center gap-2.5">
           <i data-lucide="log-out" class="w-4 h-4 text-rose-500"></i>
-          <span>Keluar / Logout</span>
-        </a>
+          <span>Keluar</span>
+        </button>
       </div>
     </div>
-
   </header>
 
   <!-- ============================================================== -->
-  <!-- 2. BREADCRUMB STRIP (Persis SIM Akademik Polije)              -->
+  <!-- 2. MAIN CENTERED CONTENT CONTAINER (Full Scroll Sampai Bawah)  -->
   <!-- ============================================================== -->
-  <div class="bg-white/80 border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 py-2.5 text-xs text-slate-500 font-medium">
-    <div class="max-w-6xl mx-auto flex items-center gap-1.5">
-      <a href="javascript:void(0)" onclick="switchView('dashboard')" class="text-blue-600 hover:underline">Home</a>
-      <span class="text-slate-300">/</span>
-      <span class="text-slate-400">Akademik Siswa</span>
-      <span class="text-slate-300">/</span>
-      <span id="breadcrumb-current-page" class="font-bold text-slate-800">Beranda (Profil Siswa)</span>
-    </div>
-  </div>
-
-  <!-- ============================================================== -->
-  <!-- 3. MAIN CENTERED CONTENT CONTAINER (Full Scroll Sampai Bawah)  -->
-  <!-- ============================================================== -->
-  <main class="w-full max-w-6xl mx-auto px-3 sm:px-6 py-6 space-y-6 pb-36 sm:pb-28">
+  <main class="w-full max-w-6xl mx-auto px-3 sm:px-6 py-4 space-y-4 pb-24 sm:pb-12">
 
       <!-- ======================================================== -->
-      <!-- VIEW 1: BERANDA SISWA (PROFIL & BIODATA SISWA)           -->
+      <!-- VIEW 1: BERANDA SISWA (PERSIS TATA LETAK SIM POLIJE)     -->
       <!-- ======================================================== -->
-      <section id="view-dashboard" class="view-panel space-y-5">
+      <section id="view-dashboard" class="view-panel space-y-3.5">
         
-        <!-- Header Banner Biru Muda Lembut (Persis SIM Online Polije) -->
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-t-2xl shadow-2xs">
-          Profil & Biodata Siswa
+        <!-- Header Banner Tipis Sambutan (Persis Request User) -->
+        <div class="w-full bg-[#d3e7ee] border border-[#bcdde6] text-[#0f4c81] text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-t-xl flex items-center justify-center sm:justify-start gap-2 shadow-2xs">
+          <i data-lucide="info" class="w-4 h-4 text-[#0f4c81] shrink-0"></i>
+          <span>Hai, <strong class="font-bold text-[#0c3e69]">Bagus Permadi</strong>. Selamat Datang di Dashboard Siswa eDupu SMK Puger</span>
         </div>
 
-        <!-- Box Tengah: Tahun Ajaran dan Semester (Persis SIM Online Polije) -->
-        <div class="bg-white border-x border-b border-slate-200 rounded-b-2xl p-4 sm:p-5 text-center shadow-2xs space-y-1 mb-4">
-          <div class="text-xs font-bold text-slate-700">Tahun Ajaran dan Semester</div>
-          <div class="text-base font-extrabold text-blue-700 font-mono">2026/2027 Ganjil</div>
-          <div class="text-[11px] text-slate-400">SMK Puger Jember • Status Siswa: Aktif (Kurikulum Merdeka)</div>
-        </div>
-
-        <!-- 1. Header Identitas Siswa -->
-        <div class="bg-white rounded-2xl p-5 sm:p-7 border border-slate-200 shadow-2xs space-y-6">
-          
-          <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 pb-6 border-b border-slate-100">
-            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=240" alt="Bagus Permadi" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover ring-4 ring-blue-100 shadow-sm shrink-0">
-            <div class="space-y-1.5 text-center sm:text-left flex-1">
-              <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Bagus Permadi</h2>
-                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">Siswa Aktif</span>
-              </div>
-              <p class="text-xs text-slate-500 font-medium">
-                Kompetensi Keahlian: <strong class="text-slate-800">Rekayasa Perangkat Lunak (RPL)</strong> • Kelas XII RPL 1
-              </p>
-              <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-1 text-xs text-slate-600 font-mono">
-                <span class="bg-slate-100 px-2.5 py-1 rounded-lg">NISN: 0058291042</span>
-                <span class="bg-slate-100 px-2.5 py-1 rounded-lg">NIK: 3509121508050001</span>
-                <span class="bg-blue-50 text-blue-700 px-2.5 py-1 rounded-lg font-bold">Wali Kelas: Bpk. Hendro, S.Kom</span>
-              </div>
-            </div>
-            <div class="flex sm:flex-col gap-2 shrink-0 w-full sm:w-auto">
-              <button onclick="window.print()" class="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-2xs">
-                <i data-lucide="printer" class="w-4 h-4"></i>
-                <span>Cetak Biodata</span>
-              </button>
-              <button onclick="showToast('Data biodata Anda telah diverifikasi Dapodik.', 'info')" class="flex-1 sm:flex-initial px-4 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 font-bold text-xs transition flex items-center justify-center gap-1.5">
-                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
-                <span>Terverifikasi</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- 2. 4 Quick Stat Summary Cards -->
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            <div class="bg-slate-50 p-3.5 sm:p-4 rounded-xl border border-slate-200/80 space-y-1">
-              <span class="text-[11px] font-semibold text-slate-500 block">Presensi Kehadiran</span>
-              <div class="text-xl sm:text-2xl font-black text-emerald-600 font-mono">98.4%</div>
-              <span class="text-[10px] text-slate-400 font-medium">36 Hari Hadir Tepat Waktu</span>
-            </div>
-            <div class="bg-slate-50 p-3.5 sm:p-4 rounded-xl border border-slate-200/80 space-y-1">
-              <span class="text-[11px] font-semibold text-slate-500 block">Rata-rata Nilai Raport</span>
-              <div class="text-xl sm:text-2xl font-black text-blue-700 font-mono">88.6</div>
-              <span class="text-[10px] text-slate-400 font-medium">Predikat A (Sangat Memuaskan)</span>
-            </div>
-            <div class="bg-slate-50 p-3.5 sm:p-4 rounded-xl border border-slate-200/80 space-y-1">
-              <span class="text-[11px] font-semibold text-slate-500 block">Ketuntasan Belajar</span>
-              <div class="text-xl sm:text-2xl font-black text-emerald-700 font-mono">100%</div>
-              <span class="text-[10px] text-emerald-600 font-bold">7 dari 7 Mapel Tuntas KKTP</span>
-            </div>
-            <div class="bg-slate-50 p-3.5 sm:p-4 rounded-xl border border-slate-200/80 space-y-1">
-              <span class="text-[11px] font-semibold text-slate-500 block">Ujian Digital Terdekat</span>
-              <div class="text-base sm:text-lg font-black text-slate-900 truncate">PTS Web & Mobile</div>
-              <span class="text-[10px] text-blue-600 font-bold">Sesi 1 • 07:30 WIB</span>
-            </div>
-          </div>
-
-          <!-- 3. Rincian Biodata Siswa 2 Kolom -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+        <!-- Card 1: Data Identitas Pribadi Siswa (Persis SIM Online Polije Gambar 3) -->
+        <div class="bg-white border-x border-b border-slate-200 rounded-b-xl p-4 sm:p-6 shadow-xs -mt-3.5">
+          <div class="flex flex-col md:flex-row items-center md:items-start gap-6 lg:gap-8">
             
-            <!-- Kolom Kiri: Data Pribadi -->
-            <div class="space-y-3">
-              <h3 class="font-extrabold text-sm text-slate-900 pb-2 border-b border-slate-100 flex items-center gap-2">
-                <i data-lucide="user-check" class="w-4 h-4 text-blue-600"></i>
-                <span>Data Pribadi Siswa</span>
-              </h3>
-              
-              <div class="space-y-2.5 text-xs">
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">Nama Lengkap</span>
-                  <span class="font-bold text-slate-800">Bagus Permadi</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">Tempat, Tanggal Lahir</span>
-                  <span class="font-bold text-slate-800">Jember, 15 Agustus 2008</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">Jenis Kelamin</span>
-                  <span class="font-bold text-slate-800">Laki-laki</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">Agama</span>
-                  <span class="font-bold text-slate-800">Islam</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">Nomor HP / WhatsApp</span>
-                  <span class="font-bold text-slate-800 font-mono">0812-3456-7890</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">Email Siswa</span>
-                  <span class="font-bold text-blue-700 font-mono">bagus.permadi@smkpuger.sch.id</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1">
-                  <span class="text-slate-500">Alamat Domisili</span>
-                  <span class="font-bold text-slate-800 sm:text-right">Jl. Puger No. 45, RT 02 / RW 04, Puger Kulon, Jember</span>
-                </div>
-              </div>
+            <!-- Frame Kotak Foto Profil Dummy Siswa (Sesuai Request User) -->
+            <div class="w-36 h-44 sm:w-44 sm:h-52 rounded-xl border border-slate-200 p-1.5 bg-white flex items-center justify-center shrink-0 shadow-2xs overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400" alt="Foto Siswa Bagus Permadi" class="w-full h-full object-cover rounded-lg">
             </div>
 
-            <!-- Kolom Kanan: Data Akademik & Orang Tua -->
-            <div class="space-y-3">
-              <h3 class="font-extrabold text-sm text-slate-900 pb-2 border-b border-slate-100 flex items-center gap-2">
-                <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-600"></i>
-                <span>Data Akademik & Orang Tua / Wali</span>
-              </h3>
-              
-              <div class="space-y-2.5 text-xs">
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">Sekolah Asal</span>
-                  <span class="font-bold text-slate-800">SMK Negeri 1 Puger Jember</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">Kompetensi Keahlian</span>
-                  <span class="font-bold text-slate-800">Rekayasa Perangkat Lunak</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">Tingkat / Rombel</span>
-                  <span class="font-bold text-slate-800">Kelas XII RPL 1 (Semester 5)</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">Wali Kelas</span>
-                  <span class="font-bold text-slate-800">Bpk. Hendro, S.Kom</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">Nama Orang Tua / Wali</span>
-                  <span class="font-bold text-slate-800">Bpk. Joko Permadi</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1 border-b border-slate-100/60">
-                  <span class="text-slate-500">No. Kontak Orang Tua</span>
-                  <span class="font-bold text-slate-800 font-mono">0813-9876-5432</span>
-                </div>
-                <div class="flex flex-col sm:flex-row justify-between py-1">
-                  <span class="text-slate-500">Status Pembelajaran</span>
-                  <span class="font-bold text-emerald-700">Tuntas Mengikuti Seluruh Sesi</span>
-                </div>
-              </div>
+            <!-- Tabel Rincian Data Pribadi (Persis Format Gambar 3) -->
+            <div class="w-full flex-1 overflow-x-auto">
+              <table class="w-full text-xs text-left text-slate-800">
+                <tbody class="divide-y divide-slate-100/70">
+                  <tr>
+                    <td class="py-2 font-bold text-slate-900 w-44 sm:w-56 align-top">NIK</td>
+                    <td class="py-2 text-slate-700 font-mono">3509121508050001</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-bold text-slate-900 align-top">Nama</td>
+                    <td class="py-2 text-slate-900 font-bold">Bagus Permadi</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-bold text-slate-900 align-top">Tempat, Tanggal Lahir</td>
+                    <td class="py-2 text-slate-700">Jember, 15-08-2008</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-bold text-slate-900 align-top">Jenis Kelamin</td>
+                    <td class="py-2 text-slate-700">Laki Laki</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-bold text-slate-900 align-top">Alamat</td>
+                    <td class="py-2 text-slate-700 leading-relaxed">Jl. Raya Puger No. 45 RT 02 RW 04 kecamatan Puger Kabupaten Jember</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-bold text-slate-900 align-top">No. Telpon / HP</td>
+                    <td class="py-2 text-slate-700 font-mono">081234567890</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-bold text-slate-900 align-top">Email SSO Student</td>
+                    <td class="py-2 text-blue-700 font-mono">e0058291042@student.smkpuger.sch.id</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
           </div>
-
-          <!-- 4. Tombol Akses Cepat Menu Pembelajaran -->
-          <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
-            <span class="text-xs text-slate-400">Akses Cepat Layanan Siswa:</span>
-            <div class="flex flex-wrap items-center gap-2">
-              <button onclick="switchView('jadwal')" class="px-3.5 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold text-xs transition flex items-center gap-1.5">
-                <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
-                <span>Jadwal Pelajaran</span>
-              </button>
-              <button onclick="switchView('absensi')" class="px-3.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-bold text-xs transition flex items-center gap-1.5">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
-                <span>Presensi GPS</span>
-              </button>
-              <button onclick="switchView('nilai')" class="px-3.5 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 font-bold text-xs transition flex items-center gap-1.5">
-                <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-                <span>Nilai Raport</span>
-              </button>
-              <button onclick="switchView('cbt')" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition flex items-center gap-1.5 shadow-2xs">
-                <i data-lucide="laptop" class="w-3.5 h-3.5"></i>
-                <span>Ujian CBT</span>
-              </button>
-            </div>
-          </div>
-
         </div>
+
+        <!-- Card 2: Data Akademik Siswa (Khusus Jenjang SMK - Cukup Wali Kelas Saja) -->
+        <div class="bg-white border border-slate-200 rounded-xl shadow-xs overflow-hidden mt-3">
+          <div class="px-5 sm:px-6 py-2.5 border-b border-slate-200 bg-slate-50/70">
+            <h3 class="text-sm sm:text-base font-bold text-slate-900">Data Akademik</h3>
+          </div>
+          <div class="p-5 sm:p-6 overflow-x-auto">
+            <table class="w-full text-xs text-left text-slate-800">
+              <tbody class="divide-y divide-slate-100/70">
+                <tr>
+                  <td class="py-2 font-bold text-slate-900 w-48 sm:w-64 align-top">NISN</td>
+                  <td class="py-2 text-slate-700 font-mono">0058291042</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-bold text-slate-900 align-top">Jenjang Studi</td>
+                  <td class="py-2 text-slate-700">SMK (Kurikulum Merdeka)</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-bold text-slate-900 align-top">Program Keahlian</td>
+                  <td class="py-2 text-slate-700">Teknik Komputer & Informatika</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-bold text-slate-900 align-top">Konsentrasi Keahlian</td>
+                  <td class="py-2 text-slate-700">Rekayasa Perangkat Lunak (RPL)</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-bold text-slate-900 align-top">Status Akademik</td>
+                  <td class="py-2 text-emerald-700 font-bold">Aktif</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-bold text-slate-900 align-top">Semester Tempuh</td>
+                  <td class="py-2 text-slate-700 font-mono">5 (Ganjil)</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-bold text-slate-900 align-top">Rombel / Kelas</td>
+                  <td class="py-2 text-slate-700 font-bold">XII RPL 1</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-bold text-slate-900 align-top">Tahun Masuk / Angkatan</td>
+                  <td class="py-2 text-slate-700 font-mono">2024</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-bold text-slate-900 align-top">Pembiayaan Sekolah</td>
+                  <td class="py-2 text-slate-700">Gratis (BOS & BPOPP Jawa Timur)</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-bold text-slate-900 align-top">Wali Kelas</td>
+                  <td class="py-2 text-slate-800 font-bold">Bpk. Hendro, S.Kom.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Footer Beranda (Resmi SMK Puger - Compact & Tampil Ikon Asli) -->
+        <footer class="pt-4 pb-2 text-center text-xs text-slate-500 space-y-2 border-t border-slate-200/60 mt-3">
+          <!-- Icon Media Sosial Resmi (Inline SVG 100% Muncul Tajam) -->
+          <div class="flex items-center justify-center gap-3">
+            <!-- Instagram -->
+            <a href="https://instagram.com" target="_blank" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-pink-100 hover:text-pink-600 text-slate-600 flex items-center justify-center transition shadow-2xs" title="Instagram Resmi SMK Puger">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <!-- YouTube -->
+            <a href="https://youtube.com" target="_blank" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-red-100 hover:text-red-600 text-slate-600 flex items-center justify-center transition shadow-2xs" title="YouTube Resmi SMK Puger">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <!-- Twitter / X -->
+            <a href="https://twitter.com" target="_blank" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 hover:text-slate-900 text-slate-600 flex items-center justify-center transition shadow-2xs" title="Twitter / X Resmi SMK Puger">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <!-- Facebook -->
+            <a href="https://facebook.com" target="_blank" class="w-8 h-8 rounded-full bg-slate-200 hover:bg-blue-100 hover:text-blue-600 text-slate-600 flex items-center justify-center transition shadow-2xs" title="Facebook Resmi SMK Puger">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+          </div>
+
+          <!-- Keterangan Kontak Layanan Resmi SMK Puger -->
+          <div class="space-y-0.5 text-slate-600">
+            <p class="font-bold text-slate-700">Pusat Informasi dan Pelayanan Tata Usaha (TU) SMK Puger</p>
+            <p class="text-[11px] text-slate-500">Gedung Pelayanan Terpadu & Administrasi Sekolah</p>
+            <p class="text-[11px] text-slate-500">Jl. Pelita No. 22, Puger, Kabupaten Jember, Jawa Timur 68164</p>
+            <p class="text-[11px] font-mono text-slate-500">Telp. (0336) 721234 / WA. +62-851-7959-0160 • info@smkpuger.sch.id</p>
+          </div>
+
+          <div class="text-[10px] text-slate-400 pt-0.5 space-y-0.5">
+            <p>Copyright SIM Siswa eDupu SMK Puger @ 2026</p>
+            <p>(Versi 2.8 Build 20261105)</p>
+          </div>
+        </footer>
 
       </section>
 
@@ -415,27 +352,16 @@
         <div class="bg-white border-x border-b border-slate-200 rounded-b-2xl p-4 sm:p-5 text-center shadow-2xs space-y-1 mb-4">
           <div class="text-xs font-bold text-slate-700">Tahun Ajaran dan Semester</div>
           <div class="text-base font-extrabold text-blue-700 font-mono">2026/2027 Ganjil</div>
-          <div class="text-[11px] text-slate-400">Validasi Titik Koordinat Real-Time • Radius Batas 80 Meter Gerbang Kampus</div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
-          <!-- Left: Interactive GPS Leaflet Map & Simulator -->
+          <!-- Left: Interactive GPS Leaflet Map -->
           <div class="lg:col-span-7 bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-2xs space-y-4">
             <div class="flex items-center justify-between flex-wrap gap-2">
               <div>
                 <h3 class="font-bold text-slate-900 text-sm">Peta Geofence Interaktif Siswa</h3>
                 <p class="text-[11px] text-slate-400">Pusat Gerbang SMK Puger (Radius Batas Toleransi: 80 Meter)</p>
-              </div>
-              
-              <!-- Simulator Switch Controls -->
-              <div class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl text-xs">
-                <button id="btn-gps-inside" onclick="setGPSLocation('inside')" class="px-3 py-1 bg-emerald-600 text-white font-bold rounded-lg shadow-2xs transition">
-                  Di Sekolah (28m)
-                </button>
-                <button id="btn-gps-outside" onclick="setGPSLocation('outside')" class="px-3 py-1 bg-white text-slate-600 hover:bg-slate-100 font-bold rounded-lg border border-slate-200 transition">
-                  Di Luar (340m)
-                </button>
               </div>
             </div>
 
@@ -457,9 +383,6 @@
             <div class="space-y-4">
               <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                 <h3 class="font-bold text-slate-900 text-sm">Validasi Lokasi Kehadiran</h3>
-                <span class="text-[10px] font-mono bg-blue-50 px-2.5 py-1 rounded-full text-blue-700 font-bold border border-blue-200/60">
-                  GPS Checkpoint
-                </span>
               </div>
 
               <!-- Dynamic Status Box -->
@@ -571,7 +494,7 @@
         <div class="bg-white border-x border-b border-slate-200 rounded-b-2xl p-4 sm:p-5 text-center shadow-2xs space-y-1 mb-4">
           <div class="text-xs font-bold text-slate-700">Tahun Ajaran dan Semester</div>
           <div class="text-base font-extrabold text-blue-700 font-mono">2026/2027 Ganjil</div>
-          <div class="text-[11px] text-slate-400">Computer Based Test Terstandarisasi • Safe Exam Browser & Anti-Cheat</div>
+          <div class="text-[11px] text-slate-400">Ujian Berbasis Komputer (CBT) Terstandarisasi • Sistem Ujian Aman & Anti-Kecurangan</div>
         </div>
 
         <!-- CBT Top Strip -->
@@ -607,7 +530,7 @@
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
               <h3 id="q-title" class="font-extrabold text-slate-900 text-base">Soal Nomor 1 dari 20</h3>
               <span id="cbt-autosave-time" class="text-[11px] font-mono text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full font-bold border border-emerald-200/60">
-                Autosave: 06:49:15 WIB
+                Tersimpan Otomatis: 06:49:15 WIB
               </span>
             </div>
 
@@ -698,9 +621,16 @@
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             
             <div class="flex flex-wrap items-center gap-2">
-              <button onclick="showToast('Memuat ulang jadwal pelajaran...', 'info')" class="px-3.5 py-1.5 rounded-lg bg-[#5b6b79] hover:bg-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs">
+              <!-- Tombol Cetak / Unduh Jadwal Pelajaran PDF -->
+              <button type="button" onclick="downloadJadwalPelajaran()" class="px-3.5 py-1.5 rounded-lg bg-[#5b6b79] hover:bg-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs" title="Cetak / Unduh Jadwal Pelajaran PDF">
+                <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+                <span>Cetak</span>
+              </button>
+
+              <!-- Tombol Muat Ulang Jadwal -->
+              <button type="button" onclick="reloadJadwalPelajaran()" class="px-3.5 py-1.5 rounded-lg bg-[#5b6b79] hover:bg-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs" title="Muat Ulang Jadwal">
                 <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-                <span>Reload</span>
+                <span>Muat Ulang</span>
               </button>
 
               <!-- Filter Hari Tabs -->
@@ -716,7 +646,7 @@
 
             <!-- Search Field -->
             <div class="flex items-center gap-2 text-xs">
-              <span class="font-medium text-slate-500">Search:</span>
+              <span class="font-medium text-slate-500">Cari:</span>
               <input type="text" id="search-jadwal-input" onkeyup="searchJadwal()" placeholder="Cari mapel, guru..." class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-500 bg-white">
             </div>
 
@@ -832,7 +762,7 @@
           </div>
 
           <div class="flex items-center justify-between text-xs text-slate-500 pt-2 font-medium">
-            <span>Showing <span id="count-jadwal-visible" class="font-bold text-slate-800">9</span> of 9 entries</span>
+            <span>Menampilkan <span id="count-jadwal-visible" class="font-bold text-slate-800">9</span> dari 9 data</span>
             <span class="text-emerald-700 font-bold flex items-center gap-1">
               <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
               Kurikulum Merdeka 2026 Terverifikasi
@@ -882,17 +812,20 @@
         <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-2xs space-y-4">
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div class="flex items-center gap-2">
-              <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-[#5b6b79] hover:bg-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs">
+              <!-- Tombol Cetak / Unduh Jadwal Ujian PDF -->
+              <button type="button" onclick="downloadJadwalUjian()" class="px-3.5 py-1.5 rounded-lg bg-[#5b6b79] hover:bg-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs" title="Cetak / Unduh Jadwal Ujian PDF">
                 <i data-lucide="printer" class="w-3.5 h-3.5"></i>
-                <span>Print</span>
+                <span>Cetak</span>
               </button>
-              <button onclick="showToast('Memuat ulang jadwal ujian CBT...', 'info')" class="px-3.5 py-1.5 rounded-lg bg-[#5b6b79] hover:bg-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs">
+
+              <!-- Tombol Muat Ulang Jadwal Ujian -->
+              <button type="button" onclick="reloadJadwalUjian()" class="px-3.5 py-1.5 rounded-lg bg-[#5b6b79] hover:bg-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs" title="Muat Ulang Jadwal Ujian">
                 <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-                <span>Reload</span>
+                <span>Muat Ulang</span>
               </button>
             </div>
             <div class="flex items-center gap-2 text-xs">
-              <span class="font-medium text-slate-500">Search:</span>
+              <span class="font-medium text-slate-500">Cari:</span>
               <input type="text" id="search-ujian-input" onkeyup="searchUjian()" placeholder="Cari mapel atau kode..." class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-500 bg-white">
             </div>
           </div>
@@ -996,10 +929,10 @@
           </div>
 
           <div class="flex items-center justify-between text-xs text-slate-500 pt-2 font-medium">
-            <span>Showing <span id="count-ujian-visible" class="font-bold text-slate-800">5</span> of 5 entries</span>
+            <span>Menampilkan <span id="count-ujian-visible" class="font-bold text-slate-800">5</span> dari 5 data</span>
             <span class="text-blue-700 font-bold flex items-center gap-1">
               <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-600"></i>
-              Safe Exam Browser & Anti-Cheat Enabled
+              Ujian Terlindungi & Sistem Anti-Kecurangan Aktif
             </span>
           </div>
 
@@ -1008,13 +941,13 @@
       </section>
 
       <!-- ======================================================== -->
-      <!-- VIEW 4: NILAI PER SEMESTER / KHS SISWA (SIM Polije Style) -->
+      <!-- VIEW 4: NILAI RAPORT SISWA (SIM Polije Style)            -->
       <!-- ======================================================== -->
       <section id="view-nilai" class="view-panel hidden space-y-4">
         
         <!-- Header Banner Biru Muda Lembut (Persis SIM Online Polije) -->
         <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-t-2xl shadow-2xs">
-          Kartu Hasil Studi (KHS) / Nilai Per Semester
+          Nilai Raport Siswa / Capaian Hasil Belajar
         </div>
 
         <!-- Box Tengah: Tahun Ajaran dan Semester (Persis SIM Online Polije) -->
@@ -1096,22 +1029,36 @@
         <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-2xs space-y-4">
           
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-            <div class="flex items-center gap-3">
-              <div class="relative">
-                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Pilih Semester</label>
-                <select class="text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-blue-500">
-                  <option>Semester 5 (2026/2027 Ganjil) - Aktif</option>
-                  <option>Semester 4 (2025/2026 Genap)</option>
-                  <option>Semester 3 (2025/2026 Ganjil)</option>
-                  <option>Semester 2 (2024/2025 Genap)</option>
-                  <option>Semester 1 (2024/2025 Ganjil)</option>
+            <div class="flex flex-wrap items-center gap-2">
+              <!-- Tombol Cetak / Unduh Raport Resmi -->
+              <button type="button" onclick="downloadNilaiRaport()" class="px-3.5 py-1.5 rounded-lg bg-[#5b6b79] hover:bg-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs" title="Cetak / Unduh Raport PDF">
+                <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+                <span>Cetak</span>
+              </button>
+
+              <!-- Tombol Muat Ulang Data Nilai -->
+              <button type="button" onclick="reloadNilaiRaport()" class="px-3.5 py-1.5 rounded-lg bg-[#5b6b79] hover:bg-slate-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-2xs" title="Muat Ulang Data Nilai">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                <span>Muat Ulang</span>
+              </button>
+
+              <!-- Filter Pilihan Semester -->
+              <div class="flex items-center gap-1.5 text-xs ml-1">
+                <span class="font-bold text-slate-600 hidden sm:inline">Semester:</span>
+                <select id="select-semester-nilai" onchange="filterSemesterNilai(this.value)" class="text-xs font-semibold text-slate-800 bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-500">
+                  <option value="5">Semester 5 (2026/2027 Ganjil) - Aktif</option>
+                  <option value="4">Semester 4 (2025/2026 Genap)</option>
+                  <option value="3">Semester 3 (2025/2026 Ganjil)</option>
+                  <option value="2">Semester 2 (2024/2025 Genap)</option>
+                  <option value="1">Semester 1 (2024/2025 Ganjil)</option>
                 </select>
               </div>
             </div>
 
-            <div class="relative w-full sm:w-64 self-end sm:self-auto">
-              <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400"></i>
-              <input type="text" id="search-nilai-input" onkeyup="searchNilai()" placeholder="Cari mata pelajaran..." class="w-full text-xs pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 focus:bg-white transition">
+            <!-- Search Field Persis Format SIM Akademik -->
+            <div class="flex items-center gap-2 text-xs">
+              <span class="font-medium text-slate-500">Cari:</span>
+              <input type="text" id="search-nilai-input" onkeyup="searchNilai()" placeholder="Cari mapel atau kode..." class="border border-slate-300 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:border-blue-500 bg-white w-full sm:w-56">
             </div>
           </div>
 
@@ -1212,7 +1159,7 @@
           </div>
 
           <div class="flex items-center justify-between text-xs text-slate-500 pt-2 font-medium">
-            <span>Showing <span id="count-khs-visible" class="font-bold text-slate-800">7</span> of 7 mata pelajaran</span>
+            <span>Menampilkan <span id="count-khs-visible" class="font-bold text-slate-800">7</span> dari 7 mata pelajaran</span>
             <span class="text-blue-700 font-bold flex items-center gap-1">
               <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-600"></i>
               Data Rapor Terverifikasi Otentik Sekolah
@@ -1323,7 +1270,7 @@
   <!-- ============================================================== -->
   <!-- 4. FLOATING MOBILE BOTTOM NAVIGATION BAR (Khusus Smartphone)   -->
   <!-- ============================================================== -->
-  <nav class="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 py-1.5 px-3 z-50 flex items-center justify-around shadow-lg">
+  <nav class="md:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 py-1.5 px-3 z-50 flex items-center justify-around shadow-lg">
     <button type="button" onclick="switchView('dashboard')" id="mob-nav-dashboard" class="mob-nav-item flex flex-col items-center gap-0.5 text-blue-600 font-bold transition">
       <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
       <span class="text-[10px]">Beranda</span>
@@ -1336,15 +1283,70 @@
       <i data-lucide="map-pin" class="w-5 h-5"></i>
       <span class="text-[10px]">Presensi</span>
     </button>
-    <button type="button" onclick="switchView('cbt')" id="mob-nav-cbt" class="mob-nav-item flex flex-col items-center gap-0.5 text-slate-500 font-medium transition hover:text-blue-600">
-      <i data-lucide="laptop" class="w-5 h-5"></i>
-      <span class="text-[10px]">Ujian CBT</span>
+    <button type="button" onclick="switchView('jadwal-ujian')" id="mob-nav-jadwal-ujian" class="mob-nav-item flex flex-col items-center gap-0.5 text-slate-500 font-medium transition hover:text-blue-600">
+      <i data-lucide="calendar-check-2" class="w-5 h-5"></i>
+      <span class="text-[10px]">Jadwal Ujian</span>
     </button>
     <button type="button" onclick="switchView('nilai')" id="mob-nav-nilai" class="mob-nav-item flex flex-col items-center gap-0.5 text-slate-500 font-medium transition hover:text-blue-600">
       <i data-lucide="award" class="w-5 h-5"></i>
-      <span class="text-[10px]">Nilai KHS</span>
+      <span class="text-[10px]">Nilai Raport</span>
     </button>
   </nav>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: LUPA PASSWORD / RESET SANDI SISWA                       -->
+  <!-- ============================================================== -->
+  <div id="modal-forgot-password" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-fade-in">
+    <div class="bg-white w-full max-w-md rounded-2xl border border-slate-200 shadow-2xl overflow-hidden p-6 space-y-4">
+      <div class="flex items-start justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center shrink-0">
+            <i data-lucide="key-round" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">Lupa Kata Sandi Akun Siswa</h3>
+            <p class="text-[11px] text-slate-500">Atur ulang kata sandi masuk portal eDupu SMK Puger</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeForgotPasswordModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100 transition" title="Tutup">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-3 bg-blue-50 border border-blue-100 rounded-xl text-xs text-blue-800 space-y-1">
+        <p class="font-bold flex items-center gap-1.5">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-blue-600 shrink-0"></i>
+          Ketentuan Keamanan Dapodik
+        </p>
+        <p class="text-[11px] text-blue-700/90 leading-relaxed">
+          Penyetelan ulang kata sandi siswa terintegrasi dengan validasi data induk Dapodik SMK Puger. Pastikan NISN dan nomor HP Anda sesuai data terdaftar.
+        </p>
+      </div>
+
+      <form onsubmit="handleForgotPasswordSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Nomor Induk Siswa Nasional (NISN)</label>
+          <input type="text" id="reset-nisn-input" value="0058291042" readonly class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-100 text-slate-600 font-mono text-xs focus:outline-none cursor-not-allowed">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">No. WhatsApp / Email Terdaftar</label>
+          <input type="text" id="reset-contact-input" placeholder="0812-3456-7890 / email@student..." required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 text-xs transition">
+        </div>
+
+        <div class="pt-2 flex flex-col gap-2">
+          <button type="submit" class="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition flex items-center justify-center gap-2 shadow-xs">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Kirim Tautan Atur Ulang Sandi</span>
+          </button>
+          
+          <a href="https://wa.me/6285179590160?text=Halo%20Admin%20TU%20SMK%20Puger,%20saya%20Bagus%20Permadi%20(NISN:%200058291042)%20ingin%20reset%20password%20portal%20eDupu." target="_blank" class="w-full py-2.5 px-4 rounded-xl border border-emerald-200 text-emerald-700 hover:bg-emerald-50 font-bold text-xs transition flex items-center justify-center gap-2 text-center">
+            <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600"></i>
+            <span>Hubungi Staf TU (Bantuan Cepat)</span>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="js/main.js"></script>

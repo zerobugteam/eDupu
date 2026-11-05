@@ -185,9 +185,9 @@ function switchView(viewName) {
       breadcrumb: 'Ruang Ujian CBT'
     },
     nilai: {
-      title: 'Nilai Per Semester & Kartu Hasil Studi (KHS)',
+      title: 'Nilai Raport Siswa & Capaian Belajar',
       sub: 'Rekapitulasi Capaian Kompetensi Kurikulum Merdeka • Kelas XII RPL 1',
-      breadcrumb: 'Kartu Hasil Studi (KHS)'
+      breadcrumb: 'Nilai Raport'
     },
     modul: {
       title: 'Materi & Modul Pembelajaran',
@@ -476,8 +476,8 @@ function setGPSLocation(status) {
     desc.innerText = "Anda berada dalam zona radius resmi SMK Puger (Toleransi batas: 80 meter).";
     coords.innerText = "Lat: -8.36515, Lng: 113.47518 (Akurasi: ±4m)";
 
-    btnInside.className = "px-3 py-1 bg-emerald-600 text-white font-bold rounded-xl shadow-xs transition";
-    btnOutside.className = "px-3 py-1 bg-white text-slate-600 hover:bg-slate-100 font-bold rounded-xl border border-slate-200 transition";
+    if (btnInside) btnInside.className = "px-3 py-1 bg-emerald-600 text-white font-bold rounded-xl shadow-xs transition";
+    if (btnOutside) btnOutside.className = "px-3 py-1 bg-white text-slate-600 hover:bg-slate-100 font-bold rounded-xl border border-slate-200 transition";
 
     submitBtn.disabled = false;
     submitBtn.className = "w-full py-3.5 bg-primary-600 hover:bg-primary-700 text-white font-extrabold text-xs rounded-2xl shadow-lg shadow-primary-600/30 transition flex items-center justify-center gap-2 cursor-pointer";
@@ -495,8 +495,8 @@ function setGPSLocation(status) {
     desc.innerText = "Jarak Anda 340 meter dari sekolah. Harap dekati lokasi sekolah untuk melakukan presensi.";
     coords.innerText = "Lat: -8.36200, Lng: 113.47650 (Akurasi: ±12m)";
 
-    btnInside.className = "px-3 py-1 bg-white text-slate-600 hover:bg-slate-100 font-bold rounded-xl border border-slate-200 transition";
-    btnOutside.className = "px-3 py-1 bg-rose-600 text-white font-bold rounded-xl shadow-xs transition";
+    if (btnInside) btnInside.className = "px-3 py-1 bg-white text-slate-600 hover:bg-slate-100 font-bold rounded-xl border border-slate-200 transition";
+    if (btnOutside) btnOutside.className = "px-3 py-1 bg-rose-600 text-white font-bold rounded-xl shadow-xs transition";
 
     submitBtn.disabled = true;
     submitBtn.className = "w-full py-3.5 bg-slate-200 text-slate-400 font-extrabold text-xs rounded-2xl cursor-not-allowed flex items-center justify-center gap-2";
@@ -763,6 +763,446 @@ function applyJadwalFilter() {
   if (countEl) countEl.innerText = visibleCount;
 }
 
+// Reload Jadwal Pelajaran
+function reloadJadwalPelajaran() {
+  const searchInput = document.getElementById('search-jadwal-input');
+  if (searchInput) searchInput.value = '';
+  currentJadwalHari = 'Semua';
+  const filterBtns = document.querySelectorAll('#jadwal-day-filter button');
+  filterBtns.forEach(btn => {
+    if (btn.innerText.trim() === 'Semua') {
+      btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold bg-white text-blue-700 shadow-2xs transition';
+    } else {
+      btn.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600 hover:text-blue-600 transition';
+    }
+  });
+  applyJadwalFilter();
+
+  if (typeof showToast === 'function') {
+    showToast('Memuat ulang jadwal pelajaran...', 'info');
+    setTimeout(() => {
+      showToast('Data jadwal pelajaran berhasil dimuat ulang.', 'success');
+    }, 400);
+  }
+}
+
+// Download / Print Dokumen Resmi Jadwal Pelajaran
+function downloadJadwalPelajaran() {
+  if (typeof showToast === 'function') {
+    showToast('Menyiapkan dokumen cetak & unduh Jadwal Pelajaran...', 'info');
+  }
+
+  let printFrame = document.getElementById('jadwal-print-frame');
+  if (!printFrame) {
+    printFrame = document.createElement('iframe');
+    printFrame.id = 'jadwal-print-frame';
+    printFrame.style.position = 'fixed';
+    printFrame.style.right = '0';
+    printFrame.style.bottom = '0';
+    printFrame.style.width = '0';
+    printFrame.style.height = '0';
+    printFrame.style.border = '0';
+    document.body.appendChild(printFrame);
+  }
+
+  const doc = printFrame.contentWindow.document;
+  doc.open();
+  doc.write(`
+    <!DOCTYPE html>
+    <html lang="id">
+    <head>
+      <meta charset="UTF-8">
+      <title>Jadwal_Pelajaran_Bagus_Permadi_XII_RPL_1_Ganjil_2026</title>
+      <style>
+        @page { size: A4 portrait; margin: 15mm; }
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        body { font-family: 'Times New Roman', Times, serif; font-size: 11pt; color: #000; line-height: 1.35; margin: 0; padding: 0; }
+        .kop { text-align: center; border-bottom: 3px double #000; padding-bottom: 8px; margin-bottom: 14px; }
+        .kop h3 { margin: 0; font-size: 13pt; font-weight: normal; text-transform: uppercase; }
+        .kop h2 { margin: 2px 0; font-size: 15pt; font-weight: bold; text-transform: uppercase; }
+        .kop h1 { margin: 2px 0; font-size: 16pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+        .kop p { margin: 2px 0; font-size: 9.5pt; font-style: italic; }
+        .title { text-align: center; font-size: 13pt; font-weight: bold; text-transform: uppercase; margin: 12px 0 10px 0; text-decoration: underline; }
+        .info-table { width: 100%; margin-bottom: 12px; font-size: 10pt; }
+        .info-table td { padding: 2px 4px; vertical-align: top; }
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 9.5pt; }
+        .data-table th, .data-table td { border: 1px solid #000; padding: 6px 7px; }
+        .data-table th { background-color: #f1f5f9; text-align: center; font-weight: bold; }
+        .text-center { text-align: center; }
+        .ttd-container { width: 100%; margin-top: 30px; font-size: 10pt; }
+        .ttd-box { width: 45%; text-align: center; float: right; }
+        .ttd-box-left { width: 45%; text-align: center; float: left; }
+        .clear { clear: both; }
+      </style>
+    </head>
+    <body>
+      <div class="kop">
+        <h3>PEMERINTAH PROVINSI JAWA TIMUR</h3>
+        <h2>DINAS PENDIDIKAN</h2>
+        <h1>SMK PUGER JEMBER</h1>
+        <p>Jl. Raya Puger No. 45, Telp. (0336) 721234, Kecamatan Puger, Kabupaten Jember 68164</p>
+        <p>Website: smkpuger.sch.id • Email: info@smkpuger.sch.id • NPSN: 20523891</p>
+      </div>
+
+      <div class="title">JADWAL PELAJARAN KELAS (KURIKULUM MERDEKA)</div>
+
+      <table class="info-table">
+        <tr>
+          <td style="width: 18%;"><strong>Nama Siswa</strong></td>
+          <td style="width: 2%;">:</td>
+          <td style="width: 40%;"><strong>BAGUS PERMADI</strong></td>
+          <td style="width: 16%;"><strong>Kelas / Rombel</strong></td>
+          <td style="width: 2%;">:</td>
+          <td style="width: 22%;">XII RPL 1</td>
+        </tr>
+        <tr>
+          <td><strong>NISN</strong></td>
+          <td>:</td>
+          <td>0058291042</td>
+          <td><strong>Semester</strong></td>
+          <td>:</td>
+          <td>5 (Ganjil)</td>
+        </tr>
+        <tr>
+          <td><strong>Program Keahlian</strong></td>
+          <td>:</td>
+          <td>Pengembangan Perangkat Lunak (PPLG)</td>
+          <td><strong>Tahun Ajaran</strong></td>
+          <td>:</td>
+          <td>2026/2027</td>
+        </tr>
+      </table>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 10%;">Hari</th>
+            <th style="width: 15%;">Jam Pelajaran</th>
+            <th style="width: 10%;">Durasi</th>
+            <th style="width: 32%;">Mata Pelajaran</th>
+            <th style="width: 13%;">Ruang Belajar</th>
+            <th style="width: 15%;">Guru Pengampu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">1</td>
+            <td class="text-center"><strong>Senin</strong></td>
+            <td class="text-center">07:00 - 09:15</td>
+            <td class="text-center">135 Menit</td>
+            <td><strong>Pemrograman Web & Perangkat Bergerak</strong></td>
+            <td class="text-center">Lab Komputer RPL 1</td>
+            <td>Bpk. Hendro, S.Kom</td>
+          </tr>
+          <tr>
+            <td class="text-center">2</td>
+            <td class="text-center"><strong>Senin</strong></td>
+            <td class="text-center">09:30 - 11:45</td>
+            <td class="text-center">135 Menit</td>
+            <td><strong>Basis Data Terdistribusi & SQL Server</strong></td>
+            <td class="text-center">Lab Komputer RPL 2</td>
+            <td>Ibu Siti Rahayu, M.Pd</td>
+          </tr>
+          <tr>
+            <td class="text-center">3</td>
+            <td class="text-center"><strong>Selasa</strong></td>
+            <td class="text-center">07:00 - 08:30</td>
+            <td class="text-center">90 Menit</td>
+            <td><strong>Pemodelan Perangkat Lunak & Sistem</strong></td>
+            <td class="text-center">Ruang Teori 12</td>
+            <td>Bpk. Hendro, S.Kom</td>
+          </tr>
+          <tr>
+            <td class="text-center">4</td>
+            <td class="text-center"><strong>Selasa</strong></td>
+            <td class="text-center">08:45 - 11:45</td>
+            <td class="text-center">180 Menit</td>
+            <td><strong>Pemrograman Berorientasi Objek (OOP Java)</strong></td>
+            <td class="text-center">Lab Komputer RPL 1</td>
+            <td>Bpk. Rian Hidayat, S.T</td>
+          </tr>
+          <tr>
+            <td class="text-center">5</td>
+            <td class="text-center"><strong>Rabu</strong></td>
+            <td class="text-center">07:00 - 09:15</td>
+            <td class="text-center">135 Menit</td>
+            <td><strong>Administrasi Infrastruktur Jaringan & Server</strong></td>
+            <td class="text-center">Lab Jaringan TKJ</td>
+            <td>Bpk. Rian Hidayat, S.T</td>
+          </tr>
+          <tr>
+            <td class="text-center">6</td>
+            <td class="text-center"><strong>Rabu</strong></td>
+            <td class="text-center">09:30 - 11:45</td>
+            <td class="text-center">135 Menit</td>
+            <td><strong>Bahasa Inggris Komunikasi & IT Documentation</strong></td>
+            <td class="text-center">Ruang Teori 08</td>
+            <td>Ibu Nurul Hidayati, S.Pd</td>
+          </tr>
+          <tr>
+            <td class="text-center">7</td>
+            <td class="text-center"><strong>Kamis</strong></td>
+            <td class="text-center">07:00 - 09:15</td>
+            <td class="text-center">135 Menit</td>
+            <td><strong>Produk Kreatif & Kewirausahaan (Proyek Software)</strong></td>
+            <td class="text-center">Workshop RPL</td>
+            <td>Bpk. Tri Wahyudi, S.Kom</td>
+          </tr>
+          <tr>
+            <td class="text-center">8</td>
+            <td class="text-center"><strong>Kamis</strong></td>
+            <td class="text-center">09:30 - 11:45</td>
+            <td class="text-center">135 Menit</td>
+            <td><strong>Matematika Terapan & Logika Komputasi</strong></td>
+            <td class="text-center">Ruang Teori 12</td>
+            <td>Bpk. Ahmad Fauzi, M.Si</td>
+          </tr>
+          <tr>
+            <td class="text-center">9</td>
+            <td class="text-center"><strong>Jumat</strong></td>
+            <td class="text-center">07:00 - 09:00</td>
+            <td class="text-center">120 Menit</td>
+            <td><strong>Pendidikan Pancasila & Etika Profesi IT</strong></td>
+            <td class="text-center">Ruang Teori 12</td>
+            <td>Bpk. M. Shodiq, M.Ag</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="ttd-container">
+        <div class="ttd-box-left">
+          Mengetahui,<br>
+          Waka Kurikulum SMK Puger<br><br><br><br>
+          <strong>Drs. H. Mulyadi, M.Pd.</strong><br>
+          NIP. 19750510 200212 1 002
+        </div>
+        <div class="ttd-box">
+          Puger, Jember, 05 November 2026<br>
+          Wali Kelas XII RPL 1<br><br><br><br>
+          <strong>Hendro, S.Kom.</strong><br>
+          NIP. 19840212 200801 1 004
+        </div>
+        <div class="clear"></div>
+      </div>
+
+      <div style="margin-top: 18px; text-align: center; font-size: 8pt; color: #555; border-top: 1px dashed #ccc; padding-top: 5px;">
+        Dokumen ini diterbitkan secara sah dan otomatis melalui Portal Sistem Informasi Akademik Terpadu (eDupu) SMK Puger Jember.
+      </div>
+    </body>
+    </html>
+  `);
+  doc.close();
+
+  setTimeout(() => {
+    printFrame.contentWindow.focus();
+    printFrame.contentWindow.print();
+  }, 400);
+}
+
+// Reload Jadwal Ujian CBT
+function reloadJadwalUjian() {
+  const searchInput = document.getElementById('search-ujian-input');
+  if (searchInput) searchInput.value = '';
+  searchUjian();
+
+  if (typeof showToast === 'function') {
+    showToast('Memuat ulang jadwal ujian CBT...', 'info');
+    setTimeout(() => {
+      showToast('Data jadwal ujian berhasil dimuat ulang.', 'success');
+    }, 400);
+  }
+}
+
+// Download / Print Dokumen Resmi Jadwal Ujian UTS / UAS CBT
+function downloadJadwalUjian() {
+  if (typeof showToast === 'function') {
+    showToast('Menyiapkan dokumen cetak & unduh Jadwal Ujian CBT...', 'info');
+  }
+
+  let printFrame = document.getElementById('ujian-print-frame');
+  if (!printFrame) {
+    printFrame = document.createElement('iframe');
+    printFrame.id = 'ujian-print-frame';
+    printFrame.style.position = 'fixed';
+    printFrame.style.right = '0';
+    printFrame.style.bottom = '0';
+    printFrame.style.width = '0';
+    printFrame.style.height = '0';
+    printFrame.style.border = '0';
+    document.body.appendChild(printFrame);
+  }
+
+  const doc = printFrame.contentWindow.document;
+  doc.open();
+  doc.write(`
+    <!DOCTYPE html>
+    <html lang="id">
+    <head>
+      <meta charset="UTF-8">
+      <title>Kartu_Jadwal_Ujian_Bagus_Permadi_XII_RPL_1_Ganjil_2026</title>
+      <style>
+        @page { size: A4 portrait; margin: 15mm; }
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        body { font-family: 'Times New Roman', Times, serif; font-size: 11pt; color: #000; line-height: 1.35; margin: 0; padding: 0; }
+        .kop { text-align: center; border-bottom: 3px double #000; padding-bottom: 8px; margin-bottom: 14px; }
+        .kop h3 { margin: 0; font-size: 13pt; font-weight: normal; text-transform: uppercase; }
+        .kop h2 { margin: 2px 0; font-size: 15pt; font-weight: bold; text-transform: uppercase; }
+        .kop h1 { margin: 2px 0; font-size: 16pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+        .kop p { margin: 2px 0; font-size: 9.5pt; font-style: italic; }
+        .title { text-align: center; font-size: 12.5pt; font-weight: bold; text-transform: uppercase; margin: 12px 0 10px 0; text-decoration: underline; }
+        .info-table { width: 100%; margin-bottom: 12px; font-size: 10pt; }
+        .info-table td { padding: 2px 4px; vertical-align: top; }
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 9.5pt; }
+        .data-table th, .data-table td { border: 1px solid #000; padding: 6px 7px; }
+        .data-table th { background-color: #f1f5f9; text-align: center; font-weight: bold; }
+        .text-center { text-align: center; }
+        .tata-tertib { margin-top: 14px; border: 1px solid #000; padding: 8px 12px; font-size: 9pt; background-color: #fafafa; }
+        .tata-tertib ol { margin: 4px 0 0 16px; padding: 0; }
+        .ttd-container { width: 100%; margin-top: 24px; font-size: 10pt; }
+        .ttd-box { width: 45%; text-align: center; float: right; }
+        .ttd-box-left { width: 45%; text-align: center; float: left; }
+        .clear { clear: both; }
+      </style>
+    </head>
+    <body>
+      <div class="kop">
+        <h3>PEMERINTAH PROVINSI JAWA TIMUR</h3>
+        <h2>DINAS PENDIDIKAN</h2>
+        <h1>SMK PUGER JEMBER</h1>
+        <p>Jl. Raya Puger No. 45, Telp. (0336) 721234, Kecamatan Puger, Kabupaten Jember 68164</p>
+        <p>Website: smkpuger.sch.id • Email: info@smkpuger.sch.id • NPSN: 20523891</p>
+      </div>
+
+      <div class="title">KARTU PESERTA & JADWAL UJIAN PENILAIAN AKHIR SEMESTER (CBT)</div>
+
+      <table class="info-table">
+        <tr>
+          <td style="width: 18%;"><strong>Nama Peserta</strong></td>
+          <td style="width: 2%;">:</td>
+          <td style="width: 40%;"><strong>BAGUS PERMADI</strong></td>
+          <td style="width: 18%;"><strong>Nomor Peserta CBT</strong></td>
+          <td style="width: 2%;">:</td>
+          <td style="width: 20%;"><strong>CBT-2026-005829</strong></td>
+        </tr>
+        <tr>
+          <td><strong>NISN</strong></td>
+          <td>:</td>
+          <td>0058291042</td>
+          <td><strong>Kelas / Rombel</strong></td>
+          <td>:</td>
+          <td>XII RPL 1</td>
+        </tr>
+        <tr>
+          <td><strong>Program Keahlian</strong></td>
+          <td>:</td>
+          <td>Pengembangan Perangkat Lunak (PPLG)</td>
+          <td><strong>Semester / TA</strong></td>
+          <td>:</td>
+          <td>5 (Ganjil) / 2026-2027</td>
+        </tr>
+      </table>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width: 5%;">No</th>
+            <th style="width: 14%;">Tanggal</th>
+            <th style="width: 10%;">Hari</th>
+            <th style="width: 16%;">Jam Sesi Ujian</th>
+            <th style="width: 12%;">Kode Mapel</th>
+            <th style="width: 28%;">Mata Pelajaran Diujikan</th>
+            <th style="width: 15%;">Ruang Laboratorium</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">1</td>
+            <td class="text-center">10 Nov 2026</td>
+            <td class="text-center"><strong>Senin</strong></td>
+            <td class="text-center">07:30 - 09:00 WIB</td>
+            <td class="text-center">RPL-301</td>
+            <td><strong>Pemrograman Web & Perangkat Bergerak</strong></td>
+            <td class="text-center">Lab Komputer RPL 1</td>
+          </tr>
+          <tr>
+            <td class="text-center">2</td>
+            <td class="text-center">11 Nov 2026</td>
+            <td class="text-center"><strong>Selasa</strong></td>
+            <td class="text-center">07:30 - 09:00 WIB</td>
+            <td class="text-center">RPL-302</td>
+            <td><strong>Basis Data Terdistribusi & SQL Server</strong></td>
+            <td class="text-center">Lab Komputer RPL 2</td>
+          </tr>
+          <tr>
+            <td class="text-center">3</td>
+            <td class="text-center">12 Nov 2026</td>
+            <td class="text-center"><strong>Rabu</strong></td>
+            <td class="text-center">07:30 - 09:00 WIB</td>
+            <td class="text-center">RPL-303</td>
+            <td><strong>Pemodelan Perangkat Lunak & Sistem</strong></td>
+            <td class="text-center">Lab Komputer RPL 1</td>
+          </tr>
+          <tr>
+            <td class="text-center">4</td>
+            <td class="text-center">13 Nov 2026</td>
+            <td class="text-center"><strong>Kamis</strong></td>
+            <td class="text-center">07:30 - 09:00 WIB</td>
+            <td class="text-center">UMU-102</td>
+            <td><strong>Bahasa Inggris Komunikasi & IT</strong></td>
+            <td class="text-center">Lab Bahasa 1</td>
+          </tr>
+          <tr>
+            <td class="text-center">5</td>
+            <td class="text-center">14 Nov 2026</td>
+            <td class="text-center"><strong>Jumat</strong></td>
+            <td class="text-center">07:30 - 09:00 WIB</td>
+            <td class="text-center">UMU-101</td>
+            <td><strong>Matematika Kejuruan & Algoritma</strong></td>
+            <td class="text-center">Lab Komputer RPL 1</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tata-tertib">
+        <strong>Tata Tertib Peserta Ujian Digital CBT:</strong>
+        <ol>
+          <li>Peserta wajib hadir di ruang lab komputer 15 menit sebelum sesi ujian dimulai.</li>
+          <li>Login menggunakan NISN dan token sesi yang diberikan oleh pengawas ruang.</li>
+          <li>Dilarang membuka tab baru, peramban lain, atau berkomunikasi selama ujian berlangsung.</li>
+          <li>Sistem anti-kecurangan (Safe Exam) akan mencatat dan mendiskualifikasi pelanggaran otomatis.</li>
+        </ol>
+      </div>
+
+      <div class="ttd-container">
+        <div class="ttd-box-left">
+          Ketua Panitia Ujian CBT<br><br><br><br>
+          <strong>Rian Hidayat, S.T.</strong><br>
+          NIP. 19880415 201101 1 003
+        </div>
+        <div class="ttd-box">
+          Puger, Jember, 05 November 2026<br>
+          Wali Kelas XII RPL 1<br><br><br><br>
+          <strong>Hendro, S.Kom.</strong><br>
+          NIP. 19840212 200801 1 004
+        </div>
+        <div class="clear"></div>
+      </div>
+
+      <div style="margin-top: 16px; text-align: center; font-size: 8pt; color: #555; border-top: 1px dashed #ccc; padding-top: 5px;">
+        Dokumen ini diterbitkan secara sah dan otomatis melalui Portal Sistem Informasi Akademik Terpadu (eDupu) SMK Puger Jember.
+      </div>
+    </body>
+    </html>
+  `);
+  doc.close();
+
+  setTimeout(() => {
+    printFrame.contentWindow.focus();
+    printFrame.contentWindow.print();
+  }, 400);
+}
+
 // Search Jadwal Ujian CBT
 function searchUjian() {
   const query = document.getElementById('search-ujian-input')?.value.toLowerCase().trim() || '';
@@ -801,5 +1241,279 @@ function searchNilai() {
 
   const countEl = document.getElementById('count-khs-visible');
   if (countEl) countEl.innerText = visibleCount;
+}
+
+// Reload Data Nilai Raport
+function reloadNilaiRaport() {
+  const searchInput = document.getElementById('search-nilai-input');
+  if (searchInput) searchInput.value = '';
+  searchNilai();
+
+  if (typeof showToast === 'function') {
+    showToast('Memuat ulang data nilai raport...', 'info');
+    setTimeout(() => {
+      showToast('Data nilai raport berhasil diperbarui.', 'success');
+    }, 500);
+  }
+}
+
+// Filter Semester Nilai
+function filterSemesterNilai(sem) {
+  if (typeof showToast === 'function') {
+    showToast(`Memuat data nilai raport Semester ${sem}...`, 'info');
+  }
+  const searchInput = document.getElementById('search-nilai-input');
+  if (searchInput) searchInput.value = '';
+  searchNilai();
+}
+
+// Download / Print Raport Hasil Belajar Siswa
+function downloadNilaiRaport() {
+  if (typeof showToast === 'function') {
+    showToast('Menyiapkan dokumen cetak & unduh Raport Nilai...', 'info');
+  }
+
+  // Siapkan iframe tersembunyi untuk mencetak lembar raport resmi A4
+  let printFrame = document.getElementById('raport-print-frame');
+  if (!printFrame) {
+    printFrame = document.createElement('iframe');
+    printFrame.id = 'raport-print-frame';
+    printFrame.style.position = 'fixed';
+    printFrame.style.right = '0';
+    printFrame.style.bottom = '0';
+    printFrame.style.width = '0';
+    printFrame.style.height = '0';
+    printFrame.style.border = '0';
+    document.body.appendChild(printFrame);
+  }
+
+  const doc = printFrame.contentWindow.document;
+  doc.open();
+  doc.write(`
+    <!DOCTYPE html>
+    <html lang="id">
+    <head>
+      <meta charset="UTF-8">
+      <title>Raport_Bagus_Permadi_XII_RPL_1_Ganjil_2026</title>
+      <style>
+        @page { size: A4 portrait; margin: 15mm 15mm 15mm 15mm; }
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        body { font-family: 'Times New Roman', Times, serif; font-size: 11pt; color: #000; line-height: 1.35; margin: 0; padding: 0; }
+        .kop { text-align: center; border-bottom: 3px double #000; padding-bottom: 8px; margin-bottom: 14px; position: relative; }
+        .kop h3 { margin: 0; font-size: 13pt; font-weight: normal; text-transform: uppercase; }
+        .kop h2 { margin: 2px 0; font-size: 15pt; font-weight: bold; text-transform: uppercase; }
+        .kop h1 { margin: 2px 0; font-size: 16pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+        .kop p { margin: 2px 0; font-size: 9.5pt; font-style: italic; }
+        .title { text-align: center; font-size: 12.5pt; font-weight: bold; text-transform: uppercase; margin: 12px 0 10px 0; text-decoration: underline; }
+        .info-table { width: 100%; margin-bottom: 12px; font-size: 10pt; }
+        .info-table td { padding: 2px 4px; vertical-align: top; }
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 9.5pt; }
+        .data-table th, .data-table td { border: 1px solid #000; padding: 5px 6px; }
+        .data-table th { background-color: #f1f5f9; text-align: center; font-weight: bold; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .summary-box { margin-top: 10px; border: 1px solid #000; padding: 6px 10px; font-size: 9.5pt; background-color: #fafafa; }
+        .ttd-container { width: 100%; margin-top: 24px; font-size: 10pt; }
+        .ttd-box { width: 45%; text-align: center; float: right; }
+        .ttd-box-left { width: 45%; text-align: center; float: left; }
+        .clear { clear: both; }
+        .badge { display: inline-block; padding: 1px 5px; border-radius: 3px; font-weight: bold; font-size: 9pt; }
+      </style>
+    </head>
+    <body>
+      <div class="kop">
+        <h3>PEMERINTAH PROVINSI JAWA TIMUR</h3>
+        <h2>DINAS PENDIDIKAN</h2>
+        <h1>SMK PUGER JEMBER</h1>
+        <p>Jl. Raya Puger No. 45, Telp. (0336) 721234, Kecamatan Puger, Kabupaten Jember 68164</p>
+        <p>Website: smkpuger.sch.id • Email: info@smkpuger.sch.id • NPSN: 20523891</p>
+      </div>
+
+      <div class="title">LAPORAN CAPAIAN HASIL BELAJAR PESERTA DIDIK (RAPOR)</div>
+
+      <table class="info-table">
+        <tr>
+          <td style="width: 18%;"><strong>Nama Peserta Didik</strong></td>
+          <td style="width: 2%;">:</td>
+          <td style="width: 40%;"><strong>BAGUS PERMADI</strong></td>
+          <td style="width: 16%;"><strong>Kelas / Rombel</strong></td>
+          <td style="width: 2%;">:</td>
+          <td style="width: 22%;">XII RPL 1</td>
+        </tr>
+        <tr>
+          <td><strong>NISN / NIS</strong></td>
+          <td>:</td>
+          <td>0058291042 / 241230453</td>
+          <td><strong>Semester</strong></td>
+          <td>:</td>
+          <td>5 (Ganjil)</td>
+        </tr>
+        <tr>
+          <td><strong>Program Keahlian</strong></td>
+          <td>:</td>
+          <td>Pengembangan Perangkat Lunak & Gim (PPLG)</td>
+          <td><strong>Tahun Pelajaran</strong></td>
+          <td>:</td>
+          <td>2026/2027</td>
+        </tr>
+        <tr>
+          <td><strong>Konsentrasi Keahlian</strong></td>
+          <td>:</td>
+          <td>Rekayasa Perangkat Lunak (RPL)</td>
+          <td><strong>Kurikulum</strong></td>
+          <td>:</td>
+          <td>Kurikulum Merdeka</td>
+        </tr>
+      </table>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width: 4%;">No</th>
+            <th style="width: 10%;">Kode</th>
+            <th style="width: 32%;">Mata Pelajaran</th>
+            <th style="width: 8%;">Formatif (NF)</th>
+            <th style="width: 8%;">Sumatif (NS)</th>
+            <th style="width: 8%;">Nilai Akhir</th>
+            <th style="width: 6%;">Predikat</th>
+            <th style="width: 24%;">Capaian Kompetensi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">1</td>
+            <td class="text-center">RPL-301</td>
+            <td><strong>Pemrograman Web & Perangkat Bergerak</strong></td>
+            <td class="text-center">92.0</td>
+            <td class="text-center">90.0</td>
+            <td class="text-center"><strong>90.8</strong></td>
+            <td class="text-center"><strong>A</strong></td>
+            <td>Sangat Baik: Menguasai perancangan arsitektur backend REST API Laravel & responsif Tailwind CSS.</td>
+          </tr>
+          <tr>
+            <td class="text-center">2</td>
+            <td class="text-center">RPL-302</td>
+            <td><strong>Basis Data Terdistribusi & SQL Server</strong></td>
+            <td class="text-center">88.0</td>
+            <td class="text-center">85.0</td>
+            <td class="text-center"><strong>86.2</strong></td>
+            <td class="text-center"><strong>A-</strong></td>
+            <td>Baik: Memahami optimasi query join, indexing, trigger, dan migrasi struktur tabel database.</td>
+          </tr>
+          <tr>
+            <td class="text-center">3</td>
+            <td class="text-center">RPL-303</td>
+            <td><strong>Pemodelan Perangkat Lunak & Sistem</strong></td>
+            <td class="text-center">85.0</td>
+            <td class="text-center">88.0</td>
+            <td class="text-center"><strong>86.8</strong></td>
+            <td class="text-center"><strong>A-</strong></td>
+            <td>Baik: Mampu menyusun dokumen SRS, diagram use case, activity diagram, dan rancangan UI/UX.</td>
+          </tr>
+          <tr>
+            <td class="text-center">4</td>
+            <td class="text-center">RPL-304</td>
+            <td><strong>Pemrograman Berorientasi Objek (OOP)</strong></td>
+            <td class="text-center">90.0</td>
+            <td class="text-center">92.0</td>
+            <td class="text-center"><strong>91.2</strong></td>
+            <td class="text-center"><strong>A</strong></td>
+            <td>Sangat Baik: Implementasi enkapsulasi, inheritance, polimorfisme, dan interface Java teruji tuntas.</td>
+          </tr>
+          <tr>
+            <td class="text-center">5</td>
+            <td class="text-center">UMU-101</td>
+            <td><strong>Matematika Terapan & Logika Komputasi</strong></td>
+            <td class="text-center">84.0</td>
+            <td class="text-center">82.0</td>
+            <td class="text-center"><strong>82.8</strong></td>
+            <td class="text-center"><strong>B+</strong></td>
+            <td>Tuntas KKTP: Logika matriks, aljabar boolean, dan probabilitas algoritma diselesaikan dengan baik.</td>
+          </tr>
+          <tr>
+            <td class="text-center">6</td>
+            <td class="text-center">UMU-102</td>
+            <td><strong>Bahasa Inggris Komunikasi & IT</strong></td>
+            <td class="text-center">86.0</td>
+            <td class="text-center">88.0</td>
+            <td class="text-center"><strong>87.2</strong></td>
+            <td class="text-center"><strong>A-</strong></td>
+            <td>Baik: Mampu menyusun dokumentasi teknis, presentasi sprint aplikasi dalam bahasa Inggris aktif.</td>
+          </tr>
+          <tr>
+            <td class="text-center">7</td>
+            <td class="text-center">PKK-201</td>
+            <td><strong>Produk Kreatif & Kewirausahaan (PKK)</strong></td>
+            <td class="text-center">94.0</td>
+            <td class="text-center">90.0</td>
+            <td class="text-center"><strong>91.6</strong></td>
+            <td class="text-center"><strong>A</strong></td>
+            <td>Sangat Baik: Berhasil membuat prototype produk aplikasi software siap uji pasar dan proposal bisnis.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="summary-box">
+        <strong>Ringkasan Capaian Akademik:</strong>
+        Rata-rata Nilai Akhir (IP): <strong>88.6 (Predikat A - Sangat Memuaskan)</strong> | Kriteria Ketercapaian Tujuan Pembelajaran (KKTP): <strong>75.0</strong> | Status: <strong>LULUS TUNTAS</strong>
+      </div>
+
+      <div class="ttd-container">
+        <div class="ttd-box-left">
+          Mengetahui,<br>
+          Orang Tua / Wali Murid<br><br><br><br>
+          ( .................................................... )
+        </div>
+        <div class="ttd-box">
+          Puger, Jember, 05 November 2026<br>
+          Wali Kelas XII RPL 1<br><br><br><br>
+          <strong>Hendro, S.Kom.</strong><br>
+          NIP. 19840212 200801 1 004
+        </div>
+        <div class="clear"></div>
+      </div>
+
+      <div style="margin-top: 18px; text-align: center; font-size: 8pt; color: #555; border-top: 1px dashed #ccc; padding-top: 5px;">
+        Dokumen ini diterbitkan secara sah dan otomatis melalui Portal Sistem Informasi Akademik Terpadu (eDupu) SMK Puger Jember.
+      </div>
+    </body>
+    </html>
+  `);
+  doc.close();
+
+  // Beri jeda sejenak agar rendering iframe selesai lalu panggil cetak / save as PDF
+  setTimeout(() => {
+    printFrame.contentWindow.focus();
+    printFrame.contentWindow.print();
+  }, 400);
+}
+
+// Modal Lupa Password Controls
+function openForgotPasswordModal() {
+  const modal = document.getElementById('modal-forgot-password');
+  if (modal) {
+    modal.classList.remove('hidden');
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  }
+}
+
+function closeForgotPasswordModal() {
+  const modal = document.getElementById('modal-forgot-password');
+  if (modal) {
+    modal.classList.add('hidden');
+  }
+}
+
+function handleForgotPasswordSubmit(e) {
+  if (e) e.preventDefault();
+  const contact = document.getElementById('reset-contact-input')?.value || '';
+  closeForgotPasswordModal();
+  if (typeof showToast === 'function') {
+    showToast('Tautan atur ulang kata sandi berhasil dikirim ke ' + (contact || 'kontak Anda') + '. Silakan periksa kotak masuk / WhatsApp Anda.', 'success');
+  } else {
+    alert('Tautan atur ulang kata sandi berhasil dikirim ke ' + contact);
+  }
 }
 

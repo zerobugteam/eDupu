@@ -136,45 +136,86 @@ button, input, select, textarea {
 }
 
 /* ==============================================================
-   TOAST NOTIFICATION COMPONENT
+   TOAST NOTIFICATION COMPONENT (Notch / Dynamic Island Style di Atas)
    ============================================================== */
 #toast-container {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 9999;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
   pointer-events: none;
+  width: auto;
+  max-width: 92vw;
 }
 
 .toast {
   pointer-events: auto;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 18px;
-  background: #ffffff;
-  color: #1e293b;
-  border-radius: 14px;
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
-  border: 1px solid #e2e8f0;
-  font-size: 13px;
+  gap: 10px;
+  padding: 10px 20px;
+  background: rgba(15, 23, 42, 0.94);
+  color: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 14px 34px -5px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  font-size: 12.5px;
   font-weight: 600;
-  animation: fadeIn 0.25s ease-out;
-  max-width: 380px;
+  animation: notchSlideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 540px;
+  text-align: center;
+}
+
+@keyframes notchSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .toast.toast-success {
-  border-left: 4px solid #10b981;
+  background: rgba(6, 78, 59, 0.96);
+  color: #ecfdf5;
+  box-shadow: 0 12px 30px -5px rgba(5, 150, 105, 0.45), 0 0 0 1px rgba(52, 211, 153, 0.35);
 }
 
 .toast.toast-error {
-  border-left: 4px solid #ef4444;
+  background: rgba(136, 19, 55, 0.96);
+  color: #fff1f2;
+  box-shadow: 0 12px 30px -5px rgba(225, 29, 72, 0.45), 0 0 0 1px rgba(251, 113, 133, 0.35);
 }
 
 .toast.toast-info {
-  border-left: 4px solid #6366f1;
+  background: rgba(30, 58, 138, 0.96);
+  color: #eff6ff;
+  box-shadow: 0 12px 30px -5px rgba(37, 99, 235, 0.45), 0 0 0 1px rgba(96, 165, 250, 0.35);
 }
+
+/* ==============================================================
+   PRINT MEDIA OPTIMIZATION (Untuk Unduh / Cetak Dokumen Rapor)
+   ============================================================== */
+@media print {
+  header, nav, #toast-container, #mobile-drawer-menu, button, .no-print {
+    display: none !important;
+  }
+  body, main {
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #000000 !important;
+  }
+  .view-panel {
+    display: block !important;
+  }
+}
+
 
