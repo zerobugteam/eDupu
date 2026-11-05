@@ -83,5 +83,25 @@ window.addEventListener('scroll', () => {
       navLink.classList.add('text-primary-600', 'font-bold');
     }
   });
+
+  // Update Top Scroll Progress Bar
+  const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+  const bar = document.getElementById('scroll-progress-bar');
+  if (bar) bar.style.width = scrolled + '%';
+});
+
+// Initialize AOS (Animate On Scroll)
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+      duration: 850,
+      easing: 'ease-out-cubic',
+      once: false,
+      offset: 50,
+      mirror: true
+    });
+  }
 });
 
