@@ -3,37 +3,70 @@
    Landing Page Specific Stylesheet (landing.css)
    ============================================================== */
 
-/* Hero Gradient Mesh & Blobs */
+/* Hero Premium Tech Grid Pattern & Ambient Glow Mesh */
 .hero-glow-bg {
   position: relative;
   overflow: hidden;
+  background-color: #f8fafc;
+  background-image: 
+    linear-gradient(to right, rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+    radial-gradient(circle at 50% 18%, rgba(37, 99, 235, 0.12) 0%, rgba(99, 102, 241, 0.06) 40%, transparent 70%);
+  background-size: 36px 36px, 36px 36px, 100% 100%;
 }
 
 .hero-glow-bg::before {
   content: '';
   position: absolute;
-  top: -120px;
+  top: -100px;
   left: 50%;
   transform: translateX(-50%);
-  width: 750px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.16) 0%, rgba(99, 102, 241, 0.08) 40%, transparent 70%);
-  filter: blur(60px);
+  width: 900px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.18) 0%, rgba(99, 102, 241, 0.12) 35%, rgba(16, 185, 129, 0.05) 60%, transparent 80%);
+  filter: blur(80px);
   z-index: 0;
   pointer-events: none;
+  animation: heroPulseGlow 8s ease-in-out infinite alternate;
 }
 
 .hero-glow-bg::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  right: 5%;
-  width: 450px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
-  filter: blur(50px);
+  bottom: -40px;
+  right: 10%;
+  width: 500px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, rgba(14, 165, 233, 0.08) 40%, transparent 75%);
+  filter: blur(65px);
   z-index: 0;
   pointer-events: none;
+  animation: heroFloatOrb 10s ease-in-out infinite alternate;
+}
+
+@keyframes heroPulseGlow {
+  0% { transform: translateX(-50%) scale(0.95); opacity: 0.8; }
+  100% { transform: translateX(-50%) scale(1.08); opacity: 1; }
+}
+
+@keyframes heroFloatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-30px, -20px) scale(1.1); }
+}
+
+/* Hero Interactive Showcase Card Glassmorphism */
+.hero-glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(226, 232, 240, 0.8);
+}
+
+.hero-glass-card:hover {
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(-4px);
+  box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.15), 0 0 0 1px rgba(199, 210, 254, 0.8);
 }
 
 /* Feature Card Hover & Glow */

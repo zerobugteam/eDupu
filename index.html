@@ -113,23 +113,44 @@
   <!-- ============================================================== -->
   <!-- HERO SECTION -->
   <!-- ============================================================== -->
-  <section id="beranda" class="hero-glow-bg pt-16 pb-20 sm:pt-24 sm:pb-28 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="beranda" class="hero-glow-bg pt-14 pb-20 sm:pt-20 sm:pb-28 overflow-hidden relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       
       <div class="text-center max-w-3xl mx-auto space-y-6">
         
-        <!-- Main Headline dengan Animasi Spektakuler -->
-        <h1 data-aos="fade-down" data-aos-duration="900" class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-          Transformasi Digital Pembelajaran & Presensi <span class="text-gradient">Sekolah Modern</span>
+        <!-- Top Decorative Pill Badge -->
+        <div data-aos="fade-down" data-aos-duration="700" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-blue-200/90 text-blue-700 text-xs font-bold shadow-md shadow-blue-500/10 backdrop-blur-md">
+          <span class="flex h-2 w-2 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span>Template eDupu • Sistem Informasi Presensi GPS & Pembelajaran Terpadu</span>
+        </div>
+
+        <!-- Main Headline dengan Animasi Spektakuler & Background Glow Memanjakan Mata -->
+        <h1 data-aos="fade-down" data-aos-delay="100" data-aos-duration="900" class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.14]">
+          Transformasi Digital Pembelajaran & Presensi <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500 bg-clip-text text-transparent">Sekolah Modern</span>
         </h1>
 
         <!-- Subtitle -->
-        <p data-aos="fade-up" data-aos-delay="150" data-aos-duration="900" class="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
+        <p data-aos="fade-up" data-aos-delay="180" data-aos-duration="900" class="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
           Platform terpadu untuk absensi berbasis radius GPS geofence, pelaksanaan ujian daring (CBT) anti-kecurangan, dan rekapitulasi nilai akademik otomatis dalam satu ekosistem terintegrasi.
         </p>
 
+        <!-- Two Prominent Action CTA Buttons -->
+        <div data-aos="fade-up" data-aos-delay="250" class="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-1">
+          <a href="login.html" class="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/35 transition flex items-center justify-center gap-2 group cursor-pointer">
+            <span>Masuk ke Dasbor Sistem</span>
+            <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <a href="#geofence" class="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-bold text-xs shadow-xs hover:shadow transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-map-location-dot text-blue-600"></i>
+            <span>Simulasi Presensi GPS</span>
+          </a>
+        </div>
+
         <!-- Micro Features Badges -->
-        <div data-aos="fade-up" data-aos-delay="300" class="pt-2 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 font-medium">
+        <div data-aos="fade-up" data-aos-delay="320" class="pt-2 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 font-medium">
           <div class="flex items-center gap-1.5">
             <i class="fa-solid fa-shield-halved text-emerald-500"></i>
             <span>Pencegahan GPS Palsu</span>
@@ -144,6 +165,39 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- Showcase Cards Strip yang Memanjakan Mata -->
+      <div data-aos="zoom-in" data-aos-delay="380" data-aos-duration="850" class="pt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto text-left">
+        <div class="hero-glass-card p-4 sm:p-5 rounded-2xl flex items-center gap-3.5 transition duration-300">
+          <div class="w-11 h-11 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 text-base shadow-xs">
+            <i class="fa-solid fa-location-crosshairs"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="text-xs sm:text-sm font-bold text-slate-900 truncate">Geofence GPS 80m</div>
+            <div class="text-[11px] text-slate-500">Haversine Geodesic Presisi</div>
+          </div>
+        </div>
+
+        <div class="hero-glass-card p-4 sm:p-5 rounded-2xl flex items-center gap-3.5 transition duration-300">
+          <div class="w-11 h-11 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0 text-base shadow-xs">
+            <i class="fa-solid fa-laptop-code"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="text-xs sm:text-sm font-bold text-slate-900 truncate">Ujian Daring CBT</div>
+            <div class="text-[11px] text-slate-500">Simpan Otomatis Awan</div>
+          </div>
+        </div>
+
+        <div class="hero-glass-card p-4 sm:p-5 rounded-2xl flex items-center gap-3.5 transition duration-300">
+          <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-base shadow-xs">
+            <i class="fa-solid fa-file-signature"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="text-xs sm:text-sm font-bold text-slate-900 truncate">Leger Nilai & Rapor</div>
+            <div class="text-[11px] text-slate-500">Standar Kurikulum Merdeka</div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -301,8 +355,8 @@
 
         <!-- Visual Foto Kampus Bersih Tanpa Card -->
         <div class="lg:col-span-6" data-aos="fade-left" data-aos-duration="850">
-          <div class="relative w-full h-80 sm:h-96 rounded-3xl overflow-hidden shadow-xl border border-slate-200/80">
-            <img src="assets/images/fotosekolah.png" alt="Lingkungan Kampus Sekolah" class="w-full h-full object-cover hover:scale-105 transition duration-700">
+          <div class="relative w-full h-80 sm:h-96 rounded-3xl overflow-hidden shadow-2xl border border-slate-200/80">
+            <img src="assets/images/kampus-modern.jpg" alt="Lingkungan Kampus Modern" class="w-full h-full object-cover hover:scale-105 transition duration-700">
           </div>
         </div>
 
