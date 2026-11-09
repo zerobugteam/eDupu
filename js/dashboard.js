@@ -1,10 +1,10 @@
 /**
- * eDupu / APK Learning - SMK Puger
+ * eDupu Platform - Modern School Learning System
  * Dashboard, Geofencing GPS, CBT Engine & Academic Logic (js/dashboard.js)
  */
 
-// Coordinates: SMK Puger, Jember, Jawa Timur
-const SMK_PUGER_COORDS = [-8.3650, 113.4750];
+// Coordinates: Campus Geofence Coordinates
+const SCHOOL_COORDS = [-8.3650, 113.4750];
 let mapSafetac, mapStudent, studentMarker;
 let attendanceChart;
 
@@ -166,12 +166,12 @@ function switchView(viewName) {
     },
     jadwal: {
       title: 'Jadwal Pelajaran Kelas XII RPL 1',
-      sub: 'Tahun Ajaran 2026/2027 Ganjil • SMK Puger Jember',
+      sub: 'Tahun Ajaran 2026/2027 Ganjil • eDupu Academy',
       breadcrumb: 'Jadwal Pelajaran'
     },
     'jadwal-ujian': {
       title: 'Jadwal Ujian Digital CBT (UTS / UAS)',
-      sub: 'Penilaian Terstandarisasi SMK Puger • Semester Ganjil 2026/2027',
+      sub: 'Penilaian Terstandarisasi • Semester Ganjil 2026/2027',
       breadcrumb: 'Jadwal Ujian'
     },
     absensi: {
@@ -181,7 +181,7 @@ function switchView(viewName) {
     },
     cbt: {
       title: 'Ruang Ujian Digital CBT Online',
-      sub: 'Penilaian Terstandarisasi SMK Puger • Autosave & Anti-Cheat Enabled',
+      sub: 'Penilaian Terstandarisasi • Autosave & Anti-Cheat Enabled',
       breadcrumb: 'Ruang Ujian CBT'
     },
     nilai: {
@@ -411,12 +411,12 @@ function initLeafletMaps() {
   // 1. Dashboard Mini Map
   const mapEl1 = document.getElementById('safetac-map');
   if (mapEl1 && !mapSafetac) {
-    mapSafetac = L.map('safetac-map', { zoomControl: false }).setView(SMK_PUGER_COORDS, 16);
+    mapSafetac = L.map('safetac-map', { zoomControl: false }).setView(SCHOOL_COORDS, 16);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       className: 'custom-map-tile'
     }).addTo(mapSafetac);
 
-    L.circle(SMK_PUGER_COORDS, {
+    L.circle(SCHOOL_COORDS, {
       color: '#7c3aed',
       fillColor: '#8b5cf6',
       fillOpacity: 0.22,
@@ -429,21 +429,21 @@ function initLeafletMaps() {
       iconSize: [26, 26],
       iconAnchor: [13, 13]
     });
-    L.marker(SMK_PUGER_COORDS, { icon: purpleIcon }).addTo(mapSafetac).bindPopup("<b>SMK Puger</b><br>Titik Gerbang Utama");
+    L.marker(SCHOOL_COORDS, { icon: purpleIcon }).addTo(mapSafetac).bindPopup("<b>Kampus Sekolah</b><br>Titik Gerbang Utama");
   }
 
   // 2. Student Absensi Portal Map
   const mapEl2 = document.getElementById('student-geofence-map');
   if (mapEl2 && !mapStudent) {
-    mapStudent = L.map('student-geofence-map').setView(SMK_PUGER_COORDS, 17);
+    mapStudent = L.map('student-geofence-map').setView(SCHOOL_COORDS, 17);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapStudent);
 
-    L.circle(SMK_PUGER_COORDS, {
+    L.circle(SCHOOL_COORDS, {
       color: '#7c3aed',
       fillColor: '#8b5cf6',
       fillOpacity: 0.25,
       radius: 80
-    }).addTo(mapStudent).bindPopup("<b>Zona Geofence SMK Puger (Radius 80m)</b>");
+    }).addTo(mapStudent).bindPopup("<b>Zona Geofence Sekolah (Radius 80m)</b>");
 
     studentMarker = L.marker([-8.36515, 113.47518]).addTo(mapStudent)
       .bindPopup("<b>Posisi Siswa: Bagus Permadi</b><br>Jarak: 28 meter (VALID)");
@@ -473,7 +473,7 @@ function setGPSLocation(status) {
     title.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600"></i> Terverifikasi di Lokasi Sekolah';
     pill.innerText = "28 Meter";
     pill.className = "text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-800";
-    desc.innerText = "Anda berada dalam zona radius resmi SMK Puger (Toleransi batas: 80 meter).";
+    desc.innerText = "Anda berada dalam zona radius resmi sekolah (Toleransi batas: 80 meter).";
     coords.innerText = "Lat: -8.36515, Lng: 113.47518 (Akurasi: ±4m)";
 
     if (btnInside) btnInside.className = "px-3 py-1 bg-emerald-600 text-white font-bold rounded-xl shadow-xs transition";
@@ -508,9 +508,9 @@ function setGPSLocation(status) {
 // Submit Absensi Action
 function submitAbsensi() {
   if (typeof showToast === 'function') {
-    showToast('Presensi Masuk Berhasil! Koordinat GPS terverifikasi oleh Geofence SMK Puger.', 'success');
+    showToast('Presensi Masuk Berhasil! Koordinat GPS terverifikasi oleh Geofence eDupu.', 'success');
   } else {
-    alert("Berhasil! Presensi masuk siswa telah divalidasi oleh Geofence SMK Puger.");
+    alert("Berhasil! Presensi masuk siswa telah divalidasi oleh Geofence eDupu.");
   }
 
   // Prepend row to table
@@ -837,11 +837,11 @@ function downloadJadwalPelajaran() {
     </head>
     <body>
       <div class="kop">
-        <h3>PEMERINTAH PROVINSI JAWA TIMUR</h3>
-        <h2>DINAS PENDIDIKAN</h2>
-        <h1>SMK PUGER JEMBER</h1>
-        <p>Jl. Raya Puger No. 45, Telp. (0336) 721234, Kecamatan Puger, Kabupaten Jember 68164</p>
-        <p>Website: smkpuger.sch.id • Email: info@smkpuger.sch.id • NPSN: 20523891</p>
+        <h3>LEMBAGA PENDIDIKAN & AKADEMIK</h3>
+        <h2>SISTEM INFORMASI MANAJEMEN SEKOLAH</h2>
+        <h1>EDUPU VOCATIONAL ACADEMY</h1>
+        <p>Jl. Pendidikan Nusantara No. 88, Telp. (021) 7890-1234, Indonesia</p>
+        <p>Website: edupu.id • Email: support@edupu.id • Terakreditasi A</p>
       </div>
 
       <div class="title">JADWAL PELAJARAN KELAS (KURIKULUM MERDEKA)</div>
@@ -973,12 +973,12 @@ function downloadJadwalPelajaran() {
       <div class="ttd-container">
         <div class="ttd-box-left">
           Mengetahui,<br>
-          Waka Kurikulum SMK Puger<br><br><br><br>
+          Waka Kurikulum<br><br><br><br>
           <strong>Drs. H. Mulyadi, M.Pd.</strong><br>
           NIP. 19750510 200212 1 002
         </div>
         <div class="ttd-box">
-          Puger, Jember, 05 November 2026<br>
+          Indonesia, 05 November 2026<br>
           Wali Kelas XII RPL 1<br><br><br><br>
           <strong>Hendro, S.Kom.</strong><br>
           NIP. 19840212 200801 1 004
@@ -987,7 +987,7 @@ function downloadJadwalPelajaran() {
       </div>
 
       <div style="margin-top: 18px; text-align: center; font-size: 8pt; color: #555; border-top: 1px dashed #ccc; padding-top: 5px;">
-        Dokumen ini diterbitkan secara sah dan otomatis melalui Portal Sistem Informasi Akademik Terpadu (eDupu) SMK Puger Jember.
+        Dokumen ini diterbitkan secara sah dan otomatis melalui Portal Sistem Informasi Akademik Terpadu (eDupu Platform).
       </div>
     </body>
     </html>
@@ -1067,11 +1067,11 @@ function downloadJadwalUjian() {
     </head>
     <body>
       <div class="kop">
-        <h3>PEMERINTAH PROVINSI JAWA TIMUR</h3>
-        <h2>DINAS PENDIDIKAN</h2>
-        <h1>SMK PUGER JEMBER</h1>
-        <p>Jl. Raya Puger No. 45, Telp. (0336) 721234, Kecamatan Puger, Kabupaten Jember 68164</p>
-        <p>Website: smkpuger.sch.id • Email: info@smkpuger.sch.id • NPSN: 20523891</p>
+        <h3>LEMBAGA PENDIDIKAN & AKADEMIK</h3>
+        <h2>SISTEM INFORMASI MANAJEMEN SEKOLAH</h2>
+        <h1>EDUPU VOCATIONAL ACADEMY</h1>
+        <p>Jl. Pendidikan Nusantara No. 88, Telp. (021) 7890-1234, Indonesia</p>
+        <p>Website: edupu.id • Email: support@edupu.id • Terakreditasi A</p>
       </div>
 
       <div class="title">KARTU PESERTA & JADWAL UJIAN PENILAIAN AKHIR SEMESTER (CBT)</div>
@@ -1181,7 +1181,7 @@ function downloadJadwalUjian() {
           NIP. 19880415 201101 1 003
         </div>
         <div class="ttd-box">
-          Puger, Jember, 05 November 2026<br>
+          Indonesia, 05 November 2026<br>
           Wali Kelas XII RPL 1<br><br><br><br>
           <strong>Hendro, S.Kom.</strong><br>
           NIP. 19840212 200801 1 004
@@ -1190,7 +1190,7 @@ function downloadJadwalUjian() {
       </div>
 
       <div style="margin-top: 16px; text-align: center; font-size: 8pt; color: #555; border-top: 1px dashed #ccc; padding-top: 5px;">
-        Dokumen ini diterbitkan secara sah dan otomatis melalui Portal Sistem Informasi Akademik Terpadu (eDupu) SMK Puger Jember.
+        Dokumen ini diterbitkan secara sah dan otomatis melalui Portal Sistem Informasi Akademik Terpadu (eDupu Platform).
       </div>
     </body>
     </html>
@@ -1322,11 +1322,11 @@ function downloadNilaiRaport() {
     </head>
     <body>
       <div class="kop">
-        <h3>PEMERINTAH PROVINSI JAWA TIMUR</h3>
-        <h2>DINAS PENDIDIKAN</h2>
-        <h1>SMK PUGER JEMBER</h1>
-        <p>Jl. Raya Puger No. 45, Telp. (0336) 721234, Kecamatan Puger, Kabupaten Jember 68164</p>
-        <p>Website: smkpuger.sch.id • Email: info@smkpuger.sch.id • NPSN: 20523891</p>
+        <h3>LEMBAGA PENDIDIKAN & AKADEMIK</h3>
+        <h2>SISTEM INFORMASI MANAJEMEN SEKOLAH</h2>
+        <h1>EDUPU VOCATIONAL ACADEMY</h1>
+        <p>Jl. Pendidikan Nusantara No. 88, Telp. (021) 7890-1234, Indonesia</p>
+        <p>Website: edupu.id • Email: support@edupu.id • Terakreditasi A</p>
       </div>
 
       <div class="title">LAPORAN CAPAIAN HASIL BELAJAR PESERTA DIDIK (RAPOR)</div>
@@ -1465,7 +1465,7 @@ function downloadNilaiRaport() {
           ( .................................................... )
         </div>
         <div class="ttd-box">
-          Puger, Jember, 05 November 2026<br>
+          Indonesia, 05 November 2026<br>
           Wali Kelas XII RPL 1<br><br><br><br>
           <strong>Hendro, S.Kom.</strong><br>
           NIP. 19840212 200801 1 004
@@ -1474,7 +1474,7 @@ function downloadNilaiRaport() {
       </div>
 
       <div style="margin-top: 18px; text-align: center; font-size: 8pt; color: #555; border-top: 1px dashed #ccc; padding-top: 5px;">
-        Dokumen ini diterbitkan secara sah dan otomatis melalui Portal Sistem Informasi Akademik Terpadu (eDupu) SMK Puger Jember.
+        Dokumen ini diterbitkan secara sah dan otomatis melalui Portal Sistem Informasi Akademik Terpadu (eDupu Platform).
       </div>
     </body>
     </html>

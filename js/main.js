@@ -1,5 +1,5 @@
 /**
- * eDupu / APK Learning - SMK Puger
+ * eDupu Platform - Modern School Learning System
  * Global Utilities & Common Helpers (js/main.js)
  */
 

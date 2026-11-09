@@ -1,9 +1,9 @@
 /**
- * eDupu / APK Learning - SMK Puger
+ * eDupu Platform - School Learning Management System
  * Authentication & Role Management Logic (js/auth.js)
  */
 
-// Preset Demo Accounts for 6 Roles (Sesuai Proposal Resmi SMK Puger)
+// Preset Demo Accounts for 6 Roles (Template Siap Pakai)
 const DEMO_ACCOUNTS = {
   siswa: {
     id: 'siswa_01',
@@ -14,7 +14,7 @@ const DEMO_ACCOUNTS = {
     role: 'siswa',
     roleLabel: 'Siswa • XII RPL 1',
     avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=150',
-    school: 'SMK Puger',
+    school: 'eDupu Academy',
     class: 'XII Rekayasa Perangkat Lunak 1',
     defaultView: 'dashboard',
     redirectUrl: 'dashboard.html'
@@ -28,7 +28,7 @@ const DEMO_ACCOUNTS = {
     role: 'guru',
     roleLabel: 'Guru Mata Pelajaran',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150',
-    school: 'SMK Puger',
+    school: 'eDupu Academy',
     subject: 'Pemrograman Web & Basis Data',
     defaultView: 'nilai',
     redirectUrl: 'instructor-dashboard.html'
@@ -42,7 +42,7 @@ const DEMO_ACCOUNTS = {
     role: 'walikelas',
     roleLabel: 'Wali Kelas XII RPL 1',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150',
-    school: 'SMK Puger',
+    school: 'eDupu Academy',
     classManaged: 'XII RPL 1',
     defaultView: 'dashboard',
     redirectUrl: 'instructor-dashboard.html'
@@ -56,7 +56,7 @@ const DEMO_ACCOUNTS = {
     role: 'admin',
     roleLabel: 'Admin Sekolah / TU',
     avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=150',
-    school: 'SMK Puger',
+    school: 'eDupu Academy',
     department: 'Tata Usaha & Dapodik',
     defaultView: 'dashboard',
     redirectUrl: 'instructor-dashboard.html'
@@ -70,7 +70,7 @@ const DEMO_ACCOUNTS = {
     role: 'kepsek',
     roleLabel: 'Kepala Sekolah',
     avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150',
-    school: 'SMK Puger',
+    school: 'eDupu Academy',
     department: 'Pimpinan Eksekutif',
     defaultView: 'dashboard',
     redirectUrl: 'instructor-dashboard.html'
@@ -84,7 +84,7 @@ const DEMO_ACCOUNTS = {
     role: 'superadmin',
     roleLabel: 'Super Admin Sistem',
     avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
-    school: 'SMK Puger',
+    school: 'eDupu Academy',
     department: 'Infrastruktur & Keamanan',
     defaultView: 'dashboard',
     redirectUrl: 'instructor-dashboard.html'

@@ -1,5 +1,5 @@
 /**
- * eDupu / APK Learning - SMK Puger
+ * eDupu Platform - School Learning Management System
  * DreamsLMS Style Multi-Role Dashboard Logic (js/instructor.js)
  * Mendukung 5 Role Staff: Guru Mapel, Wali Kelas, Admin TU, Kepsek, Super Admin
  */
@@ -759,7 +759,7 @@ function sendChatMessage(e) {
 // Export Excel Simulation
 function exportAttendanceExcel() {
   if (typeof showToast === 'function') {
-    showToast('Mengunduh Rekap_Presensi_SMK_Puger_November_2026.xlsx...', 'success');
+    showToast('Mengunduh Rekap_Presensi_Siswa_November_2026.xlsx...', 'success');
   }
 }
 
@@ -816,9 +816,9 @@ function printRaportSiswa(nama, nisn, kelas) {
       </head>
       <body>
         <div class="kop">
-          <h2>Pemerintah Provinsi Jawa Timur • Dinas Pendidikan</h2>
-          <h3>SMK PUGER JEMBER (TERAKREDITASI A)</h3>
-          <p>Jl. Pelita No. 22, Puger, Kabupaten Jember, Jawa Timur 68164 • Telp: (0336) 721234 • Email: info@smkpuger.sch.id</p>
+          <h2>LEMBAGA PENDIDIKAN & AKADEMIK</h2>
+          <h3>EDUPU VOCATIONAL ACADEMY (TERAKREDITASI A)</h3>
+          <p>Jl. Pendidikan Nusantara No. 88, Indonesia • Telp: (021) 7890-1234 • Email: support@edupu.id</p>
         </div>
         <div class="title">LAPORAN CAPAIAN HASIL BELAJAR PESERTA DIDIK (RAPORT)</div>
         <table class="meta">
@@ -866,7 +866,7 @@ function printRaportSiswa(nama, nisn, kelas) {
             <p>( ..................................................... )</p>
           </div>
           <div class="ttd-box">
-            <p>Puger, 05 November 2026<br>Wali Kelas XII RPL 1</p><br><br><br>
+            <p>Indonesia, 05 November 2026<br>Wali Kelas XII RPL 1</p><br><br><br>
             <p><strong>Bpk. Hendro, S.Kom.</strong><br>NIP. 198402122008011004</p>
           </div>
         </div>
@@ -892,7 +892,7 @@ function saveKonselingNotes(e) {
 // 3. Unduh Laporan Mutu Pendidikan (Kepala Sekolah)
 function downloadLaporanMutu() {
   if (typeof showToast === 'function') {
-    showToast('Menyiapkan Laporan_Evaluasi_Mutu_SMK_Puger_Semester_Ganjil_2026.pdf untuk Dinas Pendidikan...', 'success');
+    showToast('Menyiapkan Laporan_Evaluasi_Mutu_Semester_Ganjil_2026.pdf...', 'success');
   }
 }
 

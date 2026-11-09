@@ -1,12 +1,12 @@
 /* ==============================================================
-   eDupu / APK Learning - SMK Puger
+   eDupu Platform - Modern School Learning System
    DreamsLMS Instructor Dashboard Stylesheet (css/instructor.css)
    Full-Width Header & Full-Height Edge-to-Edge Sidebar Layout
    Typography: Inter Font
    ============================================================== */
 
 :root {
-  --lms-primary: #2563eb;      /* SMK Signature Royal Blue */
+  --lms-primary: #2563eb;      /* Signature Royal Blue */
   --lms-primary-hover: #1d4ed8;
   --lms-primary-light: #eff6ff;
   
