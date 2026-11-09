@@ -18,7 +18,7 @@ const ROLE_NAV_CONFIGS = {
       onclick: 'openCreateExamModal()'
     },
     menus: [
-      { id: 'dashboard', label: 'Dashboard Guru Pengampu', icon: 'layout-dashboard', badge: 'Aktif' },
+      { id: 'dashboard', label: 'Dasbor Guru Pengampu', icon: 'layout-dashboard', badge: 'Aktif' },
       { id: 'schedule', label: 'Jadwal Mengajar Saya', icon: 'calendar', badge: 'Senin - Jumat' },
       { id: 'attendance', label: 'Presensi Jam Pelajaran', icon: 'check-square', badge: 'Tatap Muka' },
       { id: 'grades', label: 'Input & Rekap Nilai', icon: 'clipboard-check' },
@@ -35,7 +35,7 @@ const ROLE_NAV_CONFIGS = {
       onclick: "switchInstructorView('raport')"
     },
     menus: [
-      { id: 'dashboard', label: 'Dashboard Wali Kelas', icon: 'layout-dashboard', badge: 'XII RPL 1' },
+      { id: 'dashboard', label: 'Dasbor Wali Kelas', icon: 'layout-dashboard', badge: 'XII RPL 1' },
       { id: 'attendance', label: 'Monitoring Presensi Rombel', icon: 'map-pin', badge: '36 Siswa' },
       { id: 'grades', label: 'Leger Nilai Kelas', icon: 'clipboard-check', badge: 'Semester 5' },
       { id: 'raport', label: 'Cetak Raport Siswa', icon: 'file-text', badge: 'A4 Resmi' },
@@ -51,12 +51,12 @@ const ROLE_NAV_CONFIGS = {
       onclick: 'openAddStudentModal()'
     },
     menus: [
-      { id: 'admin-dashboard', label: 'Dashboard Administrasi TU', icon: 'layout-dashboard', badge: 'Dapodik' },
+      { id: 'admin-dashboard', label: 'Dasbor Administrasi TU', icon: 'layout-dashboard', badge: 'Dapodik' },
       { id: 'admin-students', label: 'Data Master Kesiswaan', icon: 'users', badge: '864 Siswa' },
       { id: 'admin-teachers', label: 'Data Pendidik & Staf', icon: 'user-check', badge: '48 Guru' },
       { id: 'schedule', label: 'Kurikulum & Jadwal Sekolah', icon: 'calendar-days' },
-      { id: 'admin-accounts', label: 'Layanan Akun & Sandi', icon: 'key-round', badge: 'Reset' },
-      { id: 'admin-reports', label: 'Laporan & Rekapitulasi', icon: 'file-spreadsheet', badge: 'Export' }
+      { id: 'admin-accounts', label: 'Layanan Akun & Sandi', icon: 'key-round', badge: 'Atur Ulang' },
+      { id: 'admin-reports', label: 'Laporan & Rekapitulasi', icon: 'file-spreadsheet', badge: 'Ekspor' }
     ]
   },
   kepsek: {
@@ -68,7 +68,7 @@ const ROLE_NAV_CONFIGS = {
       onclick: 'downloadLaporanMutu()'
     },
     menus: [
-      { id: 'kepsek-dashboard', label: 'Dashboard Eksekutif', icon: 'layout-dashboard', badge: 'Monitoring' },
+      { id: 'kepsek-dashboard', label: 'Dasbor Eksekutif', icon: 'layout-dashboard', badge: 'Pantau' },
       { id: 'attendance', label: 'Monitoring Presensi Sekolah', icon: 'map-pin', badge: '97.4%' },
       { id: 'kepsek-evaluation', label: 'Monitoring Hasil Belajar & CBT', icon: 'line-chart', badge: 'KKTP 75.0' },
       { id: 'kepsek-reports', label: 'Laporan Mutu Pendidikan', icon: 'award', badge: 'Dinas' }
@@ -78,16 +78,16 @@ const ROLE_NAV_CONFIGS = {
     roleTitle: 'Menu Super Admin IT',
     defaultView: 'super-dashboard',
     headerAction: {
-      label: 'Backup Database',
+      label: 'Cadangkan Basis Data',
       icon: 'database',
       onclick: 'backupSystemDatabase()'
     },
     menus: [
-      { id: 'super-dashboard', label: 'Dashboard Teknis Sistem', icon: 'layout-dashboard', badge: 'Online' },
+      { id: 'super-dashboard', label: 'Dasbor Teknis Sistem', icon: 'layout-dashboard', badge: 'Aktif' },
       { id: 'super-users', label: 'Manajemen Akun & Hak Akses', icon: 'shield-alert', badge: '6 Role' },
       { id: 'super-gps', label: 'Pengaturan GPS & Geofence', icon: 'map-pin', badge: '80m Valid' },
-      { id: 'super-cbt', label: 'Konfigurasi Sistem & CBT', icon: 'sliders', badge: 'Safe Exam' },
-      { id: 'super-backup', label: 'Cadangan Basis Data & Audit', icon: 'database', badge: 'Auto Sync' }
+      { id: 'super-cbt', label: 'Konfigurasi Sistem & CBT', icon: 'sliders', badge: 'Ujian Aman' },
+      { id: 'super-backup', label: 'Cadangan Basis Data & Audit', icon: 'database', badge: 'Otomatis' }
     ]
   }
 };
@@ -143,7 +143,7 @@ function switchInstructorView(viewId) {
       'schedule': currentActiveRole === 'admin' ? 'Kurikulum & Jadwal Pembelajaran Sekolah' : 'Jadwal Mengajar Saya',
       'admin-accounts': 'Layanan Reset Kata Sandi & Verifikasi Akun',
       'admin-reports': 'Pusat Rekapitulasi Data & Laporan Resmi Administrasi',
-      'kepsek-dashboard': 'Dashboard Eksekutif & Monitoring Mutu Sekolah',
+      'kepsek-dashboard': 'Dasbor Eksekutif & Pemantauan Mutu Sekolah',
       'kepsek-evaluation': 'Evaluasi Hasil Belajar & Ketuntasan CBT Siswa',
       'kepsek-reports': 'Laporan Mutu Pendidikan & Akreditasi Sekolah',
       'super-dashboard': 'Pusat Kontrol Teknis & Keamanan Infrastruktur Sistem',
@@ -151,8 +151,8 @@ function switchInstructorView(viewId) {
       'super-gps': 'Pengaturan Radius GPS Geofence & Titik Gerbang Sekolah',
       'super-cbt': 'Konfigurasi Keamanan Ujian CBT & Server Autosave',
       'super-backup': 'Pencadangan Basis Data & Log Audit Aktivitas',
-      'dashboard': currentActiveRole === 'walikelas' ? 'Dashboard Pemantauan Rombel - Wali Kelas' : 'Portal Pembelajaran & Jadwal - Guru Mapel',
-      'attendance': currentActiveRole === 'kepsek' ? 'Monitoring Presensi Real-Time Sekolah' : (currentActiveRole === 'walikelas' ? 'Monitoring Presensi Rombel XII RPL 1' : 'Presensi Jam Pelajaran Siswa'),
+      'dashboard': currentActiveRole === 'walikelas' ? 'Dasbor Pemantauan Rombel - Wali Kelas' : 'Portal Pembelajaran & Jadwal - Guru Mapel',
+      'attendance': currentActiveRole === 'kepsek' ? 'Pemantauan Presensi Waktu Nyata Sekolah' : (currentActiveRole === 'walikelas' ? 'Pemantauan Presensi Rombel XII RPL 1' : 'Presensi Jam Pelajaran Siswa'),
       'grades': currentActiveRole === 'walikelas' ? 'Leger Nilai Kelas XII RPL 1' : 'Input & Rekap Nilai Siswa',
       'raport': 'Leger & Pencetakan Raport Resmi Kurikulum Merdeka',
       'konseling': 'Buku Catatan Karakter & Bimbingan Konseling Siswa',
@@ -268,7 +268,7 @@ function renderRoleSidebar(role) {
     </a>
     <a href="javascript:void(0)" onclick="logoutUser()" class="instructor-nav-link text-rose-600 hover:bg-rose-50 hover:text-rose-700">
       <i data-lucide="log-out" class="text-rose-500"></i>
-      <span>Keluar / Logout</span>
+      <span>Keluar dari Sistem</span>
     </a>
   `;
 

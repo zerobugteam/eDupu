@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instructor Dashboard • eDupu Platform</title>
+  <title>Dasbor Staf & Pengajar • eDupu Platform</title>
   
   <!-- Favicon / Icon URL (eDupu Platform) -->
   <link rel="icon" type="image/png" href="assets/icons/favicon.png">
@@ -120,11 +120,11 @@
                 </a>
               </div>
 
-              <!-- Quick Switch Role untuk Kemudahan Testing Pengguna -->
+              <!-- Ganti Peran Cepat untuk Kemudahan Pengujian -->
               <div class="px-4 py-2.5 border-t border-slate-100 bg-slate-50/70">
                 <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
-                  <span>Ganti Role Testing:</span>
-                  <span class="text-[9px] font-mono text-blue-600 font-bold">1-Click</span>
+                  <span>Ganti Peran Uji:</span>
+                  <span class="text-[9px] font-mono text-blue-600 font-bold">1-Klik</span>
                 </div>
                 <div class="grid grid-cols-2 gap-1 text-[11px]">
                   <button type="button" onclick="switchActiveRole('walikelas')" class="px-2 py-1 rounded bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 font-semibold text-left truncate shadow-2xs">Wali Kelas</button>
@@ -140,7 +140,7 @@
               <div class="py-1">
                 <button type="button" onclick="logoutUser()" class="w-full px-4 py-2 text-left text-rose-600 hover:bg-rose-50 transition flex items-center gap-2.5 font-semibold">
                   <i data-lucide="log-out" class="w-4 h-4 text-rose-500"></i>
-                  <span>Keluar / Logout</span>
+                  <span>Keluar dari Sistem</span>
                 </button>
               </div>
             </div>
@@ -1132,7 +1132,7 @@
                   Pengumpulan Rancangan Database ERD & DDL Studi Kasus Apotek Medika
                 </h3>
                 <p class="text-xs text-slate-600 leading-relaxed mt-1.5">
-                  Batas akhir submit file skema relasi database (PDF + file .sql) paling lambat hari Jumat, 06 November 2026 pukul 23.59 WIB melalui portal tugas eDupu. Siswa yang mengalami kendala relasi foreign key silakan bertanya via menu Pesan Siswa.
+                  Batas akhir pengumpulan berkas skema relasi basis data (PDF + berkas .sql) paling lambat hari Jumat, 06 November 2026 pukul 23.59 WIB melalui portal tugas eDupu. Siswa yang mengalami kendala relasi foreign key silakan bertanya via menu Pesan Siswa.
                 </p>
               </div>
 
@@ -1729,7 +1729,7 @@
                   <td class="py-2.5 px-3.5 text-slate-600">Rekayasa Perangkat Lunak</td>
                   <td class="py-2.5 px-3.5"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Aktif</span></td>
                   <td class="py-2.5 px-3.5 text-center">
-                    <button onclick="resetUserPasswordDirect('bagus')" class="text-xs text-amber-600 hover:text-amber-800 font-semibold underline">Reset Sandi</button>
+                    <button onclick="resetUserPasswordDirect('bagus')" class="text-xs text-amber-600 hover:text-amber-800 font-semibold underline">Atur Ulang Sandi</button>
                   </td>
                 </tr>
                 <tr class="hover:bg-slate-50">
@@ -1739,7 +1739,7 @@
                   <td class="py-2.5 px-3.5 text-slate-600">Rekayasa Perangkat Lunak</td>
                   <td class="py-2.5 px-3.5"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Aktif</span></td>
                   <td class="py-2.5 px-3.5 text-center">
-                    <button onclick="resetUserPasswordDirect('ahmad')" class="text-xs text-amber-600 hover:text-amber-800 font-semibold underline">Reset Sandi</button>
+                    <button onclick="resetUserPasswordDirect('ahmad')" class="text-xs text-amber-600 hover:text-amber-800 font-semibold underline">Atur Ulang Sandi</button>
                   </td>
                 </tr>
               </tbody>
@@ -1795,7 +1795,7 @@
       <div id="sec-admin-accounts" class="instructor-section hidden space-y-4">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
           <div class="lg:col-span-5 bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
-            <h3 class="font-bold text-slate-900 text-sm">Reset Kata Sandi Akun</h3>
+            <h3 class="font-bold text-slate-900 text-sm">Atur Ulang Kata Sandi Akun</h3>
             <form onsubmit="event.preventDefault(); resetUserPasswordDirect('siswa_terpilih');" class="space-y-3 text-xs">
               <div>
                 <label class="block font-bold text-slate-700 mb-1">Cari Akun Pengguna</label>
@@ -1806,7 +1806,7 @@
                 <input type="text" readonly value="siswa123" class="w-full px-3 py-1.5 bg-slate-100 border border-slate-200 rounded-xl font-mono text-blue-700 font-bold">
               </div>
               <button type="submit" class="w-full py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm transition">
-                Reset Kata Sandi Akun Sekarang
+                Atur Ulang Kata Sandi Akun Sekarang
               </button>
             </form>
           </div>
@@ -2269,7 +2269,7 @@
             <div>
               <label class="block font-bold text-slate-700 mb-1">Maksimal Toleransi Keluar Layar Ujian</label>
               <select class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none">
-                <option>3 Kali (Auto-Submit setelah peringatan ke-3)</option>
+                <option>3 Kali (Kirim Otomatis setelah peringatan ke-3)</option>
                 <option>2 Kali</option>
                 <option>1 Kali (Toleransi ketat)</option>
               </select>

@@ -160,7 +160,7 @@ function switchView(viewName) {
   // Update Page Header Titles & Breadcrumbs
   const titleMap = {
     dashboard: {
-      title: 'Dashboard Siswa • Nilai & Presensi Terpadu',
+      title: 'Dasbor Siswa • Nilai & Presensi Terpadu',
       sub: 'Rekapitulasi Capaian Akademik, Presensi GPS Geofence & Jadwal Belajar Siswa',
       breadcrumb: 'Beranda'
     },
@@ -176,12 +176,12 @@ function switchView(viewName) {
     },
     absensi: {
       title: 'Presensi GPS Geofencing Siswa',
-      sub: 'Validasi Titik Koordinat Real-Time • Radius Batas 80 Meter Gerbang Kampus',
+      sub: 'Validasi Titik Koordinat Waktu Nyata • Radius Batas 80 Meter Gerbang Kampus',
       breadcrumb: 'Presensi GPS'
     },
     cbt: {
-      title: 'Ruang Ujian Digital CBT Online',
-      sub: 'Penilaian Terstandarisasi • Autosave & Anti-Cheat Enabled',
+      title: 'Ruang Ujian Digital CBT Daring',
+      sub: 'Penilaian Terstandarisasi • Simpan Otomatis & Bebas Kecurangan',
       breadcrumb: 'Ruang Ujian CBT'
     },
     nilai: {

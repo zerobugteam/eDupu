@@ -142,9 +142,9 @@ function handleLoginSubmit(e) {
 
   if (!enteredId || !enteredPass) {
     if (typeof showToast === 'function') {
-      showToast('Harap masukkan Username dan Kata Sandi!', 'error');
+      showToast('Harap masukkan Nama Pengguna dan Kata Sandi!', 'error');
     } else {
-      alert('Harap masukkan Username dan Kata Sandi!');
+      alert('Harap masukkan Nama Pengguna dan Kata Sandi!');
     }
     return;
   }
@@ -190,7 +190,7 @@ function handleLoginSubmit(e) {
     return;
   }
 
-  const msg = 'Username atau kata sandi tidak ditemukan! Contoh akun pengujian: bagus (siswa123), guru (guru123), wali (wali123), admin (admin123), kepsek (kepsek123), superadmin (superadmin123).';
+  const msg = 'Nama pengguna atau kata sandi tidak ditemukan! Contoh akun pengujian: bagus (siswa123), guru (guru123), wali (wali123), admin (admin123), kepsek (kepsek123), superadmin (superadmin123).';
   if (typeof showToast === 'function') {
     showToast(msg, 'error');
   } else {
