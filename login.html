@@ -55,30 +55,37 @@
 <body class="min-h-screen w-screen flex flex-col lg:flex-row bg-white antialiased font-sans overflow-x-hidden selection:bg-blue-600 selection:text-white">
 
   <!-- ============================================================ -->
-  <!-- LEFT PANEL: 50% BRANDING BACKGROUND FOTO RESMI SEKOLAH        -->
+  <!-- LEFT PANEL: 50% BRANDING BACKGROUND FOTO DENGAN SEDIKIT BLUR  -->
   <!-- ============================================================ -->
-  <aside class="relative w-full lg:w-1/2 p-6 sm:p-10 lg:p-12 flex flex-col justify-between shrink-0 overflow-hidden text-white" style="background-image: linear-gradient(160deg, rgba(15, 23, 42, 0.88) 0%, rgba(30, 58, 138, 0.78) 50%, rgba(15, 23, 42, 0.92) 100%), url('assets/images/login-bg.jpg'); background-size: cover; background-position: center;">
+  <aside class="relative w-full lg:w-1/2 p-6 sm:p-10 lg:p-12 flex flex-col justify-between shrink-0 overflow-hidden text-white z-0">
     
+    <!-- Background Layer (Agak Buram Dikit / Soft Bokeh Blur) -->
+    <div class="absolute inset-0 bg-cover bg-center filter blur-[3.5px] scale-105 -z-10 transition-all duration-300" style="background-image: url('assets/images/login-bg.jpg');"></div>
+    <!-- Subtle Ambient Darkener agar teks putih tetap terbaca nyaman -->
+    <div class="absolute inset-0 bg-slate-900/25 -z-10"></div>
+
     <!-- Top: Back Button Arrow & Logo eDupu Bersebelahan -->
-    <div class="flex items-center gap-3">
-      <a href="index.html" class="inline-flex items-center justify-center w-10 h-10 rounded-full text-slate-200 hover:text-white hover:bg-white/20 transition group backdrop-blur-xs shrink-0" title="Kembali ke Beranda">
+    <div class="flex items-center gap-3.5 relative z-10">
+      <a href="index.html" class="inline-flex items-center justify-center w-10 h-10 rounded-full text-white/90 hover:text-white hover:bg-white/20 transition group backdrop-blur-xs shrink-0" title="Kembali ke Beranda">
         <i data-lucide="arrow-left" class="w-5 h-5 stroke-[2.2]"></i>
       </a>
-      <img src="assets/logo/edupufulltrans.png" alt="eDupu Platform" class="h-9 sm:h-10 w-auto object-contain drop-shadow-[0_2px_12px_rgba(255,255,255,0.4)]">
+      <a href="index.html" class="inline-flex items-center" title="eDupu Platform">
+        <img src="assets/logo/edupufulltrans.png" alt="eDupu Platform" class="h-10 sm:h-12 w-auto object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
+      </a>
     </div>
 
     <!-- Middle: Deskripsi Sistem (Tata Letak Bersih & Elegan) -->
-    <div class="space-y-4 my-auto py-10">
-      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug">
+    <div class="space-y-4 my-auto py-10 relative z-10">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug drop-shadow-md">
         Portal Pembelajaran Digital & Presensi Cerdas
       </h1>
-      <p class="text-xs sm:text-sm text-slate-200/90 leading-relaxed max-w-lg">
+      <p class="text-xs sm:text-sm text-white/95 leading-relaxed max-w-lg drop-shadow-sm font-medium">
         Sistem informasi pembelajaran terpadu untuk absensi GPS geofence, modul ujian digital CBT, dan administrasi akademik terintegrasi.
       </p>
     </div>
 
     <!-- Bottom: Copyright -->
-    <div class="pt-6 border-t border-white/15 text-[11px] text-slate-300">
+    <div class="pt-6 border-t border-white/25 text-[11px] text-white/90 drop-shadow-xs relative z-10">
       <span>&copy; 2026 eDupu • Sistem Manajemen Pembelajaran Sekolah</span>
     </div>
 
