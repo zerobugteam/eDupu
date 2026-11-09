@@ -132,6 +132,40 @@ function switchInstructorView(viewId) {
     const el = document.getElementById(`sec-${viewId}`);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   }
+
+  // Update Header Center Banner Title (Dukungan Responsif Sesuai Role & View)
+  const headerBanner = document.getElementById('header-center-banner');
+  if (headerBanner) {
+    const viewTitles = {
+      'admin-dashboard': 'Dasbor Administrasi Sekolah & Layanan Tata Usaha',
+      'admin-students': 'Data Master Kesiswaan & Penempatan Rombel',
+      'admin-teachers': 'Data Tenaga Pendidik & Kependidikan (PTK)',
+      'schedule': currentActiveRole === 'admin' ? 'Kurikulum & Jadwal Pembelajaran Sekolah' : 'Jadwal Mengajar Saya',
+      'admin-accounts': 'Layanan Reset Kata Sandi & Verifikasi Akun',
+      'admin-reports': 'Pusat Rekapitulasi Data & Laporan Resmi Administrasi',
+      'kepsek-dashboard': 'Dashboard Eksekutif & Monitoring Mutu Sekolah',
+      'kepsek-evaluation': 'Evaluasi Hasil Belajar & Ketuntasan CBT Siswa',
+      'kepsek-reports': 'Laporan Mutu Pendidikan & Akreditasi Sekolah',
+      'super-dashboard': 'Pusat Kontrol Teknis & Keamanan Infrastruktur Sistem',
+      'super-users': 'Manajemen Akun Terpadu 6 Role & Hak Akses',
+      'super-gps': 'Pengaturan Radius GPS Geofence & Titik Gerbang Sekolah',
+      'super-cbt': 'Konfigurasi Keamanan Ujian CBT & Server Autosave',
+      'super-backup': 'Pencadangan Basis Data & Log Audit Aktivitas',
+      'dashboard': currentActiveRole === 'walikelas' ? 'Dashboard Pemantauan Rombel - Wali Kelas' : 'Portal Pembelajaran & Jadwal - Guru Mapel',
+      'attendance': currentActiveRole === 'kepsek' ? 'Monitoring Presensi Real-Time Sekolah' : (currentActiveRole === 'walikelas' ? 'Monitoring Presensi Rombel XII RPL 1' : 'Presensi Jam Pelajaran Siswa'),
+      'grades': currentActiveRole === 'walikelas' ? 'Leger Nilai Kelas XII RPL 1' : 'Input & Rekap Nilai Siswa',
+      'raport': 'Leger & Pencetakan Raport Resmi Kurikulum Merdeka',
+      'konseling': 'Buku Catatan Karakter & Bimbingan Konseling Siswa',
+      'cbt': 'Bank Soal & Penjadwalan Ujian Online CBT',
+      'courses': 'Materi Pembelajaran & Modul Ajar Digital'
+    };
+
+    if (viewTitles[viewId]) {
+      headerBanner.textContent = viewTitles[viewId];
+    } else {
+      headerBanner.textContent = 'Dasbor Administrasi Sekolah & Layanan Tata Usaha';
+    }
+  }
 }
 
 // Inisialisasi Konteks Role Pengguna Aktif

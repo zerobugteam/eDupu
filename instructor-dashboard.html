@@ -61,78 +61,92 @@
 <body class="instructor-body bg-[#f8fafc] h-screen w-screen flex flex-col overflow-hidden antialiased">
 
   <!-- ============================================================== -->
-  <!-- 1. FULL-WIDTH CLEAN NAVBAR HEADER (Logo Kiri & Aksi Profil Kanan) -->
+  <!-- 1. FULL-WIDTH CLEAN NAVBAR HEADER (Dengan Pembatas Sidebar & Free Teks Judul) -->
   <!-- ============================================================== -->
-  <header class="instructor-full-header bg-white border-b border-slate-200">
-    <div class="px-5 sm:px-8 py-3 flex items-center justify-between gap-4">
+  <header class="instructor-full-header bg-white border-b border-slate-200 shrink-0 z-30">
+    <div class="flex items-center justify-between w-full h-16 sm:h-[70px]">
       
-      <!-- Kiri Pojok: Logo Website eDupu SMK Puger (Tanpa Animasi) -->
-      <a href="index.html" class="flex items-center gap-3 shrink-0 py-0.5" title="eDupu SMK Puger - Beranda">
-        <img src="assets/logo/edupufull.png" alt="eDupu SMK Puger" class="h-11 sm:h-12 w-auto object-contain">
-      </a>
+      <!-- Kiri: Brand / Logo Selebar Sidebar (280px) dengan Pembatas Vertikal Tegas -->
+      <div class="lg:w-[280px] shrink-0 h-full flex items-center justify-between px-5 sm:px-6 lg:border-r border-slate-200">
+        <a href="index.html" class="flex items-center gap-2.5 py-0.5" title="eDupu SMK Puger - Beranda">
+          <img src="assets/logo/edupufull.png" alt="eDupu SMK Puger" class="h-10 sm:h-11 w-auto object-contain">
+        </a>
 
-      <!-- Kanan Sendiri: Button Aksi Dinamis + Profil User + Quick Switch Role -->
-      <div class="flex items-center gap-3.5 sm:gap-4 shrink-0">
-        
-        <!-- Button Aksi Dinamis Berdasarkan Role (Diisi oleh JS) -->
-        <div id="header-action-container">
-          <button onclick="openCreateExamModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm hover:shadow transition flex items-center gap-1.5 shrink-0">
-            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-            <span>Buat Ujian CBT</span>
-          </button>
-        </div>
-
-        <!-- Avatar Profil Bulat dengan Dropdown Menu (Right Aligned) -->
-        <div class="relative shrink-0">
-          <button type="button" onclick="toggleProfileDropdown(event)" id="btn-profile-dropdown" class="block rounded-full ring-2 ring-slate-200 hover:ring-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-2xs group" title="Buka Menu Profil & Akun">
-            <img id="header-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" alt="Avatar Pengguna" class="instructor-avatar-img group-hover:scale-105 transition">
-          </button>
-
-          <!-- Shadcn UI Dropdown Menu: right-0 agar rapi di pojok kanan -->
-          <div id="profile-dropdown-menu" class="hidden absolute right-0 top-full mt-2.5 w-64 rounded-2xl bg-white border border-slate-200 shadow-2xl z-50 py-1.5 animate-fade-in text-xs">
-            <div class="px-4 py-3 border-b border-slate-100 bg-slate-50/60 rounded-t-2xl">
-              <div id="header-user-name" class="font-extrabold text-slate-900 text-sm truncate">Bpk. Hendro, S.Kom</div>
-              <div id="header-user-nip" class="text-[11px] text-slate-500 font-mono mt-0.5">NIP: 198402122008011004</div>
-              <span id="header-user-badge" class="inline-block mt-1 px-2 py-0.5 rounded-full text-[9px] font-bold bg-blue-50 text-blue-700 border border-blue-200/60">Wali Kelas XII RPL 1</span>
-            </div>
-            
-            <div class="py-1">
-              <a href="instructor-profile.html" class="w-full px-4 py-2.5 text-left text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition flex items-center gap-2.5 font-semibold">
-                <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
-                <span>Profil & Biodata</span>
-              </a>
-            </div>
-
-            <!-- Quick Switch Role untuk Kemudahan Testing Pengguna -->
-            <div class="px-4 py-2.5 border-t border-slate-100 bg-slate-50/70">
-              <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
-                <span>Ganti Role Testing:</span>
-                <span class="text-[9px] font-mono text-blue-600 font-bold">1-Click</span>
-              </div>
-              <div class="grid grid-cols-2 gap-1 text-[11px]">
-                <button type="button" onclick="switchActiveRole('walikelas')" class="px-2 py-1 rounded bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 font-semibold text-left truncate shadow-2xs">Wali Kelas</button>
-                <button type="button" onclick="switchActiveRole('guru')" class="px-2 py-1 rounded bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 font-semibold text-left truncate shadow-2xs">Guru Mapel</button>
-                <button type="button" onclick="switchActiveRole('admin')" class="px-2 py-1 rounded bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 font-semibold text-left truncate shadow-2xs">Admin TU</button>
-                <button type="button" onclick="switchActiveRole('kepsek')" class="px-2 py-1 rounded bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 font-semibold text-left truncate shadow-2xs">Kepsek</button>
-                <button type="button" onclick="switchActiveRole('superadmin')" class="col-span-2 px-2 py-1 rounded bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 font-semibold text-left truncate shadow-2xs text-center text-purple-700">Super Admin IT</button>
-              </div>
-            </div>
-
-            <div class="border-t border-slate-100 my-1"></div>
-
-            <div class="py-1">
-              <button type="button" onclick="logoutUser()" class="w-full px-4 py-2 text-left text-rose-600 hover:bg-rose-50 transition flex items-center gap-2.5 font-semibold">
-                <i data-lucide="log-out" class="w-4 h-4 text-rose-500"></i>
-                <span>Keluar / Logout</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tombol Menu Mobile Drawer (HP) -->
+        <!-- Tombol Menu Mobile Drawer (HP) di area logo -->
         <button type="button" onclick="toggleInstructorMobileSidebar()" class="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 focus:outline-none transition" title="Buka Menu">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
+      </div>
+
+      <!-- Kanan Header: Free Teks Judul Dasbor + Tombol Aksi & Profil -->
+      <div class="flex-1 h-full flex items-center justify-between px-4 sm:px-6 lg:px-8 gap-4 overflow-hidden">
+        
+        <!-- Tengah: Free Teks Judul Dasbor (Tanpa Card / Wadah Box) -->
+        <div id="header-center-title-container" class="flex-1 flex items-center min-w-0 pr-3">
+          <h1 id="header-center-banner" class="text-slate-800 font-extrabold text-sm sm:text-base lg:text-lg tracking-tight truncate">
+            Dasbor Administrasi Sekolah & Layanan Tata Usaha
+          </h1>
+        </div>
+
+        <!-- Kanan Sendiri: Button Aksi Dinamis + Profil User + Quick Switch Role -->
+        <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+          
+          <!-- Button Aksi Dinamis Berdasarkan Role (Diisi oleh JS) -->
+          <div id="header-action-container">
+            <button onclick="openCreateExamModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm hover:shadow transition flex items-center gap-1.5 shrink-0">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>Buat Ujian CBT</span>
+            </button>
+          </div>
+
+          <!-- Avatar Profil Bulat dengan Dropdown Menu (Right Aligned) -->
+          <div class="relative shrink-0">
+            <button type="button" onclick="toggleProfileDropdown(event)" id="btn-profile-dropdown" class="block rounded-full ring-2 ring-slate-200 hover:ring-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-2xs group" title="Buka Menu Profil & Akun">
+              <img id="header-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250" alt="Avatar Pengguna" class="instructor-avatar-img group-hover:scale-105 transition">
+            </button>
+
+            <!-- Shadcn UI Dropdown Menu: right-0 agar rapi di pojok kanan -->
+            <div id="profile-dropdown-menu" class="hidden absolute right-0 top-full mt-2.5 w-64 rounded-2xl bg-white border border-slate-200 shadow-2xl z-50 py-1.5 animate-fade-in text-xs">
+              <div class="px-4 py-3 border-b border-slate-100 bg-slate-50/60 rounded-t-2xl">
+                <div id="header-user-name" class="font-extrabold text-slate-900 text-sm truncate">Bpk. Hendro, S.Kom</div>
+                <div id="header-user-nip" class="text-[11px] text-slate-500 font-mono mt-0.5">NIP: 198402122008011004</div>
+                <span id="header-user-badge" class="inline-block mt-1 px-2 py-0.5 rounded-full text-[9px] font-bold bg-blue-50 text-blue-700 border border-blue-200/60">Wali Kelas XII RPL 1</span>
+              </div>
+              
+              <div class="py-1">
+                <a href="instructor-profile.html" class="w-full px-4 py-2.5 text-left text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition flex items-center gap-2.5 font-semibold">
+                  <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
+                  <span>Profil & Biodata</span>
+                </a>
+              </div>
+
+              <!-- Quick Switch Role untuk Kemudahan Testing Pengguna -->
+              <div class="px-4 py-2.5 border-t border-slate-100 bg-slate-50/70">
+                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+                  <span>Ganti Role Testing:</span>
+                  <span class="text-[9px] font-mono text-blue-600 font-bold">1-Click</span>
+                </div>
+                <div class="grid grid-cols-2 gap-1 text-[11px]">
+                  <button type="button" onclick="switchActiveRole('walikelas')" class="px-2 py-1 rounded bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 font-semibold text-left truncate shadow-2xs">Wali Kelas</button>
+                  <button type="button" onclick="switchActiveRole('guru')" class="px-2 py-1 rounded bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 font-semibold text-left truncate shadow-2xs">Guru Mapel</button>
+                  <button type="button" onclick="switchActiveRole('admin')" class="px-2 py-1 rounded bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 font-semibold text-left truncate shadow-2xs">Admin TU</button>
+                  <button type="button" onclick="switchActiveRole('kepsek')" class="px-2 py-1 rounded bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 font-semibold text-left truncate shadow-2xs">Kepsek</button>
+                  <button type="button" onclick="switchActiveRole('superadmin')" class="col-span-2 px-2 py-1 rounded bg-white hover:bg-blue-50 hover:text-blue-700 border border-slate-200 font-semibold text-left truncate shadow-2xs text-center text-purple-700">Super Admin IT</button>
+                </div>
+              </div>
+
+              <div class="border-t border-slate-100 my-1"></div>
+
+              <div class="py-1">
+                <button type="button" onclick="logoutUser()" class="w-full px-4 py-2 text-left text-rose-600 hover:bg-rose-50 transition flex items-center gap-2.5 font-semibold">
+                  <i data-lucide="log-out" class="w-4 h-4 text-rose-500"></i>
+                  <span>Keluar / Logout</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
 
       </div>
 
@@ -159,7 +173,7 @@
     <!-- ============================================================ -->
     <!-- RIGHT: SCROLLABLE MAIN CONTENT (HANYA BAGIAN INI YANG DI-SCROLL) -->
     <!-- ============================================================ -->
-    <main class="flex-1 h-full overflow-y-auto custom-scroll p-6 sm:p-8 space-y-6 sm:space-y-7 pb-16">
+    <main class="flex-1 h-full overflow-y-auto custom-scroll p-4 sm:p-5 space-y-4 sm:space-y-4.5 pb-12">
       
       <!-- ======================================================== -->
       <!-- VIEW 1: DASHBOARD UTAMA GURU -->
@@ -1360,14 +1374,9 @@
       <!-- ======================================================== -->
       <!-- VIEW: CETAK RAPORT SISWA (WALI KELAS)                    -->
       <!-- ======================================================== -->
-      <div id="sec-raport" class="instructor-section hidden space-y-6">
-        
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Penerbitan & Cetak Raport Siswa Kurikulum Merdeka
-        </div>
-
+      <div id="sec-raport" class="instructor-section hidden space-y-4">
         <!-- 3 KPI Cards Raport -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
           <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
               <span class="text-xs font-semibold text-slate-500">Rombel Kelas</span>
@@ -1498,13 +1507,9 @@
       <!-- ======================================================== -->
       <!-- VIEW: CATATAN KONSELING & KARAKTER (WALI KELAS)          -->
       <!-- ======================================================== -->
-      <div id="sec-konseling" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Catatan Konseling, Karakter & Ekstrakurikuler Rapor
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div class="lg:col-span-5 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+      <div id="sec-konseling" class="instructor-section hidden space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div class="lg:col-span-5 bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3.5">
             <h3 class="font-bold text-slate-900 text-sm">Input Catatan Wali Kelas</h3>
             <form onsubmit="saveKonselingNotes(event)" class="space-y-3.5 text-xs">
               <div>
@@ -1571,10 +1576,6 @@
       <!-- VIEW: DASHBOARD ADMINISTRASI TU (ADMIN TU)               -->
       <!-- ======================================================== -->
       <div id="sec-admin-dashboard" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Dasbor Administrasi Sekolah & Layanan Tata Usaha
-        </div>
-
         <!-- 4 KPI Cards Admin TU -->
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
           <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-2xs flex items-center justify-between">
@@ -1689,12 +1690,8 @@
       <!-- ======================================================== -->
       <!-- VIEW: DATA MASTER KESISWAAN (ADMIN TU)                   -->
       <!-- ======================================================== -->
-      <div id="sec-admin-students" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Data Master Kesiswaan & Penempatan Rombel (Dapodik)
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+      <div id="sec-admin-students" class="instructor-section hidden space-y-4">
+        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200/90 shadow-2xs space-y-3.5">
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <div class="flex items-center gap-2">
               <button onclick="openAddStudentModal()" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition flex items-center gap-1.5">
@@ -1754,12 +1751,8 @@
       <!-- ======================================================== -->
       <!-- VIEW: DATA PENDIDIK & STAF (ADMIN TU)                    -->
       <!-- ======================================================== -->
-      <div id="sec-admin-teachers" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Data Pendidik & Tenaga Kependidikan SMK Puger
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+      <div id="sec-admin-teachers" class="instructor-section hidden space-y-4">
+        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200/90 shadow-2xs space-y-3.5">
           <div class="flex items-center justify-between">
             <h3 class="font-bold text-slate-900 text-sm">Daftar Guru Pengampu & Wali Kelas</h3>
             <span class="text-xs font-mono text-slate-500">Total: 48 Pendidik</span>
@@ -1768,27 +1761,27 @@
             <table class="w-full text-left text-xs custom-table">
               <thead>
                 <tr class="bg-blue-50/70 border-b border-blue-100 text-blue-900">
-                  <th class="py-3 px-3.5 font-bold">NIP</th>
-                  <th class="py-3 px-3.5 font-bold">Nama Guru</th>
-                  <th class="py-3 px-3.5 font-bold">Mata Pelajaran</th>
-                  <th class="py-3 px-3.5 font-bold">Tugas Tambahan</th>
-                  <th class="py-3 px-3.5 font-bold text-center">Beban Jam</th>
+                  <th class="py-2.5 px-3 font-bold">NIP</th>
+                  <th class="py-2.5 px-3 font-bold">Nama Guru</th>
+                  <th class="py-2.5 px-3 font-bold">Mata Pelajaran</th>
+                  <th class="py-2.5 px-3 font-bold">Tugas Tambahan</th>
+                  <th class="py-2.5 px-3 font-bold text-center">Beban Jam</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100">
                 <tr>
-                  <td class="py-2.5 px-3.5 font-mono text-slate-700">198402122008011004</td>
-                  <td class="py-2.5 px-3.5 font-bold text-slate-800">Bpk. Hendro, S.Kom.</td>
-                  <td class="py-2.5 px-3.5 text-slate-700">Pemrograman Web & PBO</td>
-                  <td class="py-2.5 px-3.5 font-bold text-blue-700">Wali Kelas XII RPL 1</td>
-                  <td class="py-2.5 px-3.5 text-center font-mono">24 Jam</td>
+                  <td class="py-2 px-3 font-mono text-slate-700">198402122008011004</td>
+                  <td class="py-2 px-3 font-bold text-slate-800">Bpk. Hendro, S.Kom.</td>
+                  <td class="py-2 px-3 text-slate-700">Pemrograman Web & PBO</td>
+                  <td class="py-2 px-3 font-bold text-blue-700">Wali Kelas XII RPL 1</td>
+                  <td class="py-2 px-3 text-center font-mono">24 Jam</td>
                 </tr>
                 <tr>
-                  <td class="py-2.5 px-3.5 font-mono text-slate-700">198804152011011003</td>
-                  <td class="py-2.5 px-3.5 font-bold text-slate-800">Bpk. Rian Hidayat, S.T.</td>
-                  <td class="py-2.5 px-3.5 text-slate-700">Basis Data & Infrastruktur</td>
-                  <td class="py-2.5 px-3.5 text-slate-500">Guru Mapel Produktif</td>
-                  <td class="py-2.5 px-3.5 text-center font-mono">26 Jam</td>
+                  <td class="py-2 px-3 font-mono text-slate-700">198804152011011003</td>
+                  <td class="py-2 px-3 font-bold text-slate-800">Bpk. Rian Hidayat, S.T.</td>
+                  <td class="py-2 px-3 text-slate-700">Basis Data & Infrastruktur</td>
+                  <td class="py-2 px-3 text-slate-500">Guru Mapel Produktif</td>
+                  <td class="py-2 px-3 text-center font-mono">26 Jam</td>
                 </tr>
               </tbody>
             </table>
@@ -1799,47 +1792,43 @@
       <!-- ======================================================== -->
       <!-- VIEW: LAYANAN AKUN & RESET SANDI (ADMIN TU)              -->
       <!-- ======================================================== -->
-      <div id="sec-admin-accounts" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Pusat Bantuan & Layanan Reset Kata Sandi Siswa/Guru
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div class="lg:col-span-5 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+      <div id="sec-admin-accounts" class="instructor-section hidden space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div class="lg:col-span-5 bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
             <h3 class="font-bold text-slate-900 text-sm">Reset Kata Sandi Akun</h3>
-            <form onsubmit="event.preventDefault(); resetUserPasswordDirect('siswa_terpilih');" class="space-y-3.5 text-xs">
+            <form onsubmit="event.preventDefault(); resetUserPasswordDirect('siswa_terpilih');" class="space-y-3 text-xs">
               <div>
                 <label class="block font-bold text-slate-700 mb-1">Cari Akun Pengguna</label>
-                <input type="text" placeholder="Masukkan NISN atau NIP..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none">
+                <input type="text" placeholder="Masukkan NISN atau NIP..." class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none">
               </div>
               <div>
                 <label class="block font-bold text-slate-700 mb-1">Kata Sandi Default Baru</label>
-                <input type="text" readonly value="siswa123" class="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-xl font-mono text-blue-700 font-bold">
+                <input type="text" readonly value="siswa123" class="w-full px-3 py-1.5 bg-slate-100 border border-slate-200 rounded-xl font-mono text-blue-700 font-bold">
               </div>
-              <button type="submit" class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm transition">
+              <button type="submit" class="w-full py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm transition">
                 Reset Kata Sandi Akun Sekarang
               </button>
             </form>
           </div>
 
-          <div class="lg:col-span-7 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+          <div class="lg:col-span-7 bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
             <h3 class="font-bold text-slate-900 text-sm">Riwayat Permohonan Lupa Sandi Hari Ini</h3>
             <div class="overflow-x-auto rounded-xl border border-slate-200">
               <table class="w-full text-left text-xs custom-table">
                 <thead>
                   <tr class="bg-slate-50 border-b border-slate-200 text-slate-700">
-                    <th class="py-2.5 px-3">Nama Pengguna</th>
-                    <th class="py-2.5 px-3">Role</th>
-                    <th class="py-2.5 px-3">Waktu</th>
-                    <th class="py-2.5 px-3 text-center">Status</th>
+                    <th class="py-2 px-3">Nama Pengguna</th>
+                    <th class="py-2 px-3">Role</th>
+                    <th class="py-2 px-3">Waktu</th>
+                    <th class="py-2 px-3 text-center">Status</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                   <tr>
-                    <td class="py-2.5 px-3 font-bold text-slate-800">Bagus Permadi (0058291042)</td>
-                    <td class="py-2.5 px-3 text-slate-600">Siswa</td>
-                    <td class="py-2.5 px-3 font-mono text-slate-500">10:15 WIB</td>
-                    <td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Selesai</span></td>
+                    <td class="py-2 px-3 font-bold text-slate-800">Bagus Permadi (0058291042)</td>
+                    <td class="py-2 px-3 text-slate-600">Siswa</td>
+                    <td class="py-2 px-3 font-mono text-slate-500">10:15 WIB</td>
+                    <td class="py-2 px-3 text-center"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Selesai</span></td>
                   </tr>
                 </tbody>
               </table>
@@ -1851,12 +1840,8 @@
       <!-- ======================================================== -->
       <!-- VIEW: LAPORAN & REKAPITULASI (ADMIN TU)                  -->
       <!-- ======================================================== -->
-      <div id="sec-admin-reports" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Laporan Resmi & Berkas Ekspor Tata Usaha
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div id="sec-admin-reports" class="instructor-section hidden space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
           <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3 flex flex-col justify-between">
             <div>
               <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-2">
@@ -1914,58 +1899,54 @@
       <!-- ======================================================== -->
       <!-- VIEW: DASHBOARD EKSEKUTIF (KEPALA SEKOLAH)               -->
       <!-- ======================================================== -->
-      <div id="sec-kepsek-dashboard" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Dasbor Eksekutif & Monitoring Kepala Sekolah SMK Puger
-        </div>
-
+      <div id="sec-kepsek-dashboard" class="instructor-section hidden space-y-4">
         <!-- 4 KPI Kepsek -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-2xs flex items-center justify-between">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5">
+          <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
               <span class="text-xs font-semibold text-slate-500">Tingkat Presensi Hari Ini</span>
-              <div class="text-2xl font-black text-emerald-600 mt-1">97.4%</div>
+              <div class="text-xl font-black text-emerald-600 mt-1">97.4%</div>
               <span class="text-[11px] font-bold text-slate-500">842 Hadir dari 864 Siswa</span>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <i data-lucide="trending-up" class="w-6 h-6"></i>
+            <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <i data-lucide="trending-up" class="w-5 h-5"></i>
             </div>
           </div>
-          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-2xs flex items-center justify-between">
+          <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
               <span class="text-xs font-semibold text-slate-500">Rata-rata Mutu Nilai</span>
-              <div class="text-2xl font-black text-blue-700 mt-1">86.8</div>
+              <div class="text-xl font-black text-blue-700 mt-1">86.8</div>
               <span class="text-[11px] font-bold text-emerald-600">Melampaui KKTP 75.0</span>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
-              <i data-lucide="award" class="w-6 h-6"></i>
+            <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+              <i data-lucide="award" class="w-5 h-5"></i>
             </div>
           </div>
-          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-2xs flex items-center justify-between">
+          <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
               <span class="text-xs font-semibold text-slate-500">Keterlambatan GPS</span>
-              <div class="text-2xl font-black text-slate-900 mt-1">1.8%</div>
+              <div class="text-xl font-black text-slate-900 mt-1">1.8%</div>
               <span class="text-[11px] font-bold text-emerald-600">Disiplin Tinggi</span>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
-              <i data-lucide="clock" class="w-6 h-6"></i>
+            <div class="w-11 h-11 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+              <i data-lucide="clock" class="w-5 h-5"></i>
             </div>
           </div>
-          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-2xs flex items-center justify-between">
+          <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
               <span class="text-xs font-semibold text-slate-500">Integritas CBT Online</span>
-              <div class="text-2xl font-black text-emerald-600 mt-1">100%</div>
+              <div class="text-xl font-black text-emerald-600 mt-1">100%</div>
               <span class="text-[11px] font-bold text-slate-400">Safe Exam Terlindungi</span>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
-              <i data-lucide="shield-check" class="w-6 h-6"></i>
+            <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+              <i data-lucide="shield-check" class="w-5 h-5"></i>
             </div>
           </div>
         </div>
 
         <!-- Grafik Monitoring Kepsek -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div class="lg:col-span-8 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div class="lg:col-span-8 bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
             <h3 class="font-bold text-slate-900 text-sm">Evaluasi Capaian Rata-rata Nilai per Jurusan</h3>
             <div class="space-y-3 text-xs">
               <div>
@@ -1987,14 +1968,14 @@
             </div>
           </div>
 
-          <div class="lg:col-span-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+          <div class="lg:col-span-4 bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
             <h3 class="font-bold text-slate-900 text-sm">Aksi Kebijakan Kepala Sekolah</h3>
             <div class="space-y-2 text-xs">
-              <button onclick="downloadLaporanMutu()" class="w-full p-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition flex items-center justify-between">
+              <button onclick="downloadLaporanMutu()" class="w-full p-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition flex items-center justify-between">
                 <span>Unduh Laporan Mutu PDF</span>
                 <i data-lucide="download" class="w-4 h-4"></i>
               </button>
-              <button onclick="switchInstructorView('attendance')" class="w-full p-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold transition flex items-center justify-between">
+              <button onclick="switchInstructorView('attendance')" class="w-full p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold transition flex items-center justify-between">
                 <span>Pantau Presensi Seluruh Rombel</span>
                 <i data-lucide="chevron-right" class="w-4 h-4"></i>
               </button>
@@ -2006,45 +1987,41 @@
       <!-- ======================================================== -->
       <!-- VIEW: MONITORING HASIL BELAJAR & CBT (KEPALA SEKOLAH)    -->
       <!-- ======================================================== -->
-      <div id="sec-kepsek-evaluation" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Monitoring Hasil Belajar & Rekapitulasi Ujian CBT Sekolah
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+      <div id="sec-kepsek-evaluation" class="instructor-section hidden space-y-4">
+        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
           <h3 class="font-bold text-slate-900 text-sm">Distribusi Ketuntasan Hasil Belajar (Standar KKTP: 75.0)</h3>
           <div class="overflow-x-auto rounded-xl border border-slate-200">
             <table class="w-full text-left text-xs custom-table">
               <thead>
                 <tr class="bg-blue-50/70 border-b border-blue-100 text-blue-900">
-                  <th class="py-3 px-3.5 font-bold">Tingkat Kelas</th>
-                  <th class="py-3 px-3.5 font-bold">Total Siswa</th>
-                  <th class="py-3 px-3.5 font-bold">Tuntas KKTP</th>
-                  <th class="py-3 px-3.5 font-bold">Perlu Remedial</th>
-                  <th class="py-3 px-3.5 font-bold">Persentase Kelulusan</th>
+                  <th class="py-2.5 px-3 font-bold">Tingkat Kelas</th>
+                  <th class="py-2.5 px-3 font-bold">Total Siswa</th>
+                  <th class="py-2.5 px-3 font-bold">Tuntas KKTP</th>
+                  <th class="py-2.5 px-3 font-bold">Perlu Remedial</th>
+                  <th class="py-2.5 px-3 font-bold">Persentase Kelulusan</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100">
                 <tr>
-                  <td class="py-3 px-3.5 font-bold text-slate-800">Kelas XII (Semua Jurusan)</td>
-                  <td class="py-3 px-3.5 font-mono">288 Siswa</td>
-                  <td class="py-3 px-3.5 font-bold text-emerald-600">284 Siswa</td>
-                  <td class="py-3 px-3.5 font-bold text-amber-600">4 Siswa</td>
-                  <td class="py-3 px-3.5 font-bold text-blue-700">98.6%</td>
+                  <td class="py-2 px-3 font-bold text-slate-800">Kelas XII (Semua Jurusan)</td>
+                  <td class="py-2 px-3 font-mono">288 Siswa</td>
+                  <td class="py-2 px-3 font-bold text-emerald-600">284 Siswa</td>
+                  <td class="py-2 px-3 font-bold text-amber-600">4 Siswa</td>
+                  <td class="py-2 px-3 font-bold text-blue-700">98.6%</td>
                 </tr>
                 <tr>
-                  <td class="py-3 px-3.5 font-bold text-slate-800">Kelas XI (Semua Jurusan)</td>
-                  <td class="py-3 px-3.5 font-mono">288 Siswa</td>
-                  <td class="py-3 px-3.5 font-bold text-emerald-600">281 Siswa</td>
-                  <td class="py-3 px-3.5 font-bold text-amber-600">7 Siswa</td>
-                  <td class="py-3 px-3.5 font-bold text-blue-700">97.5%</td>
+                  <td class="py-2 px-3 font-bold text-slate-800">Kelas XI (Semua Jurusan)</td>
+                  <td class="py-2 px-3 font-mono">288 Siswa</td>
+                  <td class="py-2 px-3 font-bold text-emerald-600">281 Siswa</td>
+                  <td class="py-2 px-3 font-bold text-amber-600">7 Siswa</td>
+                  <td class="py-2 px-3 font-bold text-blue-700">97.5%</td>
                 </tr>
                 <tr>
-                  <td class="py-3 px-3.5 font-bold text-slate-800">Kelas X (Semua Jurusan)</td>
-                  <td class="py-3 px-3.5 font-mono">288 Siswa</td>
-                  <td class="py-3 px-3.5 font-bold text-emerald-600">279 Siswa</td>
-                  <td class="py-3 px-3.5 font-bold text-amber-600">9 Siswa</td>
-                  <td class="py-3 px-3.5 font-bold text-blue-700">96.8%</td>
+                  <td class="py-2 px-3 font-bold text-slate-800">Kelas X (Semua Jurusan)</td>
+                  <td class="py-2 px-3 font-mono">288 Siswa</td>
+                  <td class="py-2 px-3 font-bold text-emerald-600">279 Siswa</td>
+                  <td class="py-2 px-3 font-bold text-amber-600">9 Siswa</td>
+                  <td class="py-2 px-3 font-bold text-blue-700">96.8%</td>
                 </tr>
               </tbody>
             </table>
@@ -2055,34 +2032,30 @@
       <!-- ======================================================== -->
       <!-- VIEW: LAPORAN MUTU PENDIDIKAN (KEPALA SEKOLAH)           -->
       <!-- ======================================================== -->
-      <div id="sec-kepsek-reports" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Laporan Mutu Pendidikan & Evaluasi Akreditasi Sekolah
-        </div>
-
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
-          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+      <div id="sec-kepsek-reports" class="instructor-section hidden space-y-4">
+        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
             <div>
               <h3 class="font-extrabold text-slate-900 text-sm">Laporan Evaluasi Pembelajaran Semester Ganjil 2026/2027</h3>
               <p class="text-xs text-slate-500">Disusun resmi untuk pelaporan ke Cabang Dinas Pendidikan Wilayah Jember</p>
             </div>
-            <button onclick="downloadLaporanMutu()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition flex items-center gap-2">
+            <button onclick="downloadLaporanMutu()" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition flex items-center gap-1.5 shrink-0">
               <i data-lucide="download" class="w-4 h-4"></i>
               <span>Unduh Dokumen PDF Resmi</span>
             </button>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 text-xs">
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
               <span class="text-slate-400">Status Akreditasi</span>
-              <div class="font-bold text-slate-800 text-base">Terakreditasi A (Unggul)</div>
+              <div class="font-bold text-slate-800 text-sm">Terakreditasi A (Unggul)</div>
             </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
               <span class="text-slate-400">Rata-rata Kehadiran</span>
-              <div class="font-bold text-emerald-600 text-base">97.4% (Sangat Baik)</div>
+              <div class="font-bold text-emerald-600 text-sm">97.4% (Sangat Baik)</div>
             </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
               <span class="text-slate-400">Ketuntasan KKTP</span>
-              <div class="font-bold text-blue-700 text-base">97.6% Siswa Tuntas</div>
+              <div class="font-bold text-blue-700 text-sm">97.6% Siswa Tuntas</div>
             </div>
           </div>
         </div>
@@ -2091,72 +2064,68 @@
       <!-- ======================================================== -->
       <!-- VIEW: DASHBOARD TEKNIS SISTEM (SUPER ADMIN)              -->
       <!-- ======================================================== -->
-      <div id="sec-super-dashboard" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Dasbor Teknis Infrastruktur IT & Status Server eDupu
-        </div>
-
+      <div id="sec-super-dashboard" class="instructor-section hidden space-y-4">
         <!-- 4 KPI Super Admin -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-2xs flex items-center justify-between">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3.5">
+          <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
               <span class="text-xs font-semibold text-slate-500">CPU Load Server</span>
-              <div class="text-2xl font-black text-slate-900 mt-1">18%</div>
+              <div class="text-xl font-black text-slate-900 mt-1">18%</div>
               <span class="text-[11px] font-bold text-emerald-600">Stabil (4 Core vCPU)</span>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <i data-lucide="cpu" class="w-6 h-6"></i>
+            <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <i data-lucide="cpu" class="w-5 h-5"></i>
             </div>
           </div>
-          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-2xs flex items-center justify-between">
+          <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
               <span class="text-xs font-semibold text-slate-500">Penggunaan RAM</span>
-              <div class="text-2xl font-black text-blue-700 mt-1">3.4 GB</div>
+              <div class="text-xl font-black text-blue-700 mt-1">3.4 GB</div>
               <span class="text-[11px] font-mono text-slate-400">dari 16.0 GB Alokasi</span>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
-              <i data-lucide="server" class="w-6 h-6"></i>
+            <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+              <i data-lucide="server" class="w-5 h-5"></i>
             </div>
           </div>
-          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-2xs flex items-center justify-between">
+          <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
               <span class="text-xs font-semibold text-slate-500">Penyimpanan Database</span>
-              <div class="text-2xl font-black text-purple-700 mt-1">42.8 MB</div>
+              <div class="text-xl font-black text-purple-700 mt-1">42.8 MB</div>
               <span class="text-[11px] font-bold text-emerald-600">Sehat & Ter-indeks</span>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
-              <i data-lucide="database" class="w-6 h-6"></i>
+            <div class="w-11 h-11 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+              <i data-lucide="database" class="w-5 h-5"></i>
             </div>
           </div>
-          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-2xs flex items-center justify-between">
+          <div class="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs flex items-center justify-between">
             <div>
               <span class="text-xs font-semibold text-slate-500">User Online Aktif</span>
-              <div class="text-2xl font-black text-emerald-600 mt-1">142</div>
+              <div class="text-xl font-black text-emerald-600 mt-1">142</div>
               <span class="text-[11px] font-bold text-emerald-600">Sesi Real-Time</span>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
-              <i data-lucide="activity" class="w-6 h-6"></i>
+            <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+              <i data-lucide="activity" class="w-5 h-5"></i>
             </div>
           </div>
         </div>
 
         <!-- Status Daemon Servis -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3">
           <h3 class="font-bold text-slate-900 text-sm">Status Layanan & Sub-Sistem eDupu</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
               <span>GPS Geofence Engine</span>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">RUNNING</span>
             </div>
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
               <span>CBT Autosave Daemon</span>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">RUNNING</span>
             </div>
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
-              <span>Safe Exam Browser Guard</span>
+            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <span>Safe Exam Guard</span>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">ACTIVE</span>
             </div>
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
               <span>Database Replication</span>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">SYNCED</span>
             </div>
@@ -2167,12 +2136,8 @@
       <!-- ======================================================== -->
       <!-- VIEW: MANAJEMEN AKUN & HAK AKSES (SUPER ADMIN)           -->
       <!-- ======================================================== -->
-      <div id="sec-super-users" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Manajemen Akun Pengguna & Matriks Hak Akses (6 Role)
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+      <div id="sec-super-users" class="instructor-section hidden space-y-4">
+        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
           <div class="flex items-center justify-between">
             <h3 class="font-bold text-slate-900 text-sm">Daftar Akun Utama Sistem eDupu</h3>
             <span class="text-xs font-mono text-slate-500">RBAC Active</span>
@@ -2241,22 +2206,18 @@
       <!-- ======================================================== -->
       <!-- VIEW: PENGATURAN GPS & GEOFENCE (SUPER ADMIN)            -->
       <!-- ======================================================== -->
-      <div id="sec-super-gps" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Konfigurasi Titik Koordinat & Toleransi Radius Geofencing GPS
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div class="lg:col-span-6 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+      <div id="sec-super-gps" class="instructor-section hidden space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div class="lg:col-span-6 bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
             <h3 class="font-bold text-slate-900 text-sm">Parameter Gerbang Kampus SMK Puger</h3>
-            <form onsubmit="saveGpsGeofenceSettings(event)" class="space-y-4 text-xs">
+            <form onsubmit="saveGpsGeofenceSettings(event)" class="space-y-3 text-xs">
               <div>
                 <label class="block font-bold text-slate-700 mb-1">Titik Lintang (Latitude)</label>
-                <input type="text" id="setting-geofence-lat" value="-8.36515" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-mono text-slate-800 focus:outline-none">
+                <input type="text" id="setting-geofence-lat" value="-8.36515" required class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl font-mono text-slate-800 focus:outline-none">
               </div>
               <div>
                 <label class="block font-bold text-slate-700 mb-1">Titik Bujur (Longitude)</label>
-                <input type="text" id="setting-geofence-lng" value="113.47518" required class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-mono text-slate-800 focus:outline-none">
+                <input type="text" id="setting-geofence-lng" value="113.47518" required class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl font-mono text-slate-800 focus:outline-none">
               </div>
               <div>
                 <div class="flex justify-between items-center mb-1">
@@ -2268,22 +2229,22 @@
               </div>
               <div>
                 <label class="block font-bold text-slate-700 mb-1">Metode Geodesic</label>
-                <input type="text" readonly value="Haversine Formula (Earth Radius = 6,371,000 m)" class="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-xl text-slate-500 font-mono">
+                <input type="text" readonly value="Haversine Formula (Earth Radius = 6,371,000 m)" class="w-full px-3 py-1.5 bg-slate-100 border border-slate-200 rounded-xl text-slate-500 font-mono">
               </div>
-              <button type="submit" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition">
+              <button type="submit" class="w-full py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition">
                 Simpan & Sinkronkan Parameter Geofence
               </button>
             </form>
           </div>
 
-          <div class="lg:col-span-6 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+          <div class="lg:col-span-6 bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3">
             <h3 class="font-bold text-slate-900 text-sm">Informasi Radius Validasi Kehadiran Siswa</h3>
-            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 space-y-2 text-xs">
+            <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 space-y-2 text-xs">
               <div class="font-bold flex items-center gap-1.5 text-emerald-800">
                 <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
                 <span>Status Geofence Aktif</span>
               </div>
-              <p class="leading-relaxed text-emerald-700">
+              <p class="leading-relaxed text-emerald-700 text-[11px]">
                 Siswa yang berada pada jarak ≤ 80 meter dari koordinat gerbang kampus SMK Puger akan otomatis tervalidasi dapat melakukan presensi masuk dan pulang.
               </p>
             </div>
@@ -2294,14 +2255,10 @@
       <!-- ======================================================== -->
       <!-- VIEW: KONFIGURASI SISTEM & CBT (SUPER ADMIN)             -->
       <!-- ======================================================== -->
-      <div id="sec-super-cbt" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Konfigurasi Proteksi Keamanan & Mesin Ujian CBT
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
-          <form onsubmit="saveCbtSecuritySettings(event)" class="space-y-4 text-xs max-w-xl">
-            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+      <div id="sec-super-cbt" class="instructor-section hidden space-y-4">
+        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
+          <form onsubmit="saveCbtSecuritySettings(event)" class="space-y-3 text-xs max-w-xl">
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-200">
               <div>
                 <span class="font-bold text-slate-800">Safe Exam Browser Lock</span>
                 <p class="text-[11px] text-slate-500">Kunci layar ujian dan cegah pembukaan tab lain di browser siswa.</p>
@@ -2311,7 +2268,7 @@
 
             <div>
               <label class="block font-bold text-slate-700 mb-1">Maksimal Toleransi Keluar Layar Ujian</label>
-              <select class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none">
+              <select class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none">
                 <option>3 Kali (Auto-Submit setelah peringatan ke-3)</option>
                 <option>2 Kali</option>
                 <option>1 Kali (Toleransi ketat)</option>
@@ -2320,7 +2277,7 @@
 
             <div>
               <label class="block font-bold text-slate-700 mb-1">Interval Penyimpanan Otomatis (Autosave)</label>
-              <select class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none">
+              <select class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none">
                 <option>Setiap 10 Detik (Direkomendasikan)</option>
                 <option>Setiap 5 Detik</option>
                 <option>Setiap 15 Detik</option>
@@ -2329,10 +2286,10 @@
 
             <div>
               <label class="block font-bold text-slate-700 mb-1">Sinkronisasi Zona Waktu Resmi</label>
-              <input type="text" readonly value="Asia/Jakarta (WIB) • NTP Server Indonesia" class="w-full px-3 py-2 bg-slate-100 border border-slate-200 rounded-xl font-mono text-slate-600">
+              <input type="text" readonly value="Asia/Jakarta (WIB) • NTP Server Indonesia" class="w-full px-3 py-1.5 bg-slate-100 border border-slate-200 rounded-xl font-mono text-slate-600">
             </div>
 
-            <button type="submit" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition">
+            <button type="submit" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition">
               Simpan Konfigurasi CBT
             </button>
           </form>
@@ -2342,33 +2299,29 @@
       <!-- ======================================================== -->
       <!-- VIEW: CADANGAN BASIS DATA & AUDIT (SUPER ADMIN)          -->
       <!-- ======================================================== -->
-      <div id="sec-super-backup" class="instructor-section hidden space-y-6">
-        <div class="w-full bg-[#dbeafe] border border-[#bfdbfe] text-[#1e3a8a] text-center font-extrabold text-lg sm:text-xl py-3.5 rounded-2xl shadow-2xs">
-          Cadangan Basis Data (Backup), Pemulihan & Log Audit Sistem
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div class="lg:col-span-5 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+      <div id="sec-super-backup" class="instructor-section hidden space-y-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div class="lg:col-span-5 bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
             <h3 class="font-bold text-slate-900 text-sm">Pembuatan Cadangan Database</h3>
             <p class="text-xs text-slate-500 leading-relaxed">
               Membuat snapshot seluruh database kesiswaan, jadwal, presensi, bank soal, dan nilai raport ke format SQL terenkripsi.
             </p>
-            <button onclick="backupSystemDatabase()" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-sm transition flex items-center justify-center gap-2">
+            <button onclick="backupSystemDatabase()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-sm transition flex items-center justify-center gap-2">
               <i data-lucide="database" class="w-4 h-4"></i>
               <span>Buat & Unduh Cadangan Database (.sql)</span>
             </button>
           </div>
 
-          <div class="lg:col-span-7 bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
+          <div class="lg:col-span-7 bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-2xs space-y-3.5">
             <h3 class="font-bold text-slate-900 text-sm">Riwayat Cadangan Basis Data</h3>
             <div class="overflow-x-auto rounded-xl border border-slate-200">
               <table class="w-full text-left text-xs custom-table">
                 <thead>
                   <tr class="bg-slate-50 border-b border-slate-200 text-slate-700">
-                    <th class="py-2.5 px-3">Nama Berkas</th>
-                    <th class="py-2.5 px-3">Ukuran</th>
-                    <th class="py-2.5 px-3">Waktu Backup</th>
-                    <th class="py-2.5 px-3 text-center">Status</th>
+                    <th class="py-2 px-3">Nama Berkas</th>
+                    <th class="py-2 px-3">Ukuran</th>
+                    <th class="py-2 px-3">Waktu Backup</th>
+                    <th class="py-2 px-3 text-center">Status</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
