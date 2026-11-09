@@ -152,7 +152,7 @@ function switchInstructorView(viewId) {
       'super-cbt': 'Konfigurasi Keamanan Ujian CBT & Server Autosave',
       'super-backup': 'Pencadangan Basis Data & Log Audit Aktivitas',
       'dashboard': currentActiveRole === 'walikelas' ? 'Dasbor Pemantauan Rombel - Wali Kelas' : 'Portal Pembelajaran & Jadwal - Guru Mapel',
-      'attendance': currentActiveRole === 'kepsek' ? 'Pemantauan Presensi Waktu Nyata Sekolah' : (currentActiveRole === 'walikelas' ? 'Pemantauan Presensi Rombel XII RPL 1' : 'Presensi Jam Pelajaran Siswa'),
+      'attendance': currentActiveRole === 'kepsek' ? 'Pemantauan Presensi Real-Time Sekolah' : (currentActiveRole === 'walikelas' ? 'Pemantauan Presensi Rombel XII RPL 1' : 'Presensi Jam Pelajaran Siswa'),
       'grades': currentActiveRole === 'walikelas' ? 'Leger Nilai Kelas XII RPL 1' : 'Input & Rekap Nilai Siswa',
       'raport': 'Leger & Pencetakan Raport Resmi Kurikulum Merdeka',
       'konseling': 'Buku Catatan Karakter & Bimbingan Konseling Siswa',

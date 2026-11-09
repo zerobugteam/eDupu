@@ -176,7 +176,7 @@ function switchView(viewName) {
     },
     absensi: {
       title: 'Presensi GPS Geofencing Siswa',
-      sub: 'Validasi Titik Koordinat Waktu Nyata • Radius Batas 80 Meter Gerbang Kampus',
+      sub: 'Validasi Titik Koordinat Real-Time • Radius Batas 80 Meter Gerbang Kampus',
       breadcrumb: 'Presensi GPS'
     },
     cbt: {
